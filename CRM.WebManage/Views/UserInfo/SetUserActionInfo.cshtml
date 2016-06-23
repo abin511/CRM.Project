@@ -9,14 +9,8 @@
 <html>
 <head>
     <title>SetUserActionInfo</title>
-    <link href="../../Content/jquery-easyui-1.3.1/themes/default/easyui.css" rel="stylesheet" />
-    <link href="../../Content/jquery-easyui-1.3.1/themes/icon.css" rel="stylesheet" />
-    <link href="../../Content/tableStyle.css" rel="stylesheet" />
-
-    <script src="../../Content/jquery-easyui-1.3.1/jquery-1.8.0.min.js"></script>
-    <script src="../../Content/jquery-easyui-1.3.1/jquery.easyui.min.js"></script>
+    @Html.Partial("~/Views/Resources.cshtml")
     <script src="../../Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="../../Content/jquery-easyui-1.3.1/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
 
         //跳转父窗体执行方法
@@ -90,7 +84,7 @@
                 {
                                     
                     //获取前台传递过来的强类型对象，
-                    var specialData = (List<CRM.UI.Portal.Models.UserSpecialActionInfo>)ViewBag.ActionData;
+                    var specialData = (List<CRM.WebManage.Models.UserSpecialActionInfo>)ViewBag.ActionData;
                     <tr>
                         <td colspan="3"><input type="hidden" name="hidenId" value="@Model.ID" />  </td>
                     </tr>
