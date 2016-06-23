@@ -813,7 +813,7 @@
     <Content Include="Content\jquery-easyui-1.3.1\themes\default\images\vssver2.scc" />
     <Content Include="Content\jquery-easyui-1.3.1\themes\gray\images\vssver2.scc" />
     <Content Include="Content\jquery-easyui-1.3.1\themes\metro\images\vssver2.scc" />
-    <Content Include="WelCome.html" />
+    <Content Include="WelCome.htm" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

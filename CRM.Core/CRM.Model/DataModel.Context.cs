@@ -15,12 +15,9 @@ namespace CRM.Model
     
     public partial class DataModelContainer : DbContext
     {
-        public DataModelContainer(): base("name=DataModelContainer")
+        public DataModelContainer()
+            : base("name=DataModelContainer")
         {
-            //禁用延迟加载
-            this.Configuration.LazyLoadingEnabled = false;
-            //禁用代理
-            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
