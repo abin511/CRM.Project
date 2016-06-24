@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Model", "CRM.Core\CRM.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.WebManage", "CRM.WebManage\CRM.WebManage.csproj", "{C25904DB-3F06-407D-A253-5C067B422A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{F11B16D7-756C-4E7E-8ABB-B629560A4106}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,10 +65,6 @@ Global
 		{C25904DB-3F06-407D-A253-5C067B422A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25904DB-3F06-407D-A253-5C067B422A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25904DB-3F06-407D-A253-5C067B422A2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F11B16D7-756C-4E7E-8ABB-B629560A4106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F11B16D7-756C-4E7E-8ABB-B629560A4106}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F11B16D7-756C-4E7E-8ABB-B629560A4106}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F11B16D7-756C-4E7E-8ABB-B629560A4106}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

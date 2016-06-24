@@ -24,8 +24,9 @@
             var setTimeInterval = setInterval(ReadDateTimeShow, 1000);
 
             //实现Tab布局
-            $("#ttTab").tabs({});
-
+            $("#tabs").tabs({});
+            tabClose();
+            tabCloseEven();
         });
 
 
@@ -36,22 +37,20 @@
                 //实现在菜单拦中的显示,遍历节点集合
                 for (var i = 0; i < data.length; i++) {
                     var groupInfo = data[i]; //拿到组的信息
-
                     //拿到内容的信息,每个菜单项构造成一个p标签
                     var strMenuItemHTMl = "";
                     for (var j = 0; j < groupInfo.MenuItems.length; j++) {
                         var menuItem = groupInfo.MenuItems[j];
                         strMenuItemHTMl += '<p><a href="javascript:void(0)" src="' + menuItem.Url + '" class="menuLink">' + menuItem.MenuName + '</a></p>';
                     }
-                    
                     //EasyUI添加节点
-                    $("#aa").accordion('add', {
+                    $("#MenuData").accordion('add', {
                         title: groupInfo.GroupName,
                         content: strMenuItemHTMl,
-                        selected:false,
+                        selected: false,
                     });
-                    //$("#aa").accordion('select', groupInfo.GroupName);
                 }
+                $("#MenuData").accordion('select', 0);
                 //绑定用户单击跳转事件
                 BindMenuClickHrefEvent();
             });
@@ -60,26 +59,22 @@
         //实现用户单击导航栏跳转页面的方法
         function BindMenuClickHrefEvent() {
             $(".menuLink").click(function () {
-                //获取按钮里面的Src属性
-                var src = $(this).attr("src");
-                //将主框架的iframe跳转到菜单指向的地址，$("#frmWorkArea").attr("src", src);
-                //
-                //Tab页面添加页面标签，每当单击左边的导航栏的时候跳转
                 var titleShow = $(this).text();
-                var strHtml = '<iframe id="frmWorkArea" width="100%" height="100%" frameborder="0" scrolling="yes" src="' + src + '"></iframe>';
                 //判断Tab标签中是否有相同的数据标签
-                var isExist = $("#ttTab").tabs('exists', titleShow);
-                if (!isExist) {
-                    $("#ttTab").tabs('add', {
-                        title: titleShow,
-                        content: strHtml,
-                        iconCls: 'icon-save',
-                        closable: true,
-                    });
+                var isExist = $("#tabs").tabs('exists', titleShow);
+                if (isExist) {
+                    $('#tabs').tabs('select', titleShow);
                 }
                 else {
-                    $('#aa').tabs('select', titleShow);
+                    $("#tabs").tabs('add', {
+                        title: titleShow,
+                        content: createFrame($(this).attr("src")),
+                        // iconCls: 'icon-save',
+                        closable: true,
+                    });
+                    tabClose();
                 }
+                return false;
             });
         }
 
@@ -89,11 +84,120 @@
             var Month = new Date().getMonth() + 1;
             var Day = new Date().getDate();
             var Time = new Date().toLocaleTimeString();
-            var AddDate = year + "年" + Month + "月" + Day + "日,时间:" + Time;
+            var AddDate = year + "-" + Month + "-" + Day + " " + Time;
             $("#date").text(AddDate);
         }
+        function createFrame(url) {
+            var s = '<iframe id="frmWorkArea"  scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+            return s;
+        }
+        var onlyOpenTitle = "欢迎使用";//不允许关闭的标签的标题
+        function tabClose() {
+            /*双击关闭TAB选项卡*/
+            $(".tabs-inner").dblclick(function () {
+                var subtitle = $(this).children(".tabs-closable").text();
+                $('#tabs').tabs('close', subtitle);
+            });
+            /*为选项卡绑定右键*/
+            $(".tabs-inner").bind('contextmenu', function (e) {
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
 
+                var subtitle = $(this).children(".tabs-closable").text();
 
+                $('#mm').data("currtab", subtitle);
+                $('#tabs').tabs('select', subtitle);
+                return false;
+            });
+        }
+
+        //绑定右键菜单事件
+        function tabCloseEven() {
+            $('#mm').menu({
+                onClick: function (item) {
+                    closeTab(item.id);
+                }
+            });
+
+            return false;
+        }
+
+        function closeTab(action) {
+            var alltabs = $('#tabs').tabs('tabs');
+            var currentTab = $('#tabs').tabs('getSelected');
+            var allTabtitle = [];
+            $.each(alltabs, function (i, n) {
+                allTabtitle.push($(n).panel('options').title);
+            });
+
+            switch (action) {
+                case "refresh":
+                    var iframe = $(currentTab.panel('options').content);
+                    var id = iframe.attr('data-id');
+                    var src = iframe.attr('src');
+                    $('#tabs').tabs('update', {
+                        tab: currentTab,
+                        options: {
+                            content: createFrame(src)
+                        }
+                    });
+                    break;
+                case "close":
+                    var currtab_title = currentTab.panel('options').title;
+                    $('#tabs').tabs('close', currtab_title);
+                    break;
+                case "closeall":
+                    $.each(allTabtitle, function (i, n) {
+                        if (n != onlyOpenTitle) {
+                            $('#tabs').tabs('close', n);
+                        }
+                    });
+                    break;
+                case "closeother":
+                    var currtab_title = currentTab.panel('options').title;
+                    $.each(allTabtitle, function (i, n) {
+                        if (n != currtab_title && n != onlyOpenTitle) {
+                            $('#tabs').tabs('close', n);
+                        }
+                    });
+                    break;
+                case "closeright":
+                    var tabIndex = $('#tabs').tabs('getTabIndex', currentTab);
+                    if (tabIndex == alltabs.length - 1) {
+                        alert('亲，后边没有啦 ^^!!');
+                        return false;
+                    }
+                    $.each(allTabtitle, function (i, n) {
+                        if (i > tabIndex) {
+                            if (n != onlyOpenTitle) {
+                                $('#tabs').tabs('close', n);
+                            }
+                        }
+                    });
+
+                    break;
+                case "closeleft":
+                    var tabIndex = $('#tabs').tabs('getTabIndex', currentTab);
+                    if (tabIndex == 1) {
+                        alert('亲，前边那个上头有人，咱惹不起哦。 ^^!!');
+                        return false;
+                    }
+                    $.each(allTabtitle, function (i, n) {
+                        if (i < tabIndex) {
+                            if (n != onlyOpenTitle) {
+                                $('#tabs').tabs('close', n);
+                            }
+                        }
+                    });
+
+                    break;
+                case "exit":
+                    $('#closeMenu').menu('hide');
+                    break;
+            }
+        }
     </script>
 
 </head>
@@ -104,37 +208,35 @@
         <img src="../../images/Logo .png" />
         <div style="float: right; padding-top: 5px; width: 750px; font-size: 18px">
             <div style="float: right; padding-right:30px; font-size: 14px; padding-top: 6px;">
-                <b id="date"></b>&nbsp;<a href="/Login/Index"><b>注销</b></a>
+                <b id="date"></b>&nbsp;<a href="/Login/Out"><b>注销</b></a>
             </div>
         </div>
-
     </div>
     @*-----------------------------------网站头部--结束-------------------------------------*@
 
 
     @*------------------------------------网站左边导航栏 开始-------------------------------------------------*@
     <div data-options="region:'west',split:true,title:'菜单导航'" style="width: 150px;">
-        <div id="aa" class="easyui-accordion" style="text-align:center;">
-
+        <div id="MenuData" class="easyui-accordion" style="text-align:center;overflow: auto; margin-bottom:10px;">
             @*-------------菜单项-----------*@
-        @*    使用异步动态加载
-            <div title="用户管理" data-options="iconCls:'icon-ok'" selected="true" style="overflow: auto; padding: 10px;">
-                <p><a href="javascript:void(0)" src="/UserInfo/Index" class="menuLink">用户管理</a></p>
-                <p><a href="javascript:void(0)" src="/Role/Index" class="menuLink">角色管理</a></p>
-                <p><a href="javascript:void(0)" src="/ActionInfo/Index" class="menuLink">权限管理</a></p>
-                <p><a href="javascript:void(0)" src="/ActionGroup/Index" class="menuLink">菜单组管理</a></p>
-            </div>*@
         </div>
     </div>
-    @*---------------------------------------网站左边导航栏 开始--------------------------------------------*@
+    @*---------------------------------------网站左边导航栏 结束--------------------------------------------*@
 
 
     @*-------------------------------------网站工作区域  开始------------------------------------------------*@
     <div data-options="region:'center',title:'欢迎你，@ViewBag.UName'">
-        
+
         @*<iframe id="frmWorkArea" width="100%" height="100%" frameborder="0" scrolling="yes" src="../../WelCome.html"></iframe>*@
         @*Tab容器的使用*@
-        <div id="ttTab" class="easyui-tabs" data-options="tools:'#tab-tools'" fit="true"></div>
+        <div id="tabs" class="easyui-tabs" data-options="tools:'#tab-tools'" fit="true">
+            <!--欢迎标签 START-->
+            <div title="欢迎使用">
+                <h1 style="font-size: 24px;">asdfasd</h1>
+                <h1 style="font-size: 24px;"></h1>
+            </div>
+            <!--欢迎标签 END-->
+        </div>
     </div>
     @*--------------------------------------网站工作区域  结束-----------------------------------------------*@
 
@@ -144,6 +246,17 @@
         版权所有  @@copy 2015-2018
     </div>
     @*-------------------------------------网站底部  结束------------------------------------------------*@
-
+    <div id="mm" class="easyui-menu" style="width: 150px;">
+        <div id="refresh">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="close">关闭</div>
+        <div id="closeall">全部关闭</div>
+        <div id="closeother">除此之外全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="closeright">当前页右侧全部关闭</div>
+        <div id="closeleft">当前页左侧全部关闭</div>
+        @* <div class="menu-sep"></div>
+            <div id="exit">退出</div>*@
+    </div>
 </body>
 </html>

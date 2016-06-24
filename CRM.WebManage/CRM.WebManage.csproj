@@ -169,11 +169,8 @@
     <Compile Include="Controllers\ActionGroupController.cs" />
     <Compile Include="Controllers\ActionInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -833,7 +830,6 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -852,11 +848,8 @@
     <Content Include="Views\ActionInfo\Index.cshtml" />
     <Content Include="Views\ActionInfo\SetAction.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Goods\Add.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\UserInfo\AddUserActionInfo.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />

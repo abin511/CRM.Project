@@ -20,7 +20,11 @@ namespace CRM.WebManage.Controllers
             ViewBag.UName = UName;
             return View();
         }
-
+        public ActionResult Out()
+        {
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Login");
+        }
         /// <summary>
         /// 处理登录的信息
         /// </summary>

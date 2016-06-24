@@ -21,24 +21,19 @@ namespace CRM.WebManage.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            #region -----校验用户是否登录进入网站的-----
             base.OnActionExecuting(filterContext);
             CurrentUserInfo = Session["UserInfo"] as UserInfo;
-
-            //检验用户是否已经登录，如果登录则不执行，否则则执行下面的跳转代码
             if (CurrentUserInfo == null)
             {
                 Response.Redirect("/Login/Index");
                 return;
             }
-            #endregion
 
-            
-            #region ------//留个接口------
-            if (CurrentUserInfo.UName == "admin")
-            {
-                return;
-            } 
+                        #region ------//留个接口------
+            //if (CurrentUserInfo.UName == "admin")
+            //{
+            //    return;
+            //} 
             #endregion
 
 
@@ -55,6 +50,7 @@ namespace CRM.WebManage.Controllers
             if (currentAction == null)
             {
                 EndRequest();
+                return;
             }
             //想去用户权限表里面查询有没有数据
             //分析第一条线路 UserInfo->R_UserInfo_ActionInfo->ActionInfo
