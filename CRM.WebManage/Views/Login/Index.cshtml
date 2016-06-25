@@ -21,38 +21,35 @@
         }
         $(function () {
             //实现用户的登录信息
-            LoginUserInfo();
-
-            //单击重新改变验证码
-            ClickRemoveChangeCode();
+            $("#btnLogin").click(LoginUserInfo);
+            document.onkeydown = function (event) {
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                if (e && e.keyCode == 13) { // enter 键
+                    LoginUserInfo(this);
+                }
+            };
         });
 
         //异步实现用户的登录
-        function LoginUserInfo(LoginUserInfo) {
-            $("#btnLogin").click(function () {
-                //验证用户必须输入必填项
-                var validate = $("#ff").form("validate");
-                if (validate == false) {
-                    return false;
+        function LoginUserInfo(sender) {
+            //验证用户必须输入必填项
+            var validate = $("#ff").form("validate");
+            if (validate == false) {
+                return false;
+            }
+            //获取传递前台的参数，UName，Pwd，Code
+            var postData = {UName: $("#UName").val(),Pwd: $("#Pwd").val(),Code: $("#Code").val()};
+            $(sender).attr("disabled", true);
+            //异步实现登录功能
+            $.post("/Login/CheckUserLogin", postData, function (data) {
+                $(sender).removeAttr("disabled");
+                if (data == "OK") {
+                    window.location.href = "/Home/Index";
                 }
-                //获取传递前台的参数，UName，Pwd，Code
-                var postData = {
-                    UName: $("#UName").val(),
-                    Pwd: $("#Pwd").val(),
-                    Code: $("#Code").val()
-                };
-
-                //异步实现登录功能
-                $.post("/Login/CheckUserLogin", postData, function (data) {
-                    if (data == "OK") {
-                        window.location.href = "/Home/Index";
-                    }
-                    else {
-                        alert(data);
-                        window.location.href = "/Login/Index/";
-                    }
-                });
-
+                else {
+                    alert(data);
+                    window.location.href = "/Login/Index/";
+                }
             });
         }
 
@@ -61,7 +58,6 @@
             var code = $("#imgCode").attr("src");
             $("#imgCode").attr("src", code + "1");
         }
-
     </script>
 </head>
 <body>
