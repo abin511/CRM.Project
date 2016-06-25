@@ -1345,20 +1345,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b4340a5d57ad4424b9d3786dae2889c3" Name="Diagram1">
-        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="12.25" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.R_UserInfo_Role" Width="1.5" PointX="10" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.ActionInfo" Width="1.5" PointX="7.75" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.R_UserInfo_ActionInfo" Width="1.5" PointX="10" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.ActionGroup" Width="1.5" PointX="10" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.Category" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.GoodInfo" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.Property" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.PropOption" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.GoodsPropValue" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.GoodSKU" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.ImageInfo" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.Shop" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="2.875" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="7.375" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.R_UserInfo_Role" Width="1.5" PointX="5.125" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.ActionInfo" Width="1.5" PointX="0.875" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.R_UserInfo_ActionInfo" Width="1.5" PointX="0.875" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.ActionGroup" Width="1.5" PointX="9.375" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Category" Width="1.5" PointX="0.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.GoodInfo" Width="1.5" PointX="3.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Property" Width="1.5" PointX="8" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.PropOption" Width="1.5" PointX="10" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.GoodsPropValue" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.GoodSKU" Width="1.5" PointX="5.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.ImageInfo" Width="1.5" PointX="5.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Shop" Width="1.5" PointX="8" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="DataModel.UserInfoR_UserInfo_Role" ManuallyRouted="false" />
         <AssociationConnector Association="DataModel.RoleR_UserInfo_Role" ManuallyRouted="false" />
         <AssociationConnector Association="DataModel.ActionInfoRole" ManuallyRouted="false" />

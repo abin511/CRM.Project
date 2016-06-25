@@ -225,12 +225,9 @@ namespace CRM.BLL
                 return null;
             }
             //根据用户拿到对应的角色
-            var userRoleList = from r in CurrentUser.R_UserInfo_Role
-                               select r.Role;
+            var userRoleList = from r in CurrentUser.R_UserInfo_Role select r.Role;
             //根据角色对应的分组
-            var groups = from n in userRoleList
-                         from g in n.ActionGroup
-                         select g;
+            var groups = from n in userRoleList from g in n.ActionGroup select g;
 
             //获取选中的是菜单项的选择
             short actionTypeMenu = (short)ActionTypeEnum.MenuItem;
@@ -245,8 +242,7 @@ namespace CRM.BLL
                            {
                                GroupID = g.ID,
                                GroupName = g.GroupName,
-                               MenuItems = (from a in g.ActionInfo
-                                            where a.ActionType == actionTypeMenu
+                               MenuItems = (from a in g.ActionInfo where a.ActionType == actionTypeMenu
                                             select new MenuItem
                                             {
                                                 Id = a.ID,

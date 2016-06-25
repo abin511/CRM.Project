@@ -49,28 +49,20 @@ namespace CRM.DAL
         }
 
         //分页
-        public IQueryable<T> LoadPagerEntities<S>(int pageSize, int pageIndex, out int total,
-            Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
+        public IQueryable<T> LoadPagerEntities<S>(int pageSize, int pageIndex, out int total,Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
         {
             var tempData = db.Set<T>().Where<T>(whereLambda);
-
             total = tempData.Count();
-
             //排序获取当前页的数据
             if (isAsc)
             {
-                tempData = tempData.OrderBy<T, S>(orderByLambda).
-                      Skip<T>(pageSize * (pageIndex - 1)).
-                      Take<T>(pageSize).AsQueryable();
+                tempData = tempData.OrderBy<T, S>(orderByLambda);
             }
             else
             {
-                tempData = tempData.OrderByDescending<T, S>(orderByLambda).
-                     Skip<T>(pageSize * (pageIndex - 1)).
-                     Take<T>(pageSize).AsQueryable();
+                tempData = tempData.OrderByDescending<T, S>(orderByLambda);
             }
-            return tempData.AsQueryable();
+            return tempData.Skip<T>(pageSize * (pageIndex - 1)).Take<T>(pageSize).AsQueryable();
         }
-
     }
 }

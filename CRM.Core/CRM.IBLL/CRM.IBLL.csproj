@@ -45,9 +45,9 @@
     <Compile Include="IBaseService.cs" />
     <Compile Include="IRoleService.cs" />
     <Compile Include="IServices.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>IServices.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
