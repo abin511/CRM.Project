@@ -51,32 +51,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
-    <Compile Include="DbSession.cs" />
-    <Compile Include="DbSession2.cs">
+    <Compile Include="CrmBusinessDbSession.cs">
+      <DependentUpon>CrmBusinessDbSession.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DbSession.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CrmManageDbSession.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrmManageDbSession.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CrmBusinessRepository.cs">
+      <DependentUpon>CrmBusinessRepository.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="DbSessionFactory.cs" />
     <Compile Include="EFContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository1.cs">
+    <Compile Include="CrmManageRepository.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Repository.tt</DependentUpon>
+      <DependentUpon>CrmManageRepository.tt</DependentUpon>
     </Compile>
     <Compile Include="RepositoryFactory.cs" />
-    <Compile Include="RoleRepository.cs" />
-    <Compile Include="UserInfoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DbSession.tt">
+    <Content Include="CrmBusinessDbSession.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DbSession2.cs</LastGenOutput>
+      <LastGenOutput>CrmBusinessDbSession.cs</LastGenOutput>
     </Content>
-    <Content Include="Repository.tt">
+    <Content Include="CrmManageDbSession.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Repository1.cs</LastGenOutput>
+      <LastGenOutput>CrmManageDbSession.cs</LastGenOutput>
+    </Content>
+    <Content Include="CrmBusinessRepository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CrmBusinessRepository.cs</LastGenOutput>
+    </Content>
+    <Content Include="CrmManageRepository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CrmManageRepository.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

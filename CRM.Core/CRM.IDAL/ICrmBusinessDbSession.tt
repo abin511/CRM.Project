@@ -9,7 +9,7 @@ MetadataLoader loader = new MetadataLoader(this);
 CodeRegion region = new CodeRegion(this, 1);
 MetadataTools ef = new MetadataTools(this);
 
-string inputFile = @"..\\CRM.Model\\DataModel.edmx";
+string inputFile = @"..\\CRM.Model\\CRM.BusinessDb.edmx";
 
 EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
 string namespaceName = code.VsNamespaceSuggestion();
@@ -17,25 +17,18 @@ string namespaceName = code.VsNamespaceSuggestion();
 EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
 
 #>
-
-using CRM.Model;
-namespace CRM.BLL
+namespace CRM.IDAL
 {
+    public partial interface ICrmBusinessDbSession
+    {
+		int SaveChanges();
 <#
-// Emit Entity Types
-
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {
     //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
     //BeginNamespace(namespaceName, code);    
-#>	
-	public partial class <#=entity.Name#>Service:BaseService<<#=entity.Name#>>,IBLL.I<#=entity.Name#>Service	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.<#=entity.Name#>Repository;
-        }  
-    }
+#>	  
+		I<#=entity.Name#>Repository <#=entity.Name#>Repository { get; }
 <#}#>
-	
+	}
 }

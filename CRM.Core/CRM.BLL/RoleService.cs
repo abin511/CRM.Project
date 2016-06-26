@@ -6,7 +6,7 @@ using CRM.Model;
 
 namespace CRM.BLL
 {
-    public partial class RoleService : BaseService<Role>, IRoleService
+    public partial class RoleService : BaseCrmManageService<Role>, IRoleService
     {
         #region ----由T4模版自动生成----
         //重写抽象方法，设置当前仓储为Role仓储

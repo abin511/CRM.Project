@@ -9,13 +9,27 @@ namespace CRM.DAL
         /// 保证了线程内DbSession实例唯一
         /// </summary>
         /// <returns></returns>
-        public static IDbSession GetCurrentDbSession()
+        public static ICrmManageDbSession GetCrmManageDbSession()
         {
-            IDbSession _dbSession = CallContext.GetData("DbSession") as IDbSession;
+            ICrmManageDbSession _dbSession = CallContext.GetData("CrmManageDbSession") as ICrmManageDbSession;
             if (_dbSession == null)
             {
-                _dbSession = new DbSession();
-                CallContext.SetData("DbSession", _dbSession);
+                _dbSession = new CrmManageDbSession();
+                CallContext.SetData("CrmManageDbSession", _dbSession);
+            }
+            return _dbSession;
+        }
+        /// <summary>
+        /// 保证了线程内DbSession实例唯一
+        /// </summary>
+        /// <returns></returns>
+        public static ICrmBusinessDbSession GetCrmBusinessDbSession()
+        {
+            ICrmBusinessDbSession _dbSession = CallContext.GetData("CrmBusinessDbSession") as ICrmBusinessDbSession;
+            if (_dbSession == null)
+            {
+                _dbSession = new CrmBusinessDbSession();
+                CallContext.SetData("CrmBusinessDbSession", _dbSession);
             }
             return _dbSession;
         }

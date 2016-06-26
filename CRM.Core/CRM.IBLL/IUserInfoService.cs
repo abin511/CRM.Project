@@ -11,7 +11,7 @@ namespace CRM.IBLL
         /// </summary>
         /// <param name="userinfo"></param>
         /// <returns></returns>
-        UserInfo checkUserLogin(UserInfo userinfo);
+        UserInfo UserLogin(UserInfo userinfo);
 
         int DeleteUserInfo(List<int> DeleteUserInfoID);
 

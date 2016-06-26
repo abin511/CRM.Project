@@ -50,27 +50,44 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseRepository.cs" />
-    <Compile Include="IDbSession.cs" />
-    <Compile Include="IDbSession2.cs">
+    <Compile Include="ICrmBusinessDbSession.cs">
+      <DependentUpon>ICrmBusinessDbSession.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IDbSession.tt</DependentUpon>
     </Compile>
-    <Compile Include="IRepository1.cs">
+    <Compile Include="ICrmManageDbSession.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IRepository.tt</DependentUpon>
+      <DependentUpon>ICrmManageDbSession.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ICrmBusinessRepository.cs">
+      <DependentUpon>ICrmBusinessRepository.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ICrmManageRepository.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ICrmManageRepository.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IDbSession.tt">
+    <Content Include="ICrmBusinessDbSession.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDbSession2.cs</LastGenOutput>
+      <LastGenOutput>ICrmBusinessDbSession.cs</LastGenOutput>
     </Content>
-    <Content Include="IRepository.tt">
+    <Content Include="ICrmManageDbSession.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IRepository1.cs</LastGenOutput>
+      <LastGenOutput>ICrmManageDbSession.cs</LastGenOutput>
+    </Content>
+    <Content Include="ICrmBusinessRepository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ICrmBusinessRepository.cs</LastGenOutput>
+    </Content>
+    <Content Include="ICrmManageRepository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ICrmManageRepository.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

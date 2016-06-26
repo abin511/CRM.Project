@@ -41,7 +41,7 @@
             var postData = {UName: $("#UName").val(),Pwd: $("#Pwd").val(),Code: $("#Code").val()};
             $(sender).attr("disabled", true);
             //异步实现登录功能
-            $.post("/Login/CheckUserLogin", postData, function (data) {
+            $.post("/Login/UserLogin", postData, function (data) {
                 $(sender).removeAttr("disabled");
                 if (data == "OK") {
                     window.location.href = "/Home/Index";

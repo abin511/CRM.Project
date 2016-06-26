@@ -9,7 +9,7 @@ MetadataLoader loader = new MetadataLoader(this);
 CodeRegion region = new CodeRegion(this, 1);
 MetadataTools ef = new MetadataTools(this);
 
-string inputFile = @"..\\CRM.Model\\DataModel.edmx";
+string inputFile = @"..\\CRM.Model\\CRM.ManageDb.edmx";
 
 EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
 string namespaceName = code.VsNamespaceSuggestion();
@@ -17,17 +17,18 @@ string namespaceName = code.VsNamespaceSuggestion();
 EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
 
 #>
-namespace CRM.IDAL
-{
-    public partial interface IDbSession
-    {
+using CRM.IDAL;
+using CRM.Model;
+namespace CRM.DAL
+{ 
 <#
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {
     //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
     //BeginNamespace(namespaceName, code);    
-#>	  
-		I<#=entity.Name#>Repository <#=entity.Name#>Repository { get; }
+#>	
+	public partial class <#=entity.Name#>Repository :CrmManageRepository<<#=entity.Name#>>,I<#=entity.Name#>Repository
+    {
+    }
 <#}#>
-	}
 }

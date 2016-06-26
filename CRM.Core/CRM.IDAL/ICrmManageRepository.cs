@@ -1,5 +1,4 @@
 ﻿ 
-
 using CRM.Model;
 namespace CRM.IDAL
 {

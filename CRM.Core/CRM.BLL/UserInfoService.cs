@@ -10,7 +10,7 @@ namespace CRM.BLL
     /// <summary>
     /// UserInfo相关的业务封装
     /// </summary>
-    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
+    public partial class UserInfoService : BaseCrmManageService<UserInfo>, IUserInfoService
     {
 
         #region -----重点介绍  备注-----
@@ -58,11 +58,10 @@ namespace CRM.BLL
         /// </summary>
         /// <param name="userinfo"></param>
         /// <returns></returns>
-        public UserInfo checkUserLogin(UserInfo userinfo)
+        public UserInfo UserLogin(UserInfo userinfo)
         {
             //判断用户的用户名密码是否正确
-            return _dbSession.UserInfoRepository.LoadEntities(u => u.UName == userinfo.UName && u.Pwd == userinfo.Pwd)
-                .FirstOrDefault();
+            return _dbSession.UserInfoRepository.LoadEntities(u => u.UName == userinfo.UName && u.Pwd == userinfo.Pwd).FirstOrDefault();
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace CRM.BLL
             }
             //得到角色表中的数据全部返回
             var listRoles = currentUser.R_UserInfo_Role.ToList();
-            ///处理清空原来的数据，用户的和角色的中间表信息
+            //处理清空原来的数据，用户的和角色的中间表信息
             for (int i = 0; i < listRoles.Count; i++)
             {
                 _dbSession.R_UserInfo_RoleRepository.DeleteEntities(listRoles[i]);

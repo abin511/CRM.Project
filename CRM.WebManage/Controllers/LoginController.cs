@@ -31,18 +31,20 @@ namespace CRM.WebManage.Controllers
         /// <param name="userInfo"></param>
         /// <param name="Code"></param>
         /// <returns></returns>
-        public ActionResult CheckUserLogin(UserInfo userInfo, string Code)
+        public ActionResult UserLogin(UserInfo userInfo, string Code)
         {
             //如果有用户名的话讲用户名存放到Cookie中
             if (userInfo.UName != null)
             {
-                Response.Cookies["UName"].Value = userInfo.UName;
-                Response.Cookies["UName"].Expires = DateTime.Now.AddDays(7);
+                var httpCookie = Response.Cookies["UName"];
+                if (httpCookie != null)
+                {
+                    httpCookie.Value = userInfo.UName;
+                    httpCookie.Expires = DateTime.Now.AddDays(7);
+                }
             }
-
-
             //这里验证用户输入的验证码和系统的验证码是否相同
-            string sessionCode = Session["ValidateCode"] == null ? new Guid().ToString() : Session["ValidateCode"].ToString();
+            string sessionCode = Session["ValidateCode"]?.ToString() ?? new Guid().ToString();
 
             //将验证码去掉，避免暴力破解
             Session["ValidateCode"] = new Guid();  
@@ -53,7 +55,7 @@ namespace CRM.WebManage.Controllers
             }
 
             //调用BLL检验用户名密码是否正确
-            UserInfo uinfo=_iUserInfoService.checkUserLogin(userInfo);
+            UserInfo uinfo=_iUserInfoService.UserLogin(userInfo);
             if (uinfo != null)
             {
                 //提供Session接口方便后面判断用户登录

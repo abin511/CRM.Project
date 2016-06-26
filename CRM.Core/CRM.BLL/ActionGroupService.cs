@@ -5,7 +5,7 @@ using CRM.IBLL;
 using CRM.Model;
 namespace CRM.BLL
 {
-    public partial class ActionGroupService : BaseService<ActionGroup>, IActionGroupService
+    public partial class ActionGroupService : BaseCrmManageService<ActionGroup>, IActionGroupService
     {
         public IQueryable<ActionGroup> LoadEntityActionGroup(GetModelQuery actionGroup)
         {

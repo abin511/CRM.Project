@@ -305,43 +305,43 @@
   </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UserInfo" EntityType="DataModel.UserInfo" />
-          <EntitySet Name="Role" EntityType="DataModel.Role" />
-          <EntitySet Name="R_UserInfo_Role" EntityType="DataModel.R_UserInfo_Role" />
-          <AssociationSet Name="UserInfoR_UserInfo_Role" Association="DataModel.UserInfoR_UserInfo_Role">
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CRM.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="CrmManageDbContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserInfo" EntityType="CRM.Model.UserInfo" />
+          <EntitySet Name="Role" EntityType="CRM.Model.Role" />
+          <EntitySet Name="R_UserInfo_Role" EntityType="CRM.Model.R_UserInfo_Role" />
+          <AssociationSet Name="UserInfoR_UserInfo_Role" Association="CRM.Model.UserInfoR_UserInfo_Role">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="R_UserInfo_Role" EntitySet="R_UserInfo_Role" />
           </AssociationSet>
-          <AssociationSet Name="RoleR_UserInfo_Role" Association="DataModel.RoleR_UserInfo_Role">
+          <AssociationSet Name="RoleR_UserInfo_Role" Association="CRM.Model.RoleR_UserInfo_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="R_UserInfo_Role" EntitySet="R_UserInfo_Role" />
           </AssociationSet>
-          <EntitySet Name="ActionInfo" EntityType="DataModel.ActionInfo" />
-          <AssociationSet Name="ActionInfoRole" Association="DataModel.ActionInfoRole">
+          <EntitySet Name="ActionInfo" EntityType="CRM.Model.ActionInfo" />
+          <AssociationSet Name="ActionInfoRole" Association="CRM.Model.ActionInfoRole">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
-          <EntitySet Name="R_UserInfo_ActionInfo" EntityType="DataModel.R_UserInfo_ActionInfo" />
-          <AssociationSet Name="UserInfoR_UserInfo_ActionInfo" Association="DataModel.UserInfoR_UserInfo_ActionInfo">
+          <EntitySet Name="R_UserInfo_ActionInfo" EntityType="CRM.Model.R_UserInfo_ActionInfo" />
+          <AssociationSet Name="UserInfoR_UserInfo_ActionInfo" Association="CRM.Model.UserInfoR_UserInfo_ActionInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
           </AssociationSet>
-          <AssociationSet Name="ActionInfoR_UserInfo_ActionInfo" Association="DataModel.ActionInfoR_UserInfo_ActionInfo">
+          <AssociationSet Name="ActionInfoR_UserInfo_ActionInfo" Association="CRM.Model.ActionInfoR_UserInfo_ActionInfo">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
           </AssociationSet>
-          <EntitySet Name="ActionGroup" EntityType="DataModel.ActionGroup" />
-          <AssociationSet Name="ActionInfoActionGroup" Association="DataModel.ActionInfoActionGroup">
+          <EntitySet Name="ActionGroup" EntityType="CRM.Model.ActionGroup" />
+          <AssociationSet Name="ActionInfoActionGroup" Association="CRM.Model.ActionInfoActionGroup">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="ActionGroup" EntitySet="ActionGroup" />
           </AssociationSet>
-          <AssociationSet Name="UserInfoActionGroup" Association="DataModel.UserInfoActionGroup">
+          <AssociationSet Name="UserInfoActionGroup" Association="CRM.Model.UserInfoActionGroup">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="ActionGroup" EntitySet="ActionGroup" />
           </AssociationSet>
-          <AssociationSet Name="ActionGroupRole" Association="DataModel.ActionGroupRole">
+          <AssociationSet Name="ActionGroupRole" Association="CRM.Model.ActionGroupRole">
             <End Role="ActionGroup" EntitySet="ActionGroup" />
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
@@ -365,9 +365,9 @@
               <LongDescription>确认假删除</LongDescription>
             </Documentation>
           </Property>
-          <NavigationProperty Name="R_UserInfo_Role" Relationship="DataModel.UserInfoR_UserInfo_Role" FromRole="UserInfo" ToRole="R_UserInfo_Role" />
-          <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.UserInfoR_UserInfo_ActionInfo" FromRole="UserInfo" ToRole="R_UserInfo_ActionInfo" />
-          <NavigationProperty Name="ActionGroup" Relationship="DataModel.UserInfoActionGroup" FromRole="UserInfo" ToRole="ActionGroup" />
+          <NavigationProperty Name="R_UserInfo_Role" Relationship="CRM.Model.UserInfoR_UserInfo_Role" FromRole="UserInfo" ToRole="R_UserInfo_Role" />
+          <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="CRM.Model.UserInfoR_UserInfo_ActionInfo" FromRole="UserInfo" ToRole="R_UserInfo_ActionInfo" />
+          <NavigationProperty Name="ActionGroup" Relationship="CRM.Model.UserInfoActionGroup" FromRole="UserInfo" ToRole="ActionGroup" />
         </EntityType>
         <EntityType Name="Role">
           <Documentation>
@@ -385,9 +385,9 @@
           </Property>
           <Property Type="Int16" Name="DelFlag" Nullable="false" DefaultValue="0" />
           <Property Type="DateTime" Name="SubTime" Nullable="false" />
-          <NavigationProperty Name="R_UserInfo_Role" Relationship="DataModel.RoleR_UserInfo_Role" FromRole="Role" ToRole="R_UserInfo_Role" />
-          <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoRole" FromRole="Role" ToRole="ActionInfo" />
-          <NavigationProperty Name="ActionGroup" Relationship="DataModel.ActionGroupRole" FromRole="Role" ToRole="ActionGroup" />
+          <NavigationProperty Name="R_UserInfo_Role" Relationship="CRM.Model.RoleR_UserInfo_Role" FromRole="Role" ToRole="R_UserInfo_Role" />
+          <NavigationProperty Name="ActionInfo" Relationship="CRM.Model.ActionInfoRole" FromRole="Role" ToRole="ActionInfo" />
+          <NavigationProperty Name="ActionGroup" Relationship="CRM.Model.ActionGroupRole" FromRole="Role" ToRole="ActionGroup" />
         </EntityType>
         <EntityType Name="R_UserInfo_Role">
           <Documentation>
@@ -397,9 +397,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="UserInfo" Relationship="DataModel.UserInfoR_UserInfo_Role" FromRole="R_UserInfo_Role" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo" Relationship="CRM.Model.UserInfoR_UserInfo_Role" FromRole="R_UserInfo_Role" ToRole="UserInfo" />
           <Property Type="Int32" Name="UserInfoID" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="DataModel.RoleR_UserInfo_Role" FromRole="R_UserInfo_Role" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="CRM.Model.RoleR_UserInfo_Role" FromRole="R_UserInfo_Role" ToRole="Role" />
           <Property Type="Int32" Name="RoleID" Nullable="false" >
             <Documentation>
               <Summary>用户表和角色表映射出来的表</Summary>
@@ -408,8 +408,8 @@
           <Property Type="DateTime" Name="SubTime" Nullable="false" />
         </EntityType>
         <Association Name="UserInfoR_UserInfo_Role">
-          <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="DataModel.R_UserInfo_Role" Role="R_UserInfo_Role" Multiplicity="*" />
+          <End Type="CRM.Model.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="CRM.Model.R_UserInfo_Role" Role="R_UserInfo_Role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="ID" />
@@ -420,8 +420,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="RoleR_UserInfo_Role">
-          <End Type="DataModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="DataModel.R_UserInfo_Role" Role="R_UserInfo_Role" Multiplicity="*" />
+          <End Type="CRM.Model.Role" Role="Role" Multiplicity="1" />
+          <End Type="CRM.Model.R_UserInfo_Role" Role="R_UserInfo_Role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="ID" />
@@ -443,33 +443,33 @@
           <Property Type="String" Name="RequestHttpType" Nullable="false" MaxLength="16" Unicode="false" DefaultValue="&quot;Get&quot;" />
           <Property Type="String" Name="ActionName" Nullable="false" MaxLength="16" />
           <Property Type="DateTime" Name="SubTime" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="DataModel.ActionInfoRole" FromRole="ActionInfo" ToRole="Role" />
-          <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.ActionInfoR_UserInfo_ActionInfo" FromRole="ActionInfo" ToRole="R_UserInfo_ActionInfo" />
+          <NavigationProperty Name="Role" Relationship="CRM.Model.ActionInfoRole" FromRole="ActionInfo" ToRole="Role" />
+          <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="CRM.Model.ActionInfoR_UserInfo_ActionInfo" FromRole="ActionInfo" ToRole="R_UserInfo_ActionInfo" />
           <Property Type="Int16" Name="ActionType" Nullable="false" DefaultValue="0" >
             <Documentation>
               <LongDescription>0表示普通类型，1表示菜单组</LongDescription>
             </Documentation>
           </Property>
-          <NavigationProperty Name="ActionGroup" Relationship="DataModel.ActionInfoActionGroup" FromRole="ActionInfo" ToRole="ActionGroup" />
+          <NavigationProperty Name="ActionGroup" Relationship="CRM.Model.ActionInfoActionGroup" FromRole="ActionInfo" ToRole="ActionGroup" />
         </EntityType>
         <Association Name="ActionInfoRole">
-          <End Type="DataModel.ActionInfo" Role="ActionInfo" Multiplicity="*" />
-          <End Type="DataModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="CRM.Model.ActionInfo" Role="ActionInfo" Multiplicity="*" />
+          <End Type="CRM.Model.Role" Role="Role" Multiplicity="*" />
         </Association>
         <EntityType Name="R_UserInfo_ActionInfo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="UserInfo" Relationship="DataModel.UserInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo" Relationship="CRM.Model.UserInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="UserInfo" />
           <Property Type="Int32" Name="UserInfoID" Nullable="false" />
-          <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="ActionInfo" />
+          <NavigationProperty Name="ActionInfo" Relationship="CRM.Model.ActionInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="ActionInfo" />
           <Property Type="Int32" Name="ActionInfoID" Nullable="false" />
           <Property Type="Boolean" Name="HasPermation" Nullable="false" />
         </EntityType>
         <Association Name="UserInfoR_UserInfo_ActionInfo">
-          <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="DataModel.R_UserInfo_ActionInfo" Role="R_UserInfo_ActionInfo" Multiplicity="*" />
+          <End Type="CRM.Model.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="CRM.Model.R_UserInfo_ActionInfo" Role="R_UserInfo_ActionInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="ID" />
@@ -480,8 +480,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ActionInfoR_UserInfo_ActionInfo">
-          <End Type="DataModel.ActionInfo" Role="ActionInfo" Multiplicity="1" />
-          <End Type="DataModel.R_UserInfo_ActionInfo" Role="R_UserInfo_ActionInfo" Multiplicity="*" />
+          <End Type="CRM.Model.ActionInfo" Role="ActionInfo" Multiplicity="1" />
+          <End Type="CRM.Model.R_UserInfo_ActionInfo" Role="R_UserInfo_ActionInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActionInfo">
               <PropertyRef Name="ID" />
@@ -499,37 +499,37 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoActionGroup" FromRole="ActionGroup" ToRole="ActionInfo" />
+          <NavigationProperty Name="ActionInfo" Relationship="CRM.Model.ActionInfoActionGroup" FromRole="ActionGroup" ToRole="ActionInfo" />
           <Property Type="String" Name="GroupName" Nullable="false" MaxLength="32" />
           <Property Type="Int16" Name="DelFlag" Nullable="false" />
-          <NavigationProperty Name="UserInfo" Relationship="DataModel.UserInfoActionGroup" FromRole="ActionGroup" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo" Relationship="CRM.Model.UserInfoActionGroup" FromRole="ActionGroup" ToRole="UserInfo" />
           <Property Type="Int16" Name="GroupType" Nullable="false" >
             <Documentation>
               <LongDescription>权限组的类型，0普通组，1代表菜单组</LongDescription>
             </Documentation>
           </Property>
-          <NavigationProperty Name="Role" Relationship="DataModel.ActionGroupRole" FromRole="ActionGroup" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="CRM.Model.ActionGroupRole" FromRole="ActionGroup" ToRole="Role" />
         </EntityType>
         <Association Name="ActionInfoActionGroup">
-          <End Type="DataModel.ActionInfo" Role="ActionInfo" Multiplicity="*" />
-          <End Type="DataModel.ActionGroup" Role="ActionGroup" Multiplicity="*" />
+          <End Type="CRM.Model.ActionInfo" Role="ActionInfo" Multiplicity="*" />
+          <End Type="CRM.Model.ActionGroup" Role="ActionGroup" Multiplicity="*" />
         </Association>
         <Association Name="UserInfoActionGroup">
-          <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="*" />
-          <End Type="DataModel.ActionGroup" Role="ActionGroup" Multiplicity="*" />
+          <End Type="CRM.Model.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="CRM.Model.ActionGroup" Role="ActionGroup" Multiplicity="*" />
         </Association>
         <Association Name="ActionGroupRole">
-          <End Type="DataModel.ActionGroup" Role="ActionGroup" Multiplicity="*" />
-          <End Type="DataModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="CRM.Model.ActionGroup" Role="ActionGroup" Multiplicity="*" />
+          <End Type="CRM.Model.Role" Role="Role" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="CrmManageDbContainer">
     <EntitySetMapping Name="UserInfo">
-      <EntityTypeMapping TypeName="IsTypeOf(DataModel.UserInfo)">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM.Model.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UName" ColumnName="UName" />
@@ -543,7 +543,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Role">
-      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Role)">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM.Model.Role)">
         <MappingFragment StoreEntitySet="Role">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -554,7 +554,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="R_UserInfo_Role">
-      <EntityTypeMapping TypeName="IsTypeOf(DataModel.R_UserInfo_Role)">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM.Model.R_UserInfo_Role)">
         <MappingFragment StoreEntitySet="R_UserInfo_Role">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
@@ -564,7 +564,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ActionInfo">
-      <EntityTypeMapping TypeName="IsTypeOf(DataModel.ActionInfo)">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM.Model.ActionInfo)">
         <MappingFragment StoreEntitySet="ActionInfo">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
@@ -576,7 +576,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="R_UserInfo_ActionInfo">
-      <EntityTypeMapping TypeName="IsTypeOf(DataModel.R_UserInfo_ActionInfo)">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM.Model.R_UserInfo_ActionInfo)">
         <MappingFragment StoreEntitySet="R_UserInfo_ActionInfo">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
@@ -586,7 +586,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ActionGroup">
-      <EntityTypeMapping TypeName="IsTypeOf(DataModel.ActionGroup)">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM.Model.ActionGroup)">
         <MappingFragment StoreEntitySet="ActionGroup">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="GroupName" ColumnName="GroupName" />
@@ -595,7 +595,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ActionInfoRole" TypeName="DataModel.ActionInfoRole" StoreEntitySet="ActionInfoRole">
+    <AssociationSetMapping Name="ActionInfoRole" TypeName="CRM.Model.ActionInfoRole" StoreEntitySet="ActionInfoRole">
       <EndProperty Name="ActionInfo">
         <ScalarProperty Name="ID" ColumnName="ActionInfo_ID" />
       </EndProperty>
@@ -603,7 +603,7 @@
         <ScalarProperty Name="ID" ColumnName="Role_ID" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ActionInfoActionGroup" TypeName="DataModel.ActionInfoActionGroup" StoreEntitySet="ActionInfoActionGroup">
+    <AssociationSetMapping Name="ActionInfoActionGroup" TypeName="CRM.Model.ActionInfoActionGroup" StoreEntitySet="ActionInfoActionGroup">
       <EndProperty Name="ActionInfo">
         <ScalarProperty Name="ID" ColumnName="ActionInfo_ID" />
       </EndProperty>
@@ -611,7 +611,7 @@
         <ScalarProperty Name="ID" ColumnName="ActionGroup_ID" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="UserInfoActionGroup" TypeName="DataModel.UserInfoActionGroup" StoreEntitySet="UserInfoActionGroup">
+    <AssociationSetMapping Name="UserInfoActionGroup" TypeName="CRM.Model.UserInfoActionGroup" StoreEntitySet="UserInfoActionGroup">
       <EndProperty Name="UserInfo">
         <ScalarProperty Name="ID" ColumnName="UserInfo_ID" />
       </EndProperty>
@@ -619,7 +619,7 @@
         <ScalarProperty Name="ID" ColumnName="ActionGroup_ID" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ActionGroupRole" TypeName="DataModel.ActionGroupRole" StoreEntitySet="ActionGroupRole">
+    <AssociationSetMapping Name="ActionGroupRole" TypeName="CRM.Model.ActionGroupRole" StoreEntitySet="ActionGroupRole">
       <EndProperty Name="ActionGroup">
         <ScalarProperty Name="ID" ColumnName="ActionGroup_ID" />
       </EndProperty>
@@ -648,20 +648,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b4340a5d57ad4424b9d3786dae2889c3" Name="Diagram1" ZoomLevel="34">
-        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="3.625" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="0.5" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.R_UserInfo_Role" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.ActionInfo" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.R_UserInfo_ActionInfo" Width="1.5" PointX="4.875" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.ActionGroup" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <AssociationConnector Association="DataModel.UserInfoR_UserInfo_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.RoleR_UserInfo_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.ActionInfoRole" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.UserInfoR_UserInfo_ActionInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.ActionInfoR_UserInfo_ActionInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.ActionInfoActionGroup" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.UserInfoActionGroup" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.ActionGroupRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CRM.Model.UserInfo" Width="1.5" PointX="3.625" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.Role" Width="1.5" PointX="0.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.R_UserInfo_Role" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.ActionInfo" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.R_UserInfo_ActionInfo" Width="1.5" PointX="4.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.ActionGroup" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="CRM.Model.UserInfoR_UserInfo_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.RoleR_UserInfo_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.ActionInfoRole" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.UserInfoR_UserInfo_ActionInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.ActionInfoR_UserInfo_ActionInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.ActionInfoActionGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.UserInfoActionGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="CRM.Model.ActionGroupRole" ManuallyRouted="false" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

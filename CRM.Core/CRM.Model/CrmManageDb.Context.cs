@@ -13,10 +13,10 @@ namespace CRM.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DataModelContainer : DbContext
+    public partial class CrmBusinessDbContainer : DbContext
     {
-        public DataModelContainer()
-            : base("name=DataModelContainer")
+        public CrmBusinessDbContainer()
+            : base("name=CrmBusinessDbContainer")
         {
         }
     
@@ -25,11 +25,9 @@ namespace CRM.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<UserInfo> UserInfo { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<R_UserInfo_Role> R_UserInfo_Role { get; set; }
-        public DbSet<ActionInfo> ActionInfo { get; set; }
-        public DbSet<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
-        public DbSet<ActionGroup> ActionGroup { get; set; }
+        public DbSet<UserAccount> UserAccount { get; set; }
+        public DbSet<UserBaseInfo> UserBaseInfo { get; set; }
+        public DbSet<UserLoginInSide> UserLoginInSide { get; set; }
+        public DbSet<UserLoginOutSide> UserLoginOutSide { get; set; }
     }
 }

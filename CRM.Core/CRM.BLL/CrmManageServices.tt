@@ -9,7 +9,7 @@ MetadataLoader loader = new MetadataLoader(this);
 CodeRegion region = new CodeRegion(this, 1);
 MetadataTools ef = new MetadataTools(this);
 
-string inputFile = @"..\\CRM.Model\\DataModel.edmx";
+string inputFile = @"..\\CRM.Model\\CRM.ManageDb.edmx";
 
 EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
 string namespaceName = code.VsNamespaceSuggestion();
@@ -18,15 +18,9 @@ EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileMana
 
 #>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CRM.Model;
-
-namespace CRM.IBLL
+namespace CRM.BLL
 {
-   
 <#
 // Emit Entity Types
 
@@ -35,8 +29,12 @@ foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e =>
     //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
     //BeginNamespace(namespaceName, code);    
 #>	
-	public partial interface I<#=entity.Name#>Service:IBaseService<<#=entity.Name#>>
-    {   
+	public partial class <#=entity.Name#>Service:BaseCrmManageService<<#=entity.Name#>>,IBLL.I<#=entity.Name#>Service	
+    { 
+		public override void SetCurrentRepository()
+        {
+            CurrentRepository = _dbSession.<#=entity.Name#>Repository;
+        }  
     }
 <#}#>
 	

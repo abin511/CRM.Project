@@ -68,7 +68,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CRM.BusinessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CRM.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="UserAccount">
           <Key>
             <PropertyRef Name="UserId" />
@@ -122,7 +122,7 @@
           <Property Name="InserTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityContainer Name="CrmBusinessDb" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CrmBusinessDbContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" />
           <EntitySet Name="UserBaseInfo" EntityType="Self.UserBaseInfo" />
           <EntitySet Name="UserLoginInSide" EntityType="Self.UserLoginInSide" />
@@ -133,9 +133,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CRMBusinessModelStoreContainer" CdmEntityContainer="CrmBusinessDb">
+        <EntityContainerMapping StorageEntityContainer="CRMBusinessModelStoreContainer" CdmEntityContainer="CrmBusinessDbContainer">
           <EntitySetMapping Name="UserAccount">
-            <EntityTypeMapping TypeName="CRM.BusinessModel.UserAccount">
+            <EntityTypeMapping TypeName="CRM.Model.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Gold" ColumnName="Gold" />
@@ -147,7 +147,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserBaseInfo">
-            <EntityTypeMapping TypeName="CRM.BusinessModel.UserBaseInfo">
+            <EntityTypeMapping TypeName="CRM.Model.UserBaseInfo">
               <MappingFragment StoreEntitySet="UserBaseInfo">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
@@ -164,7 +164,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserLoginInSide">
-            <EntityTypeMapping TypeName="CRM.BusinessModel.UserLoginInSide">
+            <EntityTypeMapping TypeName="CRM.Model.UserLoginInSide">
               <MappingFragment StoreEntitySet="UserLoginInSide">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LoginType" ColumnName="LoginType" />
@@ -178,7 +178,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserLoginOutSide">
-            <EntityTypeMapping TypeName="CRM.BusinessModel.UserLoginOutSide">
+            <EntityTypeMapping TypeName="CRM.Model.UserLoginOutSide">
               <MappingFragment StoreEntitySet="UserLoginOutSide">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LoginType" ColumnName="LoginType" />

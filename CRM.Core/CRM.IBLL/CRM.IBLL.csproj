@@ -44,8 +44,8 @@
     <Compile Include="IActionInfoService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="IRoleService.cs" />
-    <Compile Include="IServices.cs">
-      <DependentUpon>IServices.tt</DependentUpon>
+    <Compile Include="ICrmManageServices.cs">
+      <DependentUpon>ICrmManageServices.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -62,9 +62,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IServices.tt">
+    <Content Include="ICrmManageServices.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IServices.cs</LastGenOutput>
+      <LastGenOutput>ICrmManageServices.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

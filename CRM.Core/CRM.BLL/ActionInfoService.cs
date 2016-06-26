@@ -5,7 +5,7 @@ using CRM.IBLL;
 using CRM.Model;
 namespace CRM.BLL
 {
-    public partial class ActionInfoService : BaseService<ActionInfo>, IActionInfoService
+    public partial class ActionInfoService : BaseCrmManageService<ActionInfo>, IActionInfoService
     {
         /// <summary>
         /// 实现删除多条数据

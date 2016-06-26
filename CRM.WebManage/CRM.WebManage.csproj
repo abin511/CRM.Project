@@ -105,6 +105,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WelCome.htm" />
     <Content Include="packages.config" />
     <Content Include="Content\JQuery zTree v2.6\demo\asyncData\node.jsp" />
     <Content Include="Content\JQuery zTree v2.6\demo\asyncData\node.php" />

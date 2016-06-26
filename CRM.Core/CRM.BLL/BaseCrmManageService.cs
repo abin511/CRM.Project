@@ -5,15 +5,15 @@ using CRM.IDAL;
 
 namespace CRM.BLL
 {
-    public abstract class BaseService<T> where T : class,new()
+    public abstract class BaseCrmManageService<T> where T : class,new()
     {
         //在调用这个方法的时候必须给他赋值
         public IBaseRepository<T> CurrentRepository { get; set; }
         //为了职责单一的原则，将获取线程内唯一实例的DbSession的逻辑放到工厂里面去了
-        public IDbSession _dbSession = DbSessionFactory.GetCurrentDbSession();
+        public ICrmManageDbSession _dbSession = DbSessionFactory.GetCrmManageDbSession();
 
         //基类的构造函数 构造函数里面调用了此设置当前仓储的抽象方法
-        public BaseService()
+        public BaseCrmManageService()
         {
             SetCurrentRepository();  
         }
@@ -26,21 +26,18 @@ namespace CRM.BLL
             //如果在这里操作多个表的话，实现批量的操作
             //调用T对应的仓储来添加
             var addentity = CurrentRepository.AddEntities(entity);
-            _dbSession.SaveChanges();
             return addentity;
         }
         //修改
         public bool UpdateEntities(T entity)
         {
-            var updateEntity=  CurrentRepository.UpdateEntities(entity);
-            _dbSession.SaveChanges();
+            var updateEntity =  CurrentRepository.UpdateEntities(entity);
             return updateEntity;
         }
         //修改
         public bool DeleteEntities(T entity)
         {
             var deleteEntity= CurrentRepository.DeleteEntities(entity);
-            _dbSession.SaveChanges();
             return deleteEntity;
         }
         //查询

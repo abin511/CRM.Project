@@ -53,66 +53,66 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionGroup.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="ActionInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="CrmBusinessDb.Context.cs">
+    <Compile Include="CRM.BusinessDb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrmBusinessDb.Context.tt</DependentUpon>
+      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
     </Compile>
-    <Compile Include="CrmBusinessDb.cs">
+    <Compile Include="CRM.ManageDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CrmBusinessDb.Designer.cs">
+    <Compile Include="CRM.ManageDb.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel.Context.cs">
+    <Compile Include="CRM.ManageDb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataModel.cs">
+    <Compile Include="CrmManageDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CrmManageDb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel1.Designer.cs">
+    <Compile Include="CrmManageDb.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>CrmManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Enum\ActionTypeEnum.cs" />
     <Compile Include="Enum\DelFlagEnum.cs" />
     <Compile Include="Role.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="R_UserInfo_ActionInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="R_UserInfo_Role.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserAccount.cs">
-      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+      <DependentUpon>CrmManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserBaseInfo.cs">
-      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+      <DependentUpon>CrmManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLoginInSide.cs">
-      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+      <DependentUpon>CrmManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLoginOutSide.cs">
-      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+      <DependentUpon>CrmManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\GetModelQuery.cs" />
     <Compile Include="ViewModel\MenuData.cs" />
@@ -123,42 +123,39 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="DataModel.edmx">
+    <EntityDeploy Include="CRM.ManageDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel1.Designer.cs</LastGenOutput>
+      <LastGenOutput>CRM.ManageDb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="CrmBusinessDb.edmx">
+    <EntityDeploy Include="CRM.BusinessDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CrmBusinessDb.Designer.cs</LastGenOutput>
+      <LastGenOutput>CRM.BusinessDb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CrmBusinessDb.edmx.diagram">
-      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CrmBusinessDb.Context.tt">
+    <Content Include="CRM.ManageDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
-      <LastGenOutput>CrmBusinessDb.Context.cs</LastGenOutput>
+      <LastGenOutput>CRM.ManageDb.Context.cs</LastGenOutput>
+      <DependentUpon>CRM.ManageDb.edmx</DependentUpon>
     </Content>
-    <Content Include="CrmBusinessDb.tt">
+    <Content Include="CRM.ManageDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
-      <LastGenOutput>CrmBusinessDb.cs</LastGenOutput>
+      <LastGenOutput>CRM.ManageDb.cs</LastGenOutput>
+      <DependentUpon>CRM.ManageDb.edmx</DependentUpon>
     </Content>
-    <Content Include="DataModel.Context.tt">
+    <Content Include="CrmManageDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <LastGenOutput>CrmManageDb.Context.cs</LastGenOutput>
+      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
     </Content>
-    <Content Include="DataModel.tt">
+    <Content Include="CrmManageDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <LastGenOutput>CrmManageDb.cs</LastGenOutput>
+      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
