@@ -8,6 +8,7 @@ namespace CRM.WebManage
     {
         public void Configuration(IAppBuilder app)
         {
+            //Help
             //ConfigureAuth(app);
         }
     }
