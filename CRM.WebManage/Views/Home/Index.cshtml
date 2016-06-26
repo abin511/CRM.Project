@@ -56,19 +56,21 @@
                     $('#tabs').tabs('select', titleShow);
                 }
                 else {
+                    var dom = $('<iframe scrolling="auto" frameborder="0"  style="width:100%;height:100%;"></iframe>');
                     $("#tabs").tabs('add', {
                         title: titleShow,
-                        content: createFrame($(this).attr("src")),
+                        content: dom,
                         // iconCls: 'icon-save',
                         closable: true,
                     });
+                    dom.attr("src", $(this).attr("src"));
                     TabContextmenuEven();
                 }
                 return false;
             });
         }
         function createFrame(url) {
-            var s = '<iframe id="frmWorkArea"  scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+            var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
             return s;
         }
         var onlyOpenTitle = "欢迎使用";//不允许关闭的标签的标题
