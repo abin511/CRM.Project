@@ -58,6 +58,21 @@
     <Compile Include="ActionInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CrmBusinessDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrmBusinessDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CrmBusinessDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CrmBusinessDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,8 +99,20 @@
     <Compile Include="R_UserInfo_Role.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserAccount.cs">
+      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserBaseInfo.cs">
+      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserLoginInSide.cs">
+      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserLoginOutSide.cs">
+      <DependentUpon>CrmBusinessDb.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\GetModelQuery.cs" />
     <Compile Include="ViewModel\MenuData.cs" />
@@ -93,17 +120,36 @@
     <Compile Include="ViewModel\ParameterQuery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="DataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="CrmBusinessDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CrmBusinessDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CrmBusinessDb.edmx.diagram">
+      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CrmBusinessDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
+      <LastGenOutput>CrmBusinessDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CrmBusinessDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CrmBusinessDb.edmx</DependentUpon>
+      <LastGenOutput>CrmBusinessDb.cs</LastGenOutput>
+    </Content>
     <Content Include="DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataModel.Context.cs</LastGenOutput>
