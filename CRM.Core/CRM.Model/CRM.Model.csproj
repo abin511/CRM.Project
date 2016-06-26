@@ -58,9 +58,6 @@
     <Compile Include="ActionInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,28 +75,6 @@
     </Compile>
     <Compile Include="Enum\ActionTypeEnum.cs" />
     <Compile Include="Enum\DelFlagEnum.cs" />
-    <Compile Include="GetModelQuery.cs" />
-    <Compile Include="GoodInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GoodSKU.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GoodsPropValue.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ImageInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MenuData.cs" />
-    <Compile Include="MenuItem.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Property.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PropOption.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -109,12 +84,12 @@
     <Compile Include="R_UserInfo_Role.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Shop.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\GetModelQuery.cs" />
+    <Compile Include="ViewModel\MenuData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ParameterQuery.cs" />
   </ItemGroup>
   <ItemGroup>

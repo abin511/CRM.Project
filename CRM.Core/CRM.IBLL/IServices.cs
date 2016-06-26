@@ -18,34 +18,6 @@ namespace CRM.IBLL
     {   
     }
 	
-	public partial interface ICategoryService:IBaseService<Category>
-    {   
-    }
-	
-	public partial interface IGoodInfoService:IBaseService<GoodInfo>
-    {   
-    }
-	
-	public partial interface IGoodSKUService:IBaseService<GoodSKU>
-    {   
-    }
-	
-	public partial interface IGoodsPropValueService:IBaseService<GoodsPropValue>
-    {   
-    }
-	
-	public partial interface IImageInfoService:IBaseService<ImageInfo>
-    {   
-    }
-	
-	public partial interface IPropertyService:IBaseService<Property>
-    {   
-    }
-	
-	public partial interface IPropOptionService:IBaseService<PropOption>
-    {   
-    }
-	
 	public partial interface IR_UserInfo_ActionInfoService:IBaseService<R_UserInfo_ActionInfo>
     {   
     }
@@ -55,10 +27,6 @@ namespace CRM.IBLL
     }
 	
 	public partial interface IRoleService:IBaseService<Role>
-    {   
-    }
-	
-	public partial interface IShopService:IBaseService<Shop>
     {   
     }
 	

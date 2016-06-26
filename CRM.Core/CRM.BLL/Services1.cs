@@ -20,62 +20,6 @@ namespace CRM.BLL
         }  
     }
 	
-	public partial class CategoryService:BaseService<Category>,IBLL.ICategoryService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.CategoryRepository;
-        }  
-    }
-	
-	public partial class GoodInfoService:BaseService<GoodInfo>,IBLL.IGoodInfoService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.GoodInfoRepository;
-        }  
-    }
-	
-	public partial class GoodSKUService:BaseService<GoodSKU>,IBLL.IGoodSKUService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.GoodSKURepository;
-        }  
-    }
-	
-	public partial class GoodsPropValueService:BaseService<GoodsPropValue>,IBLL.IGoodsPropValueService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.GoodsPropValueRepository;
-        }  
-    }
-	
-	public partial class ImageInfoService:BaseService<ImageInfo>,IBLL.IImageInfoService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.ImageInfoRepository;
-        }  
-    }
-	
-	public partial class PropertyService:BaseService<Property>,IBLL.IPropertyService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.PropertyRepository;
-        }  
-    }
-	
-	public partial class PropOptionService:BaseService<PropOption>,IBLL.IPropOptionService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.PropOptionRepository;
-        }  
-    }
-	
 	public partial class R_UserInfo_ActionInfoService:BaseService<R_UserInfo_ActionInfo>,IBLL.IR_UserInfo_ActionInfoService	
     { 
 		public override void SetCurrentRepository()
@@ -97,14 +41,6 @@ namespace CRM.BLL
 		public override void SetCurrentRepository()
         {
             CurrentRepository = _dbSession.RoleRepository;
-        }  
-    }
-	
-	public partial class ShopService:BaseService<Shop>,IBLL.IShopService	
-    { 
-		public override void SetCurrentRepository()
-        {
-            CurrentRepository = _dbSession.ShopRepository;
         }  
     }
 	
