@@ -8,7 +8,7 @@ namespace CRM.WebManage
     {
         protected void Application_Start()
         {
-            //TEST
+            //TEST\]a8h
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
