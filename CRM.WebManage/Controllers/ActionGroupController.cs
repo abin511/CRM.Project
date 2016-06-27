@@ -52,7 +52,7 @@ namespace CRM.WebManage.Controllers
         public ActionResult AddActionGroupInfo(ActionGroup actionGroup)
         {
             actionGroup.DelFlag = 0;
-            _actiongroupService.AddEntities(actionGroup);
+            _actiongroupService.Add(actionGroup);
             return Content("OK");
         }
 
@@ -80,7 +80,7 @@ namespace CRM.WebManage.Controllers
             editorActionInfo.GroupName = actionGroup.GroupName;
             editorActionInfo.GroupType = actionGroup.GroupType;
 
-            _actiongroupService.UpdateEntities(editorActionInfo);
+            _actiongroupService.Update(editorActionInfo);
 
             return Content("OK");
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CRM.IDAL
@@ -10,11 +11,17 @@ namespace CRM.IDAL
     public interface IBaseRepository<T> where T:class,new()
     {
         //添加
-        T AddEntities(T entity);
+        int Add(T entity);
+        //添加
+        int Add(List<T> entities);
         //修改
-        bool UpdateEntities(T entity);
+        int Update(T entity);
         //修改
-        bool DeleteEntities(T entity);
+        int Update(List<T> entities);
+        //修改
+        int Delete(T entity);
+        //修改
+        int Delete(List<T> entities);
         //查询
         IQueryable<T> LoadEntities(Func<T, bool> wherelambda);
         //分页

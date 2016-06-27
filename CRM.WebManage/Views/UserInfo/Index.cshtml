@@ -263,14 +263,15 @@
             var CheckID = $("#test").datagrid("getSelections")[0].ID;
             
             //使用异步的getJSON请求绑定前台传递过来的数据
-            $.getJSON("/UserInfo/GetBindDetails", { ID: CheckID }, function (date) {
+            $.getJSON("/UserInfo/GetBindDetails", { ID: CheckID }, function (res) {
+                console.log(res);
                 //绑定数据显示到控件上面，UName,Pwd,PwdOK,Phone,Mail
                 $("#ID").val(CheckID);
-                $("#UName1").val(date.UName);
-                $("#Pwd1").val(date.Pwd);
-                $("#PwdOK1").val(date.Pwd);
-                $("#Phone1").val(date.Phone);
-                $("#Mail1").val(date.Mail);
+                $("#UName1").val(res.UName);
+                $("#Pwd1").val(res.Pwd);
+                $("#PwdOK1").val(res.Pwd);
+                $("#Phone1").val(res.Phone);
+                $("#Mail1").val(res.Mail);
             });
         }
 

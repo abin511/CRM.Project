@@ -71,11 +71,13 @@ namespace CRM.BLL
         /// <returns></returns>
         public int DeleteUserInfo(List<int> DeleteUserInfoID)
         {
-            foreach (var ID in DeleteUserInfoID)
-            {
-                _dbSession.UserInfoRepository.DeleteEntities(new UserInfo() { ID = ID });
-            }
-            return _dbSession.SaveChanges();
+            //foreach (var ID in DeleteUserInfoID)
+            //{
+            //    _dbSession.UserInfoRepository.DeleteEntities(new UserInfo() { ID = ID });
+            //}
+            //return _dbSession.SaveChanges();
+            var entities = DeleteUserInfoID.Select(m => new UserInfo { ID = m }).ToList();
+            return _dbSession.UserInfoRepository.Delete(entities);
         }
 
         /// <summary>
@@ -123,25 +125,24 @@ namespace CRM.BLL
             //得到角色表中的数据全部返回
             var listRoles = currentUser.R_UserInfo_Role.ToList();
             //处理清空原来的数据，用户的和角色的中间表信息
-            for (int i = 0; i < listRoles.Count; i++)
-            {
-                _dbSession.R_UserInfo_RoleRepository.DeleteEntities(listRoles[i]);
-            }
-            //真正的删除了所有的数据
-            _dbSession.SaveChanges();
+            //for (int i = 0; i < listRoles.Count; i++)
+            //{
+            //    _dbSession.R_UserInfo_RoleRepository.DeleteEntities(listRoles[i]);
+            //}
+            ////真正的删除了所有的数据
+            //_dbSession.SaveChanges();
 
-            //在此重新将数据加载会数据库
-            foreach (var roleID in roleIDList)
+            //var entities = DeleteUserInfoID.Select(m => new UserInfo { ID = m }).ToList();
+            _dbSession.R_UserInfo_RoleRepository.Delete(listRoles);
+
+            listRoles = roleIDList.Select(roleId => new R_UserInfo_Role()
             {
-                R_UserInfo_Role rUserInfoRole = new R_UserInfo_Role();
-                rUserInfoRole.RoleID = roleID;
-                rUserInfoRole.UserInfoID = userID;
-                rUserInfoRole.SubTime = DateTime.Now;
-                _dbSession.R_UserInfo_RoleRepository.AddEntities(rUserInfoRole);
-            }
+                RoleID = roleId, UserInfoID = userID, SubTime = DateTime.Now
+            }).ToList();
+            //在此重新将数据加载会数据库
             //实现添加功能
-            _dbSession.SaveChanges();
-            return true;
+            //_dbSession.SaveChanges();
+            return _dbSession.R_UserInfo_RoleRepository.Add(listRoles) > 0;
         }
 
         public bool SetActionInfoRole(int userID, List<int> ActionIDS)
@@ -155,22 +156,18 @@ namespace CRM.BLL
             //得到权限表中的所有数据返回
             var actionList = currentUser.R_UserInfo_ActionInfo.ToList();
             //循环遍历删除所有的用户的权限信息
-            for (int i = 0; i < actionList.Count; i++)
-            {
-                _dbSession.R_UserInfo_ActionInfoRepository.DeleteEntities(actionList[i]);
-            }
-            _dbSession.SaveChanges();
+            //for (int i = 0; i < actionList.Count; i++)
+            //{
+            //    _dbSession.R_UserInfo_ActionInfoRepository.DeleteEntities(actionList[i]);
+            //}
+            //_dbSession.SaveChanges();
+            _dbSession.R_UserInfo_ActionInfoRepository.Delete(actionList);
             //将所有的新的数据在此的加入到表中
-            foreach (var actionID in ActionIDS)
+            actionList = ActionIDS.Select(actionId => new R_UserInfo_ActionInfo()
             {
-                R_UserInfo_ActionInfo rUserInfoActionInfo = new R_UserInfo_ActionInfo();
-                rUserInfoActionInfo.UserInfoID = userID;
-                rUserInfoActionInfo.ActionInfoID = actionID;
-                rUserInfoActionInfo.HasPermation = true;
-                _dbSession.R_UserInfo_ActionInfoRepository.AddEntities(rUserInfoActionInfo);
-            }
-            _dbSession.SaveChanges();
-            return true;
+                UserInfoID = userID, ActionInfoID = actionId, HasPermation = true,
+            }).ToList();
+            return _dbSession.R_UserInfo_ActionInfoRepository.Add(actionList) > 0;
         }
 
         /// <summary>
@@ -189,24 +186,20 @@ namespace CRM.BLL
             }
             //根据用户信息得到权限表的信息显示出来
             var actionInfo = currentUser.R_UserInfo_ActionInfo.ToList();
+            _dbSession.R_UserInfo_ActionInfoRepository.Delete(actionInfo);
 
-            //循环遍历删除所有的信息
-            for (int i = 0; i < actionInfo.Count; i++)
-            {
-                _dbSession.R_UserInfo_ActionInfoRepository.DeleteEntities(actionInfo[i]);
-            }
-            _dbSession.SaveChanges();
             //然后将选择的数据在添加到信息中
+            actionInfo = new List<R_UserInfo_ActionInfo>();
             foreach (var actionID in ListActionIDs)
             {
-                R_UserInfo_ActionInfo userActionInfo = new R_UserInfo_ActionInfo();
-                userActionInfo.UserInfoID = userID;
-                userActionInfo.ActionInfoID = actionID;
-                userActionInfo.HasPermation = true;
-                _dbSession.R_UserInfo_ActionInfoRepository.AddEntities(userActionInfo);
+                actionInfo.Add(new R_UserInfo_ActionInfo()
+                {
+                    UserInfoID = userID,
+                    ActionInfoID = actionID,
+                    HasPermation = true
+                });
             }
-            _dbSession.SaveChanges();
-            return true;
+            return _dbSession.R_UserInfo_ActionInfoRepository.Add(actionInfo) > 0;
         }
 
         /// <summary>

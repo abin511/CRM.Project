@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -24,32 +25,55 @@ namespace CRM.DAL
         public DbContext Db;
 
         //添加
-        public T AddEntities(T entity)
+        public int Add(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
-            //Db.SaveChanges();
-            return entity;
+            return Db.SaveChanges();
         }
-
+        public int Add(List<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Db.Set<T>().Attach(entity);
+                Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
+            }
+            return Db.SaveChanges();
+        }
         //修改
-        public bool UpdateEntities(T entity)
+        public int Update(T entity)
         {
             Db.Set<T>().Attach(entity);
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
-            //Db.Entry<T>(entity).State= EntityState.Unchanged;
-            //return Db.SaveChanges() > 0;
-            return true;
+            return Db.SaveChanges();
         }
-        
-        //修改
-        public bool DeleteEntities(T entity)
+        public int Update(List<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Db.Set<T>().Attach(entity);
+                Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+            }
+            return Db.SaveChanges();
+        }
+        //删除
+        public int Delete(T entity)
         {
             Db.Set<T>().Attach(entity);
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
-            //return Db.SaveChanges() > 0;
-            return true;
+            return Db.SaveChanges();
+            //return true;
         }
-
+        //删除
+        public int Delete(List<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Db.Set<T>().Attach(entity);
+                Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+            }
+            return Db.SaveChanges();
+        }
+        
         //查询
         public IQueryable<T> LoadEntities(Func<T, bool> wherelambda)
         {

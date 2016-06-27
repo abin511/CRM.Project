@@ -60,7 +60,7 @@ namespace CRM.WebManage.Controllers
             //实现对用户的添加信息
             role.DelFlag = (short)DelFlagEnum.Normal;
             role.SubTime = DateTime.Now;
-            _roleService.AddEntities(role);
+            _roleService.Add(role);
             return Content("OK");
         }
 
@@ -89,7 +89,7 @@ namespace CRM.WebManage.Controllers
             //查询出实体对象然后修改
             EditRole.RoleName = roleInfo.RoleName;
             EditRole.RoleType = roleInfo.RoleType;
-            _roleService.UpdateEntities(EditRole);
+            _roleService.Update(EditRole);
             return Content("OK");
         }
 

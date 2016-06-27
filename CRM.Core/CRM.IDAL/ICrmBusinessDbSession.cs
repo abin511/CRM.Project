@@ -1,9 +1,8 @@
 ﻿ 
 namespace CRM.IDAL
 {
-    public partial interface ICrmBusinessDbSession
+    public partial interface IDbSession
     {
-		int SaveChanges();
 	  
 		IUserAccountRepository UserAccountRepository { get; }
 	  

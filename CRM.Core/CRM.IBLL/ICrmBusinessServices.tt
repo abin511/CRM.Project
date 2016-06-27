@@ -15,19 +15,23 @@ EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
 string namespaceName = code.VsNamespaceSuggestion();
 
 EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
 #>
-using CRM.IDAL;
-namespace CRM.DAL
+using CRM.Model;
+
+namespace CRM.IBLL
 {
-    public partial class DbSession:IDbSession
+<#
+// Emit Entity Types
+
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+    //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
+    //BeginNamespace(namespaceName, code);    
+#>	
+	public partial interface I<#=entity.Name#>Service:IBaseService<<#=entity.Name#>>
     {   
-	<#
-	foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
-	{
-		//fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
-		//BeginNamespace(namespaceName, code);    
-	#>	
-		public I<#=entity.Name#>Repository <#=entity.Name#>Repository { get { return new <#=entity.Name#>Repository(); } }
-	<#}#>
-	}
+    }
+<#}#>
+	
 }

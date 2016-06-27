@@ -36,11 +36,8 @@ namespace CRM.BLL
         /// <returns></returns>
         public int DeleteSetActionGroupInfo(List<int> list)
         {
-            foreach (var ID in list)
-            {
-                _dbSession.ActionGroupRepository.DeleteEntities(new ActionGroup { ID = ID });
-            }
-            return _dbSession.SaveChanges();
+            var entities = list.Select(m => new ActionGroup { ID = m }).ToList();
+            return  _dbSession.ActionGroupRepository.Delete(entities);
         }
 
         /// <summary>
@@ -69,7 +66,7 @@ namespace CRM.BLL
                 //实现添加
                 ActionGroupInfoShow.Role.Add(RoleInfo);
             }
-            return _dbSession.SaveChanges() > 0;
+            return true;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace CRM.WebManage.Controllers
         public ActionResult AddActionInfo(ActionInfo actioninfo)
         {
             actioninfo.SubTime = DateTime.Now;
-            _actioninfoService.AddEntities(actioninfo);
+            _actioninfoService.Add(actioninfo);
             return Content("OK");
         }
 
@@ -95,7 +95,7 @@ namespace CRM.WebManage.Controllers
             EditActionInfo.RequestUrl = actionInfo.RequestUrl;
             EditActionInfo.ActionType = actionInfo.ActionType;
             //进行修改信息
-            _actioninfoService.UpdateEntities(EditActionInfo);
+            _actioninfoService.Update(EditActionInfo);
             return Content("OK");
         }
 

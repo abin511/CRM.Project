@@ -22,11 +22,8 @@ namespace CRM.BLL
         //实现删除用户的信息
         public int DeleteUserRoleInfo(List<int> deleteIDList)
         {
-            foreach (var ID in deleteIDList)
-            {
-                _dbSession.RoleRepository.DeleteEntities(new Role { ID = ID });
-            }
-            return _dbSession.SaveChanges();
+            var entities = deleteIDList.Select(m => new Role { ID = m }).ToList();
+            return _dbSession.RoleRepository.Delete(entities);
         }
 
         /// <summary>

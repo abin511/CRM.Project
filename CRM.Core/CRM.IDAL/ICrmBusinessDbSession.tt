@@ -19,9 +19,8 @@ EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileMana
 #>
 namespace CRM.IDAL
 {
-    public partial interface ICrmBusinessDbSession
+    public partial interface IDbSession
     {
-		int SaveChanges();
 <#
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {

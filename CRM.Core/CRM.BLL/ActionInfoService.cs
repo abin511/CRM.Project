@@ -14,11 +14,8 @@ namespace CRM.BLL
         /// <returns></returns>
         public int DeleteActionInfo(List<int> ActionInfoID)
         {
-            foreach (var ID in ActionInfoID)
-            {
-                _dbSession.ActionInfoRepository.DeleteEntities(new ActionInfo { ID = ID });
-            }
-            return _dbSession.SaveChanges();
+            var entities = ActionInfoID.Select(m => new ActionInfo { ID = m }).ToList();
+            return _dbSession.ActionInfoRepository.Delete(entities);
         }
 
         /// <summary>
@@ -75,7 +72,8 @@ namespace CRM.BLL
                 currrentActionInfo.Role.Add(currentRole);
             }
             //保存设置的角色信息
-            return _dbSession.SaveChanges() > 0;
+            return true;
+            //return _dbSession.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -103,7 +101,8 @@ namespace CRM.BLL
                 currentActionInfo.ActionGroup.Add(currentAction);
             }
             //保存设置的菜单项信息
-            return _dbSession.SaveChanges() > 0;
+            //return _dbSession.SaveChanges() > 0;
+            return true;
         }
     }
 }

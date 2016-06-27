@@ -43,6 +43,11 @@
     <Compile Include="IActionGroupService.cs" />
     <Compile Include="IActionInfoService.cs" />
     <Compile Include="IBaseService.cs" />
+    <Compile Include="ICrmBusinessServices.cs">
+      <DependentUpon>ICrmBusinessServices.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="IRoleService.cs" />
     <Compile Include="ICrmManageServices.cs">
       <DependentUpon>ICrmManageServices.tt</DependentUpon>
@@ -62,6 +67,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ICrmBusinessServices.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ICrmBusinessServices.cs</LastGenOutput>
+    </Content>
     <Content Include="ICrmManageServices.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ICrmManageServices.cs</LastGenOutput>

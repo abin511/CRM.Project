@@ -14,7 +14,6 @@ namespace CRM.WebManage.Controllers
         //实例化需要的对象
         IUserInfoService _userInfoService = new UserInfoService();
         IRoleService _roleService = new RoleService();
-        IR_UserInfo_RoleService _userInfoRoleService = new R_UserInfo_RoleService();
         IR_UserInfo_ActionInfoService _userActionInfoService = new R_UserInfo_ActionInfoService();
         IActionInfoService _actionInfo = new ActionInfoService();
 
@@ -22,23 +21,15 @@ namespace CRM.WebManage.Controllers
         {
             return View();
         }
-
         /// <summary>
         /// 得到用户的所有信息
         /// </summary>
         /// <returns></returns>
         public ActionResult GetAllUserInfos()
         {
-            //json数据：{total:"",row:""}
-            //
-            //分页的数据
-            //
-
             int pageIndex = Request["page"] == null ? 1 : int.Parse(Request["page"]);
             int pageSize = Request["rows"] == null ? 10 : int.Parse(Request["rows"]);
 
-
-            ////SearchName,SearchMail
             string searchName = Request["SearchName"];
             string searchMail = Request["SearchMail"];
 
@@ -74,7 +65,7 @@ namespace CRM.WebManage.Controllers
             //在这里需要用到枚举类型，不要写0
             userinfo.DelFlag = (short)DelFlagEnum.Normal;
 
-            _userInfoService.AddEntities(userinfo);
+            _userInfoService.Add(userinfo);
             return Content("OK");
 
         }
@@ -136,14 +127,10 @@ namespace CRM.WebManage.Controllers
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public ActionResult GetBindDetails(int ID)
+        public JsonResult GetBindDetails(int ID)
         {
-            var BindIDForUpdateTextBox = _userInfoService.LoadEntities(u => u.ID == ID).FirstOrDefault();
-
-            //JavaScriptSerializer JavaScriptSerializer = new JavaScriptSerializer();
-            //var Details = JavaScriptSerializer.Serialize(BindIDForUpdateTextBox);
-            //return Content(Details);
-            return Json(BindIDForUpdateTextBox, JsonRequestBehavior.AllowGet);
+            var userInfo = _userInfoService.LoadEntities(u => u.ID == ID).FirstOrDefault();
+            return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -161,7 +148,7 @@ namespace CRM.WebManage.Controllers
             EditUserInfo.Pwd = userInfo.Pwd;
             EditUserInfo.Mail = userInfo.Mail;
             EditUserInfo.Phone = userInfo.Phone;
-            _userInfoService.UpdateEntities(userInfo);
+            _userInfoService.Update(userInfo);
             return Content("OK");
         }
 
@@ -374,7 +361,7 @@ namespace CRM.WebManage.Controllers
         {
             R_UserInfo_ActionInfo userActionInfo = new R_UserInfo_ActionInfo();
             userActionInfo.ID = ID;
-            _userActionInfoService.DeleteEntities(userActionInfo);
+            _userActionInfoService.Delete(userActionInfo);
             return Content("OK");
         }
     }
