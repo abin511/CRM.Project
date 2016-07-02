@@ -16,9 +16,9 @@ namespace CRM.Model
     {
         public ActionGroup()
         {
-            this.ActionInfo = new HashSet<ActionInfo>();
-            this.UserInfo = new HashSet<UserInfo>();
             this.Role = new HashSet<Role>();
+            this.ActionInfo = new HashSet<ActionInfo>();
+            this.AdminInfo = new HashSet<AdminInfo>();
         }
     
         public int ID { get; set; }
@@ -26,8 +26,8 @@ namespace CRM.Model
         public short DelFlag { get; set; }
         public short GroupType { get; set; }
     
-        public virtual ICollection<ActionInfo> ActionInfo { get; set; }
-        public virtual ICollection<UserInfo> UserInfo { get; set; }
         public virtual ICollection<Role> Role { get; set; }
+        public virtual ICollection<ActionInfo> ActionInfo { get; set; }
+        public virtual ICollection<AdminInfo> AdminInfo { get; set; }
     }
 }

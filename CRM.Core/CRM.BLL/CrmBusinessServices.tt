@@ -17,25 +17,24 @@ string namespaceName = code.VsNamespaceSuggestion();
 EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
 
 #>
-
 using CRM.Model;
+using CRM.IBLL;
 namespace CRM.BLL
 {
+	//T4模板自动生成，请勿编辑代码
 <#
 // Emit Entity Types
-
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {
     //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
     //BeginNamespace(namespaceName, code);    
 #>	
-	public partial class <#=entity.Name#>Service:BaseCrmManageService<<#=entity.Name#>>,IBLL.I<#=entity.Name#>Service	
+	public partial class <#=entity.Name#>Service:BaseCrmBusinessServices<<#=entity.Name#>>,I<#=entity.Name#>Service	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.<#=entity.Name#>Repository;
+            CurrentRepository = DbSession.<#=entity.Name#>Repository;
         }  
     }
 <#}#>
-	
 }

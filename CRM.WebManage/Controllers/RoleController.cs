@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-
 using CRM.BLL;
 using CRM.IBLL;
 using CRM.Model;
@@ -11,7 +10,7 @@ namespace CRM.WebManage.Controllers
 {
     public class RoleController : BaseController
     {
-        IRoleService _roleService = new RoleService();
+        readonly IRoleService _roleService = new RoleService();
 
         public ActionResult Index()
         {
@@ -29,21 +28,21 @@ namespace CRM.WebManage.Controllers
             int pageSize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 
             //获取从前台传递过来的需要多条件模糊查询的数据
-            string RoleName = Request["RoleName"];
-            string RoleType = Request["RoleType"];
+            string roleName = Request["RoleName"];
+            string roleType = Request["RoleType"];
 
             //定义对象，得到所有的参数
             GetModelQuery roleInfo = new GetModelQuery();
             roleInfo.pageIndex = pageIndex;
             roleInfo.pageSize = pageSize;
             roleInfo.total = 0;
-            roleInfo.RoleName = RoleName;
-            roleInfo.RoleType = RoleType;
+            roleInfo.RoleName = roleName;
+            roleInfo.RoleType = roleType;
 
             //获取所有的总数输入
             var data = from n in _roleService.LoadRoleInfo(roleInfo)
                        select new { n.ID, n.DelFlag, n.RoleName, n.RoleType, n.SubTime };
-            //var data = _roleService.LoadPagerEntities(pageSize, pageIndex, out total, c => true, true, d => d.ID);
+            //var data = _roleService.List(pageSize, pageIndex, out total, c => true, true, d => d.id);
             var value = data.ToList();
             var jsonResult = new { total = roleInfo.total, rows = value };
 
@@ -60,20 +59,24 @@ namespace CRM.WebManage.Controllers
             //实现对用户的添加信息
             role.DelFlag = (short)DelFlagEnum.Normal;
             role.SubTime = DateTime.Now;
-            _roleService.Add(role);
-            return Content("OK");
+            var result = _roleService.Add(role);
+            if (result.Code == ResultEnum.Success && result.Data > 0)
+            {
+                return Content("OK");
+            }
+            return Content(result.Msg);
         }
 
         /// <summary>
         /// 实现对用户角色的绑定信息
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult BindUserRoleInfo(int ID)
+        public ActionResult BindUserRoleInfo(int id)
         {
-            var BindUserRoleInfoJson = _roleService.LoadEntities(c => c.ID == ID).FirstOrDefault();
+            var bindUserRoleInfoJson = _roleService.Get(c => c.ID == id).FirstOrDefault();
 
-            return Json(BindUserRoleInfoJson, JsonRequestBehavior.AllowGet);
+            return Json(bindUserRoleInfoJson, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -84,44 +87,42 @@ namespace CRM.WebManage.Controllers
         public ActionResult UpdateUserRoleInfo(Role roleInfo)
         {
             //查询出Role实体对象
-            var EditRole = _roleService.LoadEntities(c => c.ID == roleInfo.ID).FirstOrDefault();
+            var editRole = _roleService.Get(c => c.ID == roleInfo.ID).FirstOrDefault();
 
             //查询出实体对象然后修改
-            EditRole.RoleName = roleInfo.RoleName;
-            EditRole.RoleType = roleInfo.RoleType;
-            _roleService.Update(EditRole);
-            return Content("OK");
+            editRole.RoleName = roleInfo.RoleName;
+            editRole.RoleType = roleInfo.RoleType;
+            var result = _roleService.Update(editRole);
+            if (result.Code == ResultEnum.Success && result.Data > 0)
+            {
+                return Content("OK");
+            }
+            return Content(result.Msg);
         }
 
         /// <summary>
         /// 删除用户角色信息
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult DeleteUserRoleInfo(string ID)
+        public ActionResult DeleteUserRoleInfo(string id)
         {
-            if (string.IsNullOrEmpty(ID))
+            if (string.IsNullOrEmpty(id))
             {
                 return Content("请选择您要删除的数据");
             }
 
             //截取传递过来的字符串显示成数组形式
-            var deleteID = ID.Split(',');
+            var deleteId = id.Split(',');
 
             //定义数组存放删除的ID
-            List<int> deleteIDList = new List<int>();
-
-            foreach (var dID in deleteID)
-            {
-                deleteIDList.Add(Convert.ToInt32(dID));
-            }
-
-            if (_roleService.DeleteUserRoleInfo(deleteIDList)>0)
+            List<int> deleteIdList = deleteId.Select(m => Convert.ToInt32(m)).ToList();
+            var result = _roleService.DeleteUserRoleInfo(deleteIdList);
+            if (result.Code == ResultEnum.Success && result.Data > 0)
             {
                 return Content("OK");
             }
-            return Content("删除失败，请您检查");
+            return Content(result.Msg);
         }
-
     }
 }

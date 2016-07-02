@@ -1,16 +1,17 @@
 ﻿using System.Web.Mvc;
 using CRM.BLL;
+using CRM.IBLL;
 using CRM.Model;
 
 namespace CRM.WebManage.Controllers
 {
     public class HomeController : BaseController
     {
-        IBLL.IUserInfoService _userInfoService = new UserInfoService();
+        readonly IAdminInfoService _adminInfoService = new AdminInfoService();
 
         public ActionResult Index()
         {
-            UserInfo uInfo = Session["UserInfo"] as UserInfo;
+            AdminInfo uInfo = Session["AdminInfo"] as AdminInfo;
             if (uInfo != null)
             {
                 ViewBag.UName = uInfo.UName;
@@ -24,7 +25,7 @@ namespace CRM.WebManage.Controllers
         /// <returns></returns>
         public ActionResult LoadMenuData()
         {
-            var data = _userInfoService.LoadMenuData(CurrentUserInfo.ID);
+            var data = _adminInfoService.LoadMenuData(CurrentUserInfo.ID);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
     }

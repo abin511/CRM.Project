@@ -16,11 +16,9 @@ namespace CRM.Model
     {
         public Role()
         {
-            this.RoleType = 0;
-            this.DelFlag = 0;
-            this.R_UserInfo_Role = new HashSet<R_UserInfo_Role>();
-            this.ActionInfo = new HashSet<ActionInfo>();
+            this.R_AdminInfo_Role = new HashSet<R_AdminInfo_Role>();
             this.ActionGroup = new HashSet<ActionGroup>();
+            this.ActionInfo = new HashSet<ActionInfo>();
         }
     
         public int ID { get; set; }
@@ -29,8 +27,8 @@ namespace CRM.Model
         public short DelFlag { get; set; }
         public System.DateTime SubTime { get; set; }
     
-        public virtual ICollection<R_UserInfo_Role> R_UserInfo_Role { get; set; }
-        public virtual ICollection<ActionInfo> ActionInfo { get; set; }
+        public virtual ICollection<R_AdminInfo_Role> R_AdminInfo_Role { get; set; }
         public virtual ICollection<ActionGroup> ActionGroup { get; set; }
+        public virtual ICollection<ActionInfo> ActionInfo { get; set; }
     }
 }

@@ -23,8 +23,8 @@ namespace CRM.IDAL
         //修改
         int Delete(List<T> entities);
         //查询
-        IQueryable<T> LoadEntities(Func<T, bool> wherelambda);
+        IQueryable<T> Get(Func<T, bool> wherelambda);
         //分页
-        IQueryable<T> LoadPagerEntities<S>(int pageSize, int pageIndex,out int total, Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda);
+        IQueryable<T> List<S>(int pageSize, int pageIndex,out int total, Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda);
     }
 }

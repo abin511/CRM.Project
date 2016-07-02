@@ -1,39 +1,39 @@
 ﻿ 
-
 using CRM.Model;
+using CRM.IBLL;
 namespace CRM.BLL
 {
+	//T4模板自动生成，请勿编辑代码
 	
-	public partial class UserAccountService:BaseCrmManageService<UserAccount>,IBLL.IUserAccountService	
+	public partial class UserAccountService:BaseCrmBusinessServices<UserAccount>,IUserAccountService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.UserAccountRepository;
+            CurrentRepository = DbSession.UserAccountRepository;
         }  
     }
 	
-	public partial class UserBaseInfoService:BaseCrmManageService<UserBaseInfo>,IBLL.IUserBaseInfoService	
+	public partial class UserBaseInfoService:BaseCrmBusinessServices<UserBaseInfo>,IUserBaseInfoService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.UserBaseInfoRepository;
+            CurrentRepository = DbSession.UserBaseInfoRepository;
         }  
     }
 	
-	public partial class UserLoginInSideService:BaseCrmManageService<UserLoginInSide>,IBLL.IUserLoginInSideService	
+	public partial class UserLoginInSideService:BaseCrmBusinessServices<UserLoginInSide>,IUserLoginInSideService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.UserLoginInSideRepository;
+            CurrentRepository = DbSession.UserLoginInSideRepository;
         }  
     }
 	
-	public partial class UserLoginOutSideService:BaseCrmManageService<UserLoginOutSide>,IBLL.IUserLoginOutSideService	
+	public partial class UserLoginOutSideService:BaseCrmBusinessServices<UserLoginOutSide>,IUserLoginOutSideService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.UserLoginOutSideRepository;
+            CurrentRepository = DbSession.UserLoginOutSideRepository;
         }  
     }
-	
 }

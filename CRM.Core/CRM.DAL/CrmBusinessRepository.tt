@@ -21,13 +21,14 @@ using CRM.IDAL;
 using CRM.Model;
 namespace CRM.DAL
 { 
+	//T4模板自动生成，请勿编辑代码
 <#
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {
     //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
     //BeginNamespace(namespaceName, code);    
 #>	
-	public partial class <#=entity.Name#>Repository :CrmManageRepository<<#=entity.Name#>>,I<#=entity.Name#>Repository
+	public partial class <#=entity.Name#>Repository :CrmBusinessRepository<<#=entity.Name#>>,I<#=entity.Name#>Repository
     {
     }
 <#}#>

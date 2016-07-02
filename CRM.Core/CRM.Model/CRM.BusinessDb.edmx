@@ -210,6 +210,13 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram DiagramId="eaa83888a55a4bce9f17bb506316353e" Name="Diagram1">
+        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.UserBaseInfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="6.625" PointY="0.75" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>

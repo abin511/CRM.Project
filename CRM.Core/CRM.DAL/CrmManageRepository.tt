@@ -20,7 +20,8 @@ EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileMana
 using CRM.IDAL;
 using CRM.Model;
 namespace CRM.DAL
-{ 
+{
+	//T4模板自动生成，请勿编辑代码
 <#
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
 {

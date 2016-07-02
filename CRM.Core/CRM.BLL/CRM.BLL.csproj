@@ -40,22 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionGroupService.cs" />
-    <Compile Include="ActionInfoService.cs" />
-    <Compile Include="BaseService.cs" />
+    <Compile Include="CrmBusinessServices\BaseCrmBusinessServices.cs" />
+    <Compile Include="CrmBusinessServices\UserBaseInfoService.cs" />
+    <Compile Include="CrmBusinessServices\UserLoginInSideService.cs" />
+    <Compile Include="CrmBusinessServices\UserLoginOutSideService.cs" />
+    <Compile Include="CrmManageServices\ActionGroupService.cs" />
+    <Compile Include="CrmManageServices\ActionInfoService.cs" />
+    <Compile Include="CrmManageServices\AdminInfoService.cs" />
     <Compile Include="CrmBusinessServices.cs">
       <DependentUpon>CrmBusinessServices.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="CrmManageServices\BaseCrmManageServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoleService.cs" />
+    <Compile Include="CrmManageServices\RoleService.cs" />
     <Compile Include="CrmManageServices.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmManageServices.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -92,6 +96,7 @@
       <LastGenOutput>CrmManageServices.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,15 +9,15 @@ namespace CRM.WebManage.Controllers
 {
     public class LoginController : Controller
     {
-        //实例化UserInfo接口的对象
-        IUserInfoService _iUserInfoService = new UserInfoService();
+        //实例化AdminInfo接口的对象
+        readonly IAdminInfoService _adminInfoService = new AdminInfoService();
 
 
         public ActionResult Index()
         {
             //获取到Cookie中的值传递给前台显示
-            var UName = Request.Cookies["UName"] == null ? "" : Request.Cookies["UName"].Value;
-            ViewBag.UName = UName;
+            var uName = Request.Cookies["UName"] == null ? "" : Request.Cookies["UName"].Value;
+            ViewBag.UName = uName;
             return View();
         }
         public ActionResult Out()
@@ -28,18 +28,17 @@ namespace CRM.WebManage.Controllers
         /// <summary>
         /// 处理登录的信息
         /// </summary>
-        /// <param name="userInfo"></param>
-        /// <param name="Code"></param>
         /// <returns></returns>
-        public ActionResult UserLogin(UserInfo userInfo, string Code)
+        public ActionResult UserLogin(AdminInfo adminInfo, string code)
         {
+            Common.LogHelper.Debug("yonghulail");
             //如果有用户名的话讲用户名存放到Cookie中
-            if (userInfo.UName != null)
+            if (adminInfo.UName != null)
             {
                 var httpCookie = Response.Cookies["UName"];
                 if (httpCookie != null)
                 {
-                    httpCookie.Value = userInfo.UName;
+                    httpCookie.Value = adminInfo.UName;
                     httpCookie.Expires = DateTime.Now.AddDays(7);
                 }
             }
@@ -49,17 +48,17 @@ namespace CRM.WebManage.Controllers
             //将验证码去掉，避免暴力破解
             Session["ValidateCode"] = new Guid();  
 
-            if (sessionCode != Code)
+            if (sessionCode != code)
             {
                 return Content("请输入正确的验证码");
             }
 
             //调用BLL检验用户名密码是否正确
-            UserInfo uinfo=_iUserInfoService.UserLogin(userInfo);
+            AdminInfo uinfo =_adminInfoService.UserLogin(adminInfo);
             if (uinfo != null)
             {
                 //提供Session接口方便后面判断用户登录
-                Session["UserInfo"] = uinfo;
+                Session["AdminInfo"] = uinfo;
                 return Content("OK");
             }
             else
@@ -71,7 +70,6 @@ namespace CRM.WebManage.Controllers
         /// <summary>
         /// 验证码的校验
         /// </summary>
-        /// <param name="context"></param>
         /// <returns></returns>
         public ActionResult CheckCode()
         {

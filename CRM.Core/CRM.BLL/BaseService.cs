@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using CRM.DAL;
 using CRM.IDAL;
+using CRM.Model;
 
 namespace CRM.BLL
 {
-    public abstract class BaseCrmManageService<T> where T : class,new()
+    public abstract class BaseService<T> where T : class,new()
     {
+        public IDbSession DbSession = DbSessionFactory.GetCrmBusinessDbSession();
         //在调用这个方法的时候必须给他赋值
         public IBaseRepository<T> CurrentRepository { get; set; }
-        //为了职责单一的原则，将获取线程内唯一实例的DbSession的逻辑放到工厂里面去了
-        public IDbSession _dbSession = DbSessionFactory.GetDbSession();
-
         //基类的构造函数 构造函数里面调用了此设置当前仓储的抽象方法
-        public BaseCrmManageService()
+        protected BaseService()
         {
             SetCurrentRepository();
         }
@@ -22,40 +21,70 @@ namespace CRM.BLL
         public abstract void SetCurrentRepository();
 
         //添加
-        public int Add(T entity)
+        public Result<int> Add(T entity)
         {
-            return CurrentRepository.Add(entity);
+            var result = new Result<int>
+            {
+                Data = CurrentRepository.Add(entity),
+                Code = ResultEnum.Success
+            };
+            return result;
         }
-        public int Add(List<T> entities)
+        public Result<int> Add(List<T> entities)
         {
-            return CurrentRepository.Add(entities);
+            var result = new Result<int>
+            {
+                Data = CurrentRepository.Add(entities),
+                Code = ResultEnum.Success
+            };
+            return result;
         }
         //修改
-        public int Update(T entity)
+        public Result<int> Update(T entity)
         {
-            return CurrentRepository.Update(entity);
+            var result = new Result<int>
+            {
+                Data = CurrentRepository.Update(entity),
+                Code = ResultEnum.Success
+            };
+            return result;
         }
-        public int Update(List<T> entities)
+        public Result<int> Update(List<T> entities)
         {
-            return CurrentRepository.Update(entities);
+            var result = new Result<int>
+            {
+                Data = CurrentRepository.Update(entities),
+                Code = ResultEnum.Success
+            };
+            return result;
         }
-        public int Delete(T entity)
+        public Result<int> Delete(T entity)
         {
-            return CurrentRepository.Delete(entity);
+            var result = new Result<int>
+            {
+                Data = CurrentRepository.Delete(entity),
+                Code = ResultEnum.Success
+            };
+            return result;
         }
-        public int Delete(List<T> entities)
+        public Result<int> Delete(List<T> entities)
         {
-            return CurrentRepository.Delete(entities);
+            var result = new Result<int>
+            {
+                Data = CurrentRepository.Delete(entities),
+                Code = ResultEnum.Success
+            };
+            return result;
         }
         //查询
-        public IQueryable<T> LoadEntities(Func<T, bool> wherelambda)
+        public IQueryable<T> Get(Func<T, bool> wherelambda)
         {
-            return CurrentRepository.LoadEntities(wherelambda);
+            return CurrentRepository.Get(wherelambda);
         }
         //分页
-        public IQueryable<T> LoadPagerEntities<S>(int pageSize, int pageIndex,out int total, Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
+        public IQueryable<T> List<S>(int pageSize, int pageIndex,out int total, Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
         {
-            return CurrentRepository.LoadPagerEntities(pageSize, pageIndex, out total, whereLambda, isAsc, orderByLambda);
+            return CurrentRepository.List(pageSize, pageIndex, out total, whereLambda, isAsc, orderByLambda);
         }
     }
 }

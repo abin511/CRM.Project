@@ -46,6 +46,10 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -58,7 +62,6 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -159,13 +162,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\UserInfo\AddUserActionInfo.cshtml" />
-    <Content Include="Views\UserInfo\Index.cshtml" />
-    <Content Include="Views\UserInfo\Regist.cshtml" />
-    <Content Include="Views\UserInfo\SetRole.cshtml" />
-    <Content Include="Views\UserInfo\SetUserActionInfo.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\AdminInfo\AddUserActionInfo.cshtml" />
+    <Content Include="Views\AdminInfo\Index.cshtml" />
+    <Content Include="Views\AdminInfo\Regist.cshtml" />
+    <Content Include="Views\AdminInfo\SetRole.cshtml" />
+    <Content Include="Views\AdminInfo\SetUserActionInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -776,7 +779,9 @@
     <Content Include="Images\Logo .png" />
     <Content Include="Images\logo.gif" />
     <Content Include="Images\psb.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -789,7 +794,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\AdminInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -799,6 +804,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UserInfo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRM.Core\CRM.BLL\CRM.BLL.csproj">

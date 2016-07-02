@@ -1,54 +1,55 @@
 ﻿ 
-
 using CRM.Model;
+using CRM.IBLL;
 namespace CRM.BLL
 {
+	//T4模板自动生成，请勿编辑代码
 	
-	public partial class ActionGroupService:BaseCrmManageService<ActionGroup>,IBLL.IActionGroupService	
+	public partial class ActionGroupService:BaseCrmManageServices<ActionGroup>,IActionGroupService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.ActionGroupRepository;
+            CurrentRepository = DbSession.ActionGroupRepository;
         }  
     }
 	
-	public partial class ActionInfoService:BaseCrmManageService<ActionInfo>,IBLL.IActionInfoService	
+	public partial class ActionInfoService:BaseCrmManageServices<ActionInfo>,IActionInfoService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.ActionInfoRepository;
+            CurrentRepository = DbSession.ActionInfoRepository;
         }  
     }
 	
-	public partial class R_UserInfo_ActionInfoService:BaseCrmManageService<R_UserInfo_ActionInfo>,IBLL.IR_UserInfo_ActionInfoService	
+	public partial class AdminInfoService:BaseCrmManageServices<AdminInfo>,IAdminInfoService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.R_UserInfo_ActionInfoRepository;
+            CurrentRepository = DbSession.AdminInfoRepository;
         }  
     }
 	
-	public partial class R_UserInfo_RoleService:BaseCrmManageService<R_UserInfo_Role>,IBLL.IR_UserInfo_RoleService	
+	public partial class R_AdminInfo_ActionInfoService:BaseCrmManageServices<R_AdminInfo_ActionInfo>,IR_AdminInfo_ActionInfoService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.R_UserInfo_RoleRepository;
+            CurrentRepository = DbSession.R_AdminInfo_ActionInfoRepository;
         }  
     }
 	
-	public partial class RoleService:BaseCrmManageService<Role>,IBLL.IRoleService	
+	public partial class R_AdminInfo_RoleService:BaseCrmManageServices<R_AdminInfo_Role>,IR_AdminInfo_RoleService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.RoleRepository;
+            CurrentRepository = DbSession.R_AdminInfo_RoleRepository;
         }  
     }
 	
-	public partial class UserInfoService:BaseCrmManageService<UserInfo>,IBLL.IUserInfoService	
+	public partial class RoleService:BaseCrmManageServices<Role>,IRoleService	
     { 
 		public override void SetCurrentRepository()
         {
-            CurrentRepository = _dbSession.UserInfoRepository;
+            CurrentRepository = DbSession.RoleRepository;
         }  
     }
 	

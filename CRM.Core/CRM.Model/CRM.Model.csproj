@@ -58,6 +58,19 @@
     <Compile Include="ActionInfo.cs">
       <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdminInfo.cs">
+      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Crm.BusinessDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Crm.BusinessDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Crm.BusinessDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="CRM.BusinessDb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,43 +91,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CRM.ManageDb.edmx</DependentUpon>
     </Compile>
-    <Compile Include="CrmManageDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrmManageDb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CrmManageDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrmManageDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Enum\ActionTypeEnum.cs" />
-    <Compile Include="Enum\DelFlagEnum.cs" />
+    <Compile Include="Enum\CommonEnum.cs" />
     <Compile Include="Role.cs">
       <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="R_UserInfo_ActionInfo.cs">
+    <Compile Include="R_AdminInfo_ActionInfo.cs">
       <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="R_UserInfo_Role.cs">
+    <Compile Include="R_AdminInfo_Role.cs">
       <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserAccount.cs">
-      <DependentUpon>CrmManageDb.tt</DependentUpon>
+      <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserBaseInfo.cs">
-      <DependentUpon>CrmManageDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserInfo.cs">
-      <DependentUpon>CRM.ManageDb.tt</DependentUpon>
+      <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLoginInSide.cs">
-      <DependentUpon>CrmManageDb.tt</DependentUpon>
+      <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLoginOutSide.cs">
-      <DependentUpon>CrmManageDb.tt</DependentUpon>
+      <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\GetModelQuery.cs" />
+    <Compile Include="ViewModel\Result.cs" />
     <Compile Include="ViewModel\MenuData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ParameterQuery.cs" />
@@ -137,6 +138,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Crm.BusinessDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Crm.BusinessDb.Context.cs</LastGenOutput>
+      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
+    </Content>
+    <Content Include="Crm.BusinessDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Crm.BusinessDb.cs</LastGenOutput>
+      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
+    </Content>
     <Content Include="CRM.ManageDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CRM.ManageDb.Context.cs</LastGenOutput>
@@ -146,16 +157,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CRM.ManageDb.cs</LastGenOutput>
       <DependentUpon>CRM.ManageDb.edmx</DependentUpon>
-    </Content>
-    <Content Include="CrmManageDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CrmManageDb.Context.cs</LastGenOutput>
-      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
-    </Content>
-    <Content Include="CrmManageDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CrmManageDb.cs</LastGenOutput>
-      <DependentUpon>CRM.BusinessDb.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

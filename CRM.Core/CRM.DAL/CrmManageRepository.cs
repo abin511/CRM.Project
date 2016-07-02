@@ -2,7 +2,8 @@
 using CRM.IDAL;
 using CRM.Model;
 namespace CRM.DAL
-{ 
+{
+	//T4模板自动生成，请勿编辑代码
 	
 	public partial class ActionGroupRepository :CrmManageRepository<ActionGroup>,IActionGroupRepository
     {
@@ -12,19 +13,19 @@ namespace CRM.DAL
     {
     }
 	
-	public partial class R_UserInfo_ActionInfoRepository :CrmManageRepository<R_UserInfo_ActionInfo>,IR_UserInfo_ActionInfoRepository
+	public partial class AdminInfoRepository :CrmManageRepository<AdminInfo>,IAdminInfoRepository
     {
     }
 	
-	public partial class R_UserInfo_RoleRepository :CrmManageRepository<R_UserInfo_Role>,IR_UserInfo_RoleRepository
+	public partial class R_AdminInfo_ActionInfoRepository :CrmManageRepository<R_AdminInfo_ActionInfo>,IR_AdminInfo_ActionInfoRepository
+    {
+    }
+	
+	public partial class R_AdminInfo_RoleRepository :CrmManageRepository<R_AdminInfo_Role>,IR_AdminInfo_RoleRepository
     {
     }
 	
 	public partial class RoleRepository :CrmManageRepository<Role>,IRoleRepository
-    {
-    }
-	
-	public partial class UserInfoRepository :CrmManageRepository<UserInfo>,IUserInfoRepository
     {
     }
 }

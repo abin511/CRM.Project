@@ -1,7 +1,8 @@
 ﻿ 
 namespace CRM.IDAL
 {
-    public partial interface IDbSession
+	//T4模板自动生成，请勿编辑代码
+    public partial interface ICrmBusinessDbSession
     {
 	  
 		IUserAccountRepository UserAccountRepository { get; }

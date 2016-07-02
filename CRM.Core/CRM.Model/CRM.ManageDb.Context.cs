@@ -25,11 +25,11 @@ namespace CRM.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<UserInfo> UserInfo { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<R_UserInfo_Role> R_UserInfo_Role { get; set; }
-        public DbSet<ActionInfo> ActionInfo { get; set; }
-        public DbSet<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
         public DbSet<ActionGroup> ActionGroup { get; set; }
+        public DbSet<ActionInfo> ActionInfo { get; set; }
+        public DbSet<AdminInfo> AdminInfo { get; set; }
+        public DbSet<R_AdminInfo_ActionInfo> R_AdminInfo_ActionInfo { get; set; }
+        public DbSet<R_AdminInfo_Role> R_AdminInfo_Role { get; set; }
+        public DbSet<Role> Role { get; set; }
     }
 }

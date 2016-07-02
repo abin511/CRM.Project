@@ -40,21 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IActionGroupService.cs" />
-    <Compile Include="IActionInfoService.cs" />
+    <Compile Include="ICrmBusinessServices\IUserBaseInfoService.cs" />
+    <Compile Include="ICrmBusinessServices\IUserLoginInSideService.cs" />
+    <Compile Include="ICrmManageServices\IActionGroupService.cs" />
+    <Compile Include="ICrmManageServices\IActionInfoService.cs" />
+    <Compile Include="ICrmBusinessServices\IUserLoginOutSideService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="ICrmBusinessServices.cs">
       <DependentUpon>ICrmBusinessServices.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="IRoleService.cs" />
+    <Compile Include="ICrmManageServices\IRoleService.cs" />
     <Compile Include="ICrmManageServices.cs">
       <DependentUpon>ICrmManageServices.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="IUserInfoService.cs" />
+    <Compile Include="ICrmManageServices\IAdminInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

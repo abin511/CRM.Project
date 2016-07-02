@@ -2,7 +2,8 @@
 using CRM.IDAL;
 namespace CRM.DAL
 {
-    public partial class DbSession:IDbSession
+	//T4模板自动生成，请勿编辑代码
+    public partial class CrmBusinessDbSession:ICrmBusinessDbSession
     {   
 		
 		public IUserAccountRepository UserAccountRepository { get { return new UserAccountRepository(); } }

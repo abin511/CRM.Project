@@ -16,11 +16,9 @@ namespace CRM.Model
     {
         public ActionInfo()
         {
-            this.RequestHttpType = "\"Get\"";
-            this.ActionType = 0;
-            this.Role = new HashSet<Role>();
-            this.R_UserInfo_ActionInfo = new HashSet<R_UserInfo_ActionInfo>();
+            this.R_AdminInfo_ActionInfo = new HashSet<R_AdminInfo_ActionInfo>();
             this.ActionGroup = new HashSet<ActionGroup>();
+            this.Role = new HashSet<Role>();
         }
     
         public int ID { get; set; }
@@ -30,8 +28,8 @@ namespace CRM.Model
         public System.DateTime SubTime { get; set; }
         public short ActionType { get; set; }
     
-        public virtual ICollection<Role> Role { get; set; }
-        public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
+        public virtual ICollection<R_AdminInfo_ActionInfo> R_AdminInfo_ActionInfo { get; set; }
         public virtual ICollection<ActionGroup> ActionGroup { get; set; }
+        public virtual ICollection<Role> Role { get; set; }
     }
 }
