@@ -22,6 +22,8 @@ namespace CRM.IDAL
         int Delete(T entity);
         //修改
         int Delete(List<T> entities);
+        //是否存在
+        bool Exists(Func<T, bool> wherelambda);
         //查询
         IQueryable<T> Get(Func<T, bool> wherelambda);
         //分页

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CRM.BusinessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CRM.BusinessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="UserAccount">
           <Key>
             <PropertyRef Name="UserId" />
@@ -21,10 +21,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginId" Type="int" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RealName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Avatar" Type="varchar" MaxLength="50" />
-          <Property Name="UserPhoto" Type="varchar" MaxLength="50" />
+          <Property Name="Avatar" Type="varchar" MaxLength="200" />
+          <Property Name="UserPhoto" Type="varchar" MaxLength="200" />
           <Property Name="Gender" Type="int" Nullable="false" />
           <Property Name="UserLevel" Type="int" Nullable="false" />
           <Property Name="Fans" Type="int" Nullable="false" />
@@ -34,10 +35,9 @@
         </EntityType>
         <EntityType Name="UserLoginInSide">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginType" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginType" Type="int" Nullable="false" />
           <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LoginPwd" Type="varchar" MaxLength="50" Nullable="false" />
@@ -48,10 +48,9 @@
         </EntityType>
         <EntityType Name="UserLoginOutSide">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginType" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginType" Type="int" Nullable="false" />
           <Property Name="OpenId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastLoginTime" Type="datetime" Nullable="false" />
@@ -64,11 +63,16 @@
           <EntitySet Name="UserLoginInSide" EntityType="Self.UserLoginInSide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLoginOutSide" EntityType="Self.UserLoginOutSide" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CRM.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CrmBusinessDbContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserAccount" EntityType="CRM.Model.UserAccount" />
+          <EntitySet Name="UserBaseInfo" EntityType="CRM.Model.UserBaseInfo" />
+          <EntitySet Name="UserLoginInSide" EntityType="CRM.Model.UserLoginInSide" />
+          <EntitySet Name="UserLoginOutSide" EntityType="CRM.Model.UserLoginOutSide" />
+        </EntityContainer>
         <EntityType Name="UserAccount">
           <Key>
             <PropertyRef Name="UserId" />
@@ -76,7 +80,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Gold" Type="Int32" Nullable="false" />
           <Property Name="Contribution" Type="Int32" Nullable="false" />
-          <Property Name="Profit" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Profit" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="InserTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -85,10 +89,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserPhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="Int32" Nullable="false" />
           <Property Name="UserLevel" Type="Int32" Nullable="false" />
           <Property Name="Fans" Type="Int32" Nullable="false" />
@@ -98,13 +103,12 @@
         </EntityType>
         <EntityType Name="UserLoginInSide">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginType" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginType" Type="Int32" Nullable="false" />
-          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoginPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoginPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LoginErrorCount" Type="Int32" Nullable="false" />
           <Property Name="LastLoginTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="InserTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -112,22 +116,15 @@
         </EntityType>
         <EntityType Name="UserLoginOutSide">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginType" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginType" Type="Int32" Nullable="false" />
-          <Property Name="OpenId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastLoginTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="InserTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityContainer Name="CrmBusinessDbContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" />
-          <EntitySet Name="UserBaseInfo" EntityType="Self.UserBaseInfo" />
-          <EntitySet Name="UserLoginInSide" EntityType="Self.UserLoginInSide" />
-          <EntitySet Name="UserLoginOutSide" EntityType="Self.UserLoginOutSide" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -137,55 +134,56 @@
           <EntitySetMapping Name="UserAccount">
             <EntityTypeMapping TypeName="CRM.Model.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Gold" ColumnName="Gold" />
-                <ScalarProperty Name="Contribution" ColumnName="Contribution" />
-                <ScalarProperty Name="Profit" ColumnName="Profit" />
-                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="Contribution" ColumnName="Contribution" />
+                <ScalarProperty Name="Gold" ColumnName="Gold" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserBaseInfo">
             <EntityTypeMapping TypeName="CRM.Model.UserBaseInfo">
               <MappingFragment StoreEntitySet="UserBaseInfo">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="RealName" ColumnName="RealName" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
-                <ScalarProperty Name="Fans" ColumnName="Fans" />
-                <ScalarProperty Name="SubScription" ColumnName="SubScription" />
-                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
+                <ScalarProperty Name="SubScription" ColumnName="SubScription" />
+                <ScalarProperty Name="Fans" ColumnName="Fans" />
+                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserLoginInSide">
             <EntityTypeMapping TypeName="CRM.Model.UserLoginInSide">
               <MappingFragment StoreEntitySet="UserLoginInSide">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginType" ColumnName="LoginType" />
-                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-                <ScalarProperty Name="LoginPwd" ColumnName="LoginPwd" />
-                <ScalarProperty Name="LoginErrorCount" ColumnName="LoginErrorCount" />
-                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
-                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="LoginErrorCount" ColumnName="LoginErrorCount" />
+                <ScalarProperty Name="LoginPwd" ColumnName="LoginPwd" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="LoginType" ColumnName="LoginType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserLoginOutSide">
             <EntityTypeMapping TypeName="CRM.Model.UserLoginOutSide">
               <MappingFragment StoreEntitySet="UserLoginOutSide">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginType" ColumnName="LoginType" />
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
-                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
-                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InserTime" ColumnName="InserTime" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="LoginType" ColumnName="LoginType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -212,10 +210,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram DiagramId="eaa83888a55a4bce9f17bb506316353e" Name="Diagram1">
-        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRM.Model.UserBaseInfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="6.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserBaseInfo" Width="1.5" PointX="4.25" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="5.875" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="2.5" PointY="0.75" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -15,6 +15,7 @@ namespace CRM.Model
     public partial class UserBaseInfo
     {
         public int ID { get; set; }
+        public int LoginId { get; set; }
         public string NickName { get; set; }
         public string RealName { get; set; }
         public string Avatar { get; set; }

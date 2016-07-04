@@ -14,7 +14,7 @@ namespace CRM.Model
     
     public partial class UserLoginInSide
     {
-        public int UserId { get; set; }
+        public int ID { get; set; }
         public int LoginType { get; set; }
         public string LoginName { get; set; }
         public string LoginPwd { get; set; }

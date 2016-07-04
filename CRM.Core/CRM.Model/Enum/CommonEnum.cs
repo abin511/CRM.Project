@@ -26,4 +26,23 @@ namespace CRM.Model
         /// </summary>
         Deleted=1
     }
+    public enum LoginTypeEnum
+    {
+        /// <summary>
+        /// 未删除
+        /// </summary>
+        Normal = 0,
+        /// <summary>
+        /// QQ
+        /// </summary>
+        Q = 1,
+        /// <summary>
+        /// 微信
+        /// </summary>
+        W = 2,
+        /// <summary>
+        /// 手机注册
+        /// </summary>
+        M = 3,
+    }
 }

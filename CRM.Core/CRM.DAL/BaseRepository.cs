@@ -79,7 +79,11 @@ namespace CRM.DAL
         {
             return this.DbContext.Set<T>().Where<T>(wherelambda).AsQueryable();
         }
-
+        //查询
+        public bool Exists(Func<T, bool> wherelambda)
+        {
+            return this.DbContext.Set<T>().Where<T>(wherelambda).Any();
+        }
         //分页
         public IQueryable<T> List<S>(int pageSize, int pageIndex, out int total,Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
         {

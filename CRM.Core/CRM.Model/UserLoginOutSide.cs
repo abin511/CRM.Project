@@ -14,7 +14,7 @@ namespace CRM.Model
     
     public partial class UserLoginOutSide
     {
-        public int UserId { get; set; }
+        public int ID { get; set; }
         public int LoginType { get; set; }
         public string OpenId { get; set; }
         public System.DateTime LastLoginTime { get; set; }

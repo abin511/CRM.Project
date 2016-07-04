@@ -1,57 +1,51 @@
 ﻿using System;
-using System.Web.Http;
+using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 using CRM.Model;
 
 namespace CRM.WebApi.Controllers.Users
 {
-    public class LoginController : ApiController
+    public class LoginController : BaseApiController
     {
-        readonly IUserBaseInfoService _userBaseInfoService = new UserBaseInfoService();
-
+        /// <summary>
+        /// 第三方用户登录
+        /// </summary>
         [HttpGet]
-        public void Login(int loginType, string openId)
+        public JsonResult Login(LoginTypeEnum loginType, string openId)
         {
             var now = DateTime.Now;
             IUserLoginOutSideService service = new UserLoginOutSideService();
-            var model = new UserLoginOutSide
-            {
-                LoginType = loginType,
-                OpenId = openId,
-                LastLoginTime = now,
-                InserTime = now,
-                UpdateTime = now
-            };
-            var exists = service.Exists(model);
-            if (!exists.Data)
-            {
-                //插入用户
-                var iRet = _userBaseInfoService.Add(new UserBaseInfo()
-                {
-                    NickName = "test",
-                    RealName = "zhang",
-                    Fans = 10,
-                    InserTime = now,
-                    UpdateTime = now
-                });
-                if (iRet.Code == ResultEnum.Success && iRet.Data > 0)
-                {
-                    model.UserId = iRet.Data;
-                    service.Add(model);
-                }
-            }
+            var result = service.Login(loginType,openId);
+            return base.Json(result);
         }
+        /// <summary>
+        /// 本站注册用户登录
+        /// </summary>
         [HttpGet]
-        public void Login(int loginType, string uName, string uPwd)
+        public JsonResult Login(LoginTypeEnum loginType, string uName, string uPwd)
         {
             IUserLoginInSideService service = new UserLoginInSideService();
-            var exists = service.Exists(new UserLoginInSide { LoginName = uName, LoginPwd = uPwd });
-            if (!exists.Data)
+            var model = new UserLoginInSide
             {
-                //插入用户
-
-            }
+                LoginType = (int)loginType, LoginName = uName, LoginPwd = uPwd
+            };
+            var result = service.Login(model);
+            return base.Json(result);
+        }
+        /// <summary>
+        /// 本站注册
+        /// </summary>
+        [HttpGet]
+        public JsonResult Register(LoginTypeEnum loginType, string uName, string uPwd,string rePwd)
+        {
+            IUserLoginInSideService service = new UserLoginInSideService();
+            var model = new UserLoginInSide
+            {
+                LoginType = (int)loginType,LoginName = uName, LoginPwd = uPwd
+            };
+            var result = service.Register(model,rePwd);
+            return base.Json(result);
         }
     }
 }

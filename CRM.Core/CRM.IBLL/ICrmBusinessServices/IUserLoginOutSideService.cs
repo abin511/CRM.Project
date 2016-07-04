@@ -8,6 +8,6 @@ namespace CRM.IBLL
         /// 第三方登录 判断是否有效
         /// </summary>
         /// <returns></returns>
-        Result<bool> Exists(UserLoginOutSide ent);
+        Result<bool> Login(LoginTypeEnum loginType, string openId);
     }
 }
