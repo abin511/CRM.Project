@@ -128,9 +128,12 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CustomerFilter.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\JsonContentNegotiator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\Users\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -151,6 +154,10 @@
     <ProjectReference Include="..\CRM.Core\CRM.BLL\CRM.BLL.csproj">
       <Project>{d2bf2d69-06d3-4ad3-a14b-bec48cbdda78}</Project>
       <Name>CRM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.Core\CRM.Common\CRM.Common.csproj">
+      <Project>{3d94bd0a-e445-4f8e-b716-bdbba6ece2a0}</Project>
+      <Name>CRM.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\CRM.Core\CRM.IBLL\CRM.IBLL.csproj">
       <Project>{477a962e-14d4-409d-900f-c69924bed88c}</Project>

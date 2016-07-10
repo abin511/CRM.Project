@@ -31,7 +31,6 @@ namespace CRM.WebManage.Controllers
         /// <returns></returns>
         public ActionResult UserLogin(AdminInfo adminInfo, string code)
         {
-            Common.LogHelper.Debug("yonghulail");
             //如果有用户名的话讲用户名存放到Cookie中
             if (adminInfo.UName != null)
             {

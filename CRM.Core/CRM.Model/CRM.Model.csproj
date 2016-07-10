@@ -119,6 +119,7 @@
     <Compile Include="ViewModel\MenuData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ParameterQuery.cs" />
+    <Compile Include="ViewModel\ViewUserData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -247,7 +247,7 @@ namespace CRM.BLL
 
             //实现过滤重复的数据，引用不同
             //默认的就是引用类型，对比的时候用的是引用类型，如果我们不想使用引用地址，而人为指定表的属性，那么可以自己写一个比较起，重写Equals和GethashCode方法就行了
-            groups.Distinct(new EntityCompare());
+            groups.Distinct(new UtilityHelper.EntityCompare());
 
             //把所有的信息封装MenuData数据传递给控制器，Json格式
             var menuData = from g in groups

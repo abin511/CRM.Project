@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
@@ -12,18 +13,26 @@ namespace CRM.WebApi.Controllers.Users
         /// 第三方用户登录
         /// </summary>
         [HttpGet]
-        public JsonResult Login(LoginTypeEnum loginType, string openId)
+        public HttpResponseMessage GetLogin(LoginTypeEnum loginType, string openId)
         {
-            var now = DateTime.Now;
             IUserLoginOutSideService service = new UserLoginOutSideService();
             var result = service.Login(loginType,openId);
+            if (result.Code == ResultEnum.Success)
+            {
+                return base.Json(new ViewUserData()
+                {
+                    token = base.GetTokenByUserId(result.Data),
+                    liveurl = "",
+                    playurl = ""
+                });
+            }
             return base.Json(result);
         }
         /// <summary>
         /// 本站注册用户登录
         /// </summary>
         [HttpGet]
-        public JsonResult Login(LoginTypeEnum loginType, string uName, string uPwd)
+        public HttpResponseMessage GetLogin(LoginTypeEnum loginType, string uName, string uPwd)
         {
             IUserLoginInSideService service = new UserLoginInSideService();
             var model = new UserLoginInSide
@@ -31,13 +40,22 @@ namespace CRM.WebApi.Controllers.Users
                 LoginType = (int)loginType, LoginName = uName, LoginPwd = uPwd
             };
             var result = service.Login(model);
+            if (result.Code == ResultEnum.Success)
+            {
+                return base.Json(new ViewUserData()
+                {
+                    token = base.GetTokenByUserId(result.Data),
+                    liveurl = "",
+                    playurl = ""
+                });
+            }
             return base.Json(result);
         }
         /// <summary>
         /// 本站注册
         /// </summary>
         [HttpGet]
-        public JsonResult Register(LoginTypeEnum loginType, string uName, string uPwd,string rePwd)
+        public HttpResponseMessage GetRegister(LoginTypeEnum loginType, string uName, string uPwd,string rePwd)
         {
             IUserLoginInSideService service = new UserLoginInSideService();
             var model = new UserLoginInSide

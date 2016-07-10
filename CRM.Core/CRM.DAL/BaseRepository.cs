@@ -27,51 +27,92 @@ namespace CRM.DAL
         //添加
         public int Add(T entity)
         {
-            this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
-            return this.DbContext.SaveChanges();
+            try
+            {
+                this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
+                return this.DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("添加数据出现异常", ex);
+            }
         }
         public int Add(List<T> entities)
         {
-            foreach (var entity in entities)
+            try
             {
-                this.DbContext.Set<T>().Attach(entity);
-                this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
+                foreach (var entity in entities)
+                {
+                    this.DbContext.Set<T>().Attach(entity);
+                    this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
+                }
+                return this.DbContext.SaveChanges();
             }
-            return this.DbContext.SaveChanges();
+            catch(Exception ex)
+            {
+                throw new Exception("添加数据出现异常",ex);
+            }
         }
         //修改
         public int Update(T entity)
         {
-            this.DbContext.Set<T>().Attach(entity);
-            this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
-            return this.DbContext.SaveChanges();
-        }
-        public int Update(List<T> entities)
-        {
-            foreach (var entity in entities)
+            try
             {
                 this.DbContext.Set<T>().Attach(entity);
                 this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+                return this.DbContext.SaveChanges();
             }
-            return this.DbContext.SaveChanges();
+            catch (Exception ex)
+            {
+                throw new Exception("更新数据出现异常", ex);
+            }
+        }
+        public int Update(List<T> entities)
+        {
+            try
+            {
+                foreach (var entity in entities)
+                {
+                    this.DbContext.Set<T>().Attach(entity);
+                    this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+                }
+                return this.DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("更新数据出现异常", ex);
+            }
         }
         //删除
         public int Delete(T entity)
         {
-            this.DbContext.Set<T>().Attach(entity);
-            this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
-            return this.DbContext.SaveChanges();
-            //return true;
+            try
+            {
+                this.DbContext.Set<T>().Attach(entity);
+                this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return this.DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("删除数据出现异常", ex);
+            }
         }
         //删除
         public int Delete(List<T> entities)
         {
-            foreach (var entity in entities)
+            try
             {
-                this.DbContext.Set<T>().Attach(entity);
-                this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+                foreach (var entity in entities)
+                {
+                    this.DbContext.Set<T>().Attach(entity);
+                    this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+                }
+                return this.DbContext.SaveChanges();
             }
-            return this.DbContext.SaveChanges();
+            catch (Exception ex)
+            {
+                throw new Exception("删除数据出现异常", ex);
+            }
         }
         
         //查询

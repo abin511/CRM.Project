@@ -7,13 +7,14 @@ namespace CRM.BLL
 {
     public partial class UserLoginInSideService : IUserLoginInSideService
     {
+        readonly IUserBaseInfoService _userBaseInfoService = new UserBaseInfoService();
         /// <summary>
         /// 注册用户登录
         /// </summary>
         /// <returns></returns>
-        public Result<bool> Login(UserLoginInSide ent)
+        public Result<int> Login(UserLoginInSide ent)
         {
-            var result = new Result<bool>();
+            var result = new Result<int>();
             #region check params
             if (ent.LoginType <= 0)
             {
@@ -53,6 +54,7 @@ namespace CRM.BLL
                 model.LoginErrorCount = 0;
                 model.LastLoginTime = model.UpdateTime = now;
                 DbSession.UserLoginInSideRepository.Update(model);
+                result.Data = model.ID;
                 result.Code = ResultEnum.Success;
             }
             return result;
@@ -92,17 +94,43 @@ namespace CRM.BLL
             }
             ent.LastLoginTime = ent.InserTime = ent.UpdateTime = DateTime.Now;
             #endregion
-            int iRet = DbSession.UserLoginInSideRepository.Add(ent);
-            if (iRet > 0)
+
+            var now = DateTime.Now;
+            int iRet1 = DbSession.UserLoginInSideRepository.Add(ent);
+            if (iRet1 <= 0)
             {
-                result.Code = ResultEnum.Success;
-                result.Data = iRet;
+                result.Msg = "注册失败1";
+                return result;
             }
-            else
+            var iRet2 = this._userBaseInfoService.Add(new UserBaseInfo()
             {
-                result.Code = ResultEnum.Error;
-                result.Msg = "用户注册失败";
+                LoginId = iRet1,
+                NickName = ent.LoginName,
+                UserLevel = 0,
+                Fans = 0,
+                InserTime = now,
+                UpdateTime = now
+            });
+            if (iRet2.Code == ResultEnum.Error || iRet2.Data <= 0)
+            {
+                result.Msg = "注册失败2";
+                return result;
             }
+            var iRet3 = DbSession.UserAccountRepository.Add(new UserAccount()
+            {
+                UserId = iRet2.Data,
+                Gold = 0,
+                Contribution = 0,
+                Profit = 0,
+                InserTime = now,
+                UpdateTime = now
+            });
+            if (iRet3 <= 0)
+            {
+                result.Msg = "注册失败3";
+                return result;
+            }
+            result.Code = ResultEnum.Success;
             return result;
         }
         /// <summary>

@@ -8,7 +8,7 @@ namespace CRM.IBLL
         /// 注册用户登录
         /// </summary>
         /// <returns></returns>
-        Result<bool> Login(UserLoginInSide ent);
+        Result<int> Login(UserLoginInSide ent);
         /// <summary>
         /// 本站用户注册
         /// </summary>
