@@ -1,69 +1,83 @@
 ﻿using System;
 using System.Net.Http;
-using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 using CRM.Model;
 
 namespace CRM.WebApi.Controllers.Users
 {
+    /// <summary>
+    /// 用户登录
+    /// </summary>
     public class LoginController : BaseApiController
     {
+        readonly IUserLoginOutSideService _userLoginOutSideService = new UserLoginOutSideService();
+        readonly IUserLoginInSideService _userLoginInSideService = new UserLoginInSideService();
         /// <summary>
         /// 第三方用户登录
         /// </summary>
-        [HttpGet]
         public HttpResponseMessage GetLogin(LoginTypeEnum loginType, string openId)
         {
-            IUserLoginOutSideService service = new UserLoginOutSideService();
-            var result = service.Login(loginType,openId);
-            if (result.Code == ResultEnum.Success)
+            return base.Wrapper<ViewUserData>(()=>
             {
-                return base.Json(new ViewUserData()
+                var result = _userLoginOutSideService.Login(loginType, openId);
+                var data = new Result<ViewUserData>
                 {
-                    token = base.GetTokenByUserId(result.Data),
-                    liveurl = "",
-                    playurl = ""
-                });
-            }
-            return base.Json(result);
+                    Code = result.Code,
+                    Msg = result.Msg,
+                    Data = result.Code == ResultEnum.Error? null: new ViewUserData()
+                        {
+                            token = base.GetTokenByUserId(result.Data),
+                            liveurl = "",
+                            playurl = ""
+                        }
+                };
+                return data;
+            });
         }
         /// <summary>
         /// 本站注册用户登录
         /// </summary>
-        [HttpGet]
         public HttpResponseMessage GetLogin(LoginTypeEnum loginType, string uName, string uPwd)
         {
-            IUserLoginInSideService service = new UserLoginInSideService();
-            var model = new UserLoginInSide
+            return base.Wrapper<ViewUserData>(() =>
             {
-                LoginType = (int)loginType, LoginName = uName, LoginPwd = uPwd
-            };
-            var result = service.Login(model);
-            if (result.Code == ResultEnum.Success)
-            {
-                return base.Json(new ViewUserData()
+                var model = new UserLoginInSide
                 {
-                    token = base.GetTokenByUserId(result.Data),
-                    liveurl = "",
-                    playurl = ""
-                });
-            }
-            return base.Json(result);
+                    LoginType = (int)loginType,
+                    LoginName = uName,
+                    LoginPwd = uPwd
+                };
+                var result = _userLoginInSideService.Login(model);
+                var data = new Result<ViewUserData>
+                {
+                    Code = result.Code,
+                    Msg = result.Msg,
+                    Data = result.Code == ResultEnum.Error ? null : new ViewUserData()
+                    {
+                        token = base.GetTokenByUserId(result.Data),
+                        liveurl = "",
+                        playurl = ""
+                    }
+                };
+                return data;
+            });
         }
         /// <summary>
         /// 本站注册
         /// </summary>
-        [HttpGet]
         public HttpResponseMessage GetRegister(LoginTypeEnum loginType, string uName, string uPwd,string rePwd)
         {
-            IUserLoginInSideService service = new UserLoginInSideService();
-            var model = new UserLoginInSide
+            return base.Wrapper<int>(() =>
             {
-                LoginType = (int)loginType,LoginName = uName, LoginPwd = uPwd
-            };
-            var result = service.Register(model,rePwd);
-            return base.Json(result);
+                var model = new UserLoginInSide
+                {
+                    LoginType = (int) loginType,
+                    LoginName = uName,
+                    LoginPwd = uPwd
+                };
+                return _userLoginInSideService.Register(model, rePwd);
+            });
         }
     }
 }

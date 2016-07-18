@@ -8,9 +8,12 @@ using CRM.Model;
 
 namespace CRM.WebApi.Controllers.Users
 {
+    /// <summary>
+    /// 获取用户信息
+    /// </summary>
     public class ProfileController : BaseApiController
     {
-        readonly IUserBaseInfoService _userBaseInfoService = new UserBaseInfoService();
+        readonly IUserBaseService _userBaseService = new UserBaseService();
         readonly IUserAccountService _userAccountService = new UserAccountService();
         /// <summary>
         /// 获取用户信息
@@ -18,23 +21,29 @@ namespace CRM.WebApi.Controllers.Users
         [HttpGet]
         public HttpResponseMessage Get(string token)
         {
-            int userId = base.GetUserIdByToken(token);
-            var userBase = _userBaseInfoService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBaseInfo();
-            var account = _userAccountService.Get(m => m.UserId == userId).FirstOrDefault()?? new UserAccount();
-            var data = new
+            return base.Wrapper<Object>(() =>
             {
-                nickName = userBase.NickName,
-                avatar = userBase.Avatar,
-                level = userBase.UserLevel,
-                subScription = userBase.SubScription,
-                fans = userBase.Fans,
-                gender = userBase.Gender,
-                gold = account.Gold,
-                contribution = account.Contribution,
-                profit = account.Profit,
-                
-            };
-            return base.Json(data);
+                int userId = base.GetUserIdByToken(token);
+                var userBase = _userBaseService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBase();
+                var account = _userAccountService.Get(m => m.UserId == userId).FirstOrDefault() ?? new UserAccount();
+                var result = new Result<Object>
+                {
+                    Code = ResultEnum.Success,
+                    Data = new
+                    {
+                        nickName = userBase.NickName,
+                        avatar = userBase.Avatar,
+                        level = userBase.UserLevel,
+                        subScription = userBase.SubScription,
+                        fans = userBase.Fans,
+                        gender = userBase.Gender,
+                        gold = account.Gold,
+                        contribution = account.Contribution,
+                        profit = account.Profit,
+                    }
+                };
+                return result;
+            });
         }
     }
 }

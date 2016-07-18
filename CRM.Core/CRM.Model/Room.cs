@@ -12,20 +12,25 @@ namespace CRM.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLoginOutSide
+    public partial class Room
     {
-        public UserLoginOutSide()
+        public Room()
         {
-            this.UserBase = new HashSet<UserBase>();
+            this.RoomRecord = new HashSet<RoomRecord>();
         }
     
         public int ID { get; set; }
-        public int LoginType { get; set; }
-        public string OpenId { get; set; }
-        public System.DateTime LastLoginTime { get; set; }
+        public int UserId { get; set; }
+        public string Title { get; set; }
+        public string Cover { get; set; }
+        public bool OnlineStatus { get; set; }
+        public int OnlineCount { get; set; }
+        public int TotalCount { get; set; }
+        public int Contribution { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     
-        public virtual ICollection<UserBase> UserBase { get; set; }
+        public virtual UserBase UserBase { get; set; }
+        public virtual ICollection<RoomRecord> RoomRecord { get; set; }
     }
 }

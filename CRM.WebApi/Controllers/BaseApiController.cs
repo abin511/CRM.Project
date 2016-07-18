@@ -3,35 +3,38 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
-using System.Web.Mvc;
 using CRM.Common;
+using CRM.Model;
 
 namespace CRM.WebApi.Controllers
 {
     public class BaseApiController : ApiController
     {
-        protected HttpResponseMessage Json(Object data)
+        protected HttpResponseMessage Wrapper<T>(Func<Result<T>> func)
         {
-            //return new JsonResult()
-            //{
-            //    Data = data,
-            //    ContentEncoding = Encoding.UTF8,  
-            //    JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            //};
-            //HttpResponseMessage result = new HttpResponseMessage { Content = new StringContent(userName, Encoding.GetEncoding("UTF-8"), "application/json") };
-            //return result;
-            
             try
             {
-                var result = new HttpResponseMessage(HttpStatusCode.OK)
+                var data = func();
+                if (data.Code == ResultEnum.Error)
                 {
-                    Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json")
-                };
-                return result;
+                    var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                    {
+                        Content = new StringContent(data.Msg),
+                        ReasonPhrase = "Server Error"
+                    };
+                    throw new HttpResponseException(response);
+                }
+                else
+                {
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json")
+                    };
+                }
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 

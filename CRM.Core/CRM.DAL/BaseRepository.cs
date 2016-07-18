@@ -125,20 +125,13 @@ namespace CRM.DAL
         {
             return this.DbContext.Set<T>().Where<T>(wherelambda).Any();
         }
-        //分页
-        public IQueryable<T> List<S>(int pageSize, int pageIndex, out int total,Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
+        //List分页
+        public IQueryable<T> List<S>(int pageSize, int pageIndex, out int totalCount,Func<T, bool> whereLambda,Func<T, S> orderByLambda, bool isDesc = true)
         {
             var tempData = this.DbContext.Set<T>().Where<T>(whereLambda);
-            total = tempData.Count();
+            totalCount = tempData.Count();
             //排序获取当前页的数据
-            if (isAsc)
-            {
-                tempData = tempData.OrderBy<T, S>(orderByLambda);
-            }
-            else
-            {
-                tempData = tempData.OrderByDescending<T, S>(orderByLambda);
-            }
+            tempData = isDesc ? tempData.OrderByDescending<T, S>(orderByLambda) : tempData.OrderBy<T, S>(orderByLambda);
             return tempData.Skip<T>(pageSize * (pageIndex - 1)).Take<T>(pageSize).AsQueryable();
         }
     }

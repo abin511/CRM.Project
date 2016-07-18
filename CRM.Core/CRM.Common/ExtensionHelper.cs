@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Json;
+using CRM.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -51,22 +52,25 @@ namespace CRM.Common
                 return string.Empty;
             }
         }
-
         /// <summary>
         /// json字符串转化成特定的Object.
         /// </summary>
-        public static T ToObject<T>(this string jsonString)
+        private static T ToObject<T>(this string jsonString)
         {
+            if (string.IsNullOrEmpty(jsonString)) return default(T);
             try
             {
+                if ((typeof(T)).Name.ToLower() == "string")
+                {
+                    return (T)Convert.ChangeType(jsonString, typeof(T));
+                }
                 return JsonConvert.DeserializeObject<T>(jsonString);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return default(T);
             }
         }
-
         public static JContainer GetContainer(this string json)
         {
             var jContainer = JsonConvert.DeserializeObject(json) as JContainer;
@@ -92,6 +96,14 @@ namespace CRM.Common
                 menorystream.Close();
             }
             return list;
+        }
+        public static T GetKey<T>(this CustomConfig config)
+        {
+            if (config == null ||  string.IsNullOrEmpty(config.Value))
+            {
+                return default(T);
+            }
+            return config.Value.ToObject<T>();
         }
     }
 }

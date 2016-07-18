@@ -15,4 +15,18 @@
         /// </summary>
         public string playurl { get; set; }
     }
+    public class ViewPlayList
+    {
+        public int roomid { get; set; }
+        public string nickname { get; set; }
+        public string avatar { get; set; }
+        public int livetotalcount { get; set; }
+        public string frontcover { get; set; }
+    }
+    public class ViewGiftList
+    {
+        public int id { get; set; }
+        public int gold { get; set; }
+        public string name { get; set; }
+    }
 }

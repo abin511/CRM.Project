@@ -12,19 +12,15 @@ namespace CRM.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class UserBaseInfo
+    public partial class CustomConfig
     {
         public int ID { get; set; }
-        public int LoginId { get; set; }
-        public string NickName { get; set; }
-        public string RealName { get; set; }
-        public string Avatar { get; set; }
-        public string UserPhoto { get; set; }
-        public int Gender { get; set; }
-        public int UserLevel { get; set; }
-        public int Fans { get; set; }
-        public int SubScription { get; set; }
-        public System.DateTime InserTime { get; set; }
+        public string GroupName { get; set; }
+        public string KeyName { get; set; }
+        public string Value { get; set; }
+        public string Description { get; set; }
+        public string Expand { get; set; }
+        public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     }
 }

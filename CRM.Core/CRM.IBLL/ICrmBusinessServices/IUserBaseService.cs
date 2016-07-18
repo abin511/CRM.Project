@@ -2,7 +2,7 @@
 
 namespace CRM.IBLL
 {
-    public partial interface IUserBaseInfoService
+    public partial interface IUserBaseService
     {
     }
 }

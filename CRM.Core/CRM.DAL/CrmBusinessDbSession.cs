@@ -6,9 +6,21 @@ namespace CRM.DAL
     public partial class CrmBusinessDbSession:ICrmBusinessDbSession
     {   
 		
+		public ICustomConfigRepository CustomConfigRepository { get { return new CustomConfigRepository(); } }
+		
+		public IGoldRecordRepository GoldRecordRepository { get { return new GoldRecordRepository(); } }
+		
+		public IMoneyRecordRepository MoneyRecordRepository { get { return new MoneyRecordRepository(); } }
+		
+		public IRoomRepository RoomRepository { get { return new RoomRepository(); } }
+		
+		public IRoomRecordRepository RoomRecordRepository { get { return new RoomRecordRepository(); } }
+		
 		public IUserAccountRepository UserAccountRepository { get { return new UserAccountRepository(); } }
 		
-		public IUserBaseInfoRepository UserBaseInfoRepository { get { return new UserBaseInfoRepository(); } }
+		public IUserBaseRepository UserBaseRepository { get { return new UserBaseRepository(); } }
+		
+		public IUserFansRepository UserFansRepository { get { return new UserFansRepository(); } }
 		
 		public IUserLoginInSideRepository UserLoginInSideRepository { get { return new UserLoginInSideRepository(); } }
 		

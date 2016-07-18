@@ -83,9 +83,9 @@ namespace CRM.BLL
             return CurrentRepository.Get(wherelambda);
         }
         //分页
-        public IQueryable<T> List<S>(int pageSize, int pageIndex, out int total, Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda)
+        public IQueryable<T> List<S>(int pageSize, int pageIndex, out int totalCount, Func<T, bool> whereLambda, Func<T, S> orderByLambda, bool isDesc = true)
         {
-            return CurrentRepository.List(pageSize, pageIndex, out total, whereLambda, isAsc, orderByLambda);
+            return CurrentRepository.List(pageSize, pageIndex, out totalCount, whereLambda, orderByLambda,isDesc);
         }
     }
 }

@@ -67,31 +67,38 @@ namespace CRM.Common
         /// <returns>解密后的结果</returns>
         public static string DecryptString(string inputStr, string keyStr = null)
         {
-            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-            if (string.IsNullOrEmpty(keyStr)) keyStr = _key;
-            byte[] inputByteArray = new byte[inputStr.Length / 2];
-            for (int x = 0; x < inputStr.Length / 2; x++)
+            try
             {
-                int i = (Convert.ToInt32(inputStr.Substring(x * 2, 2), 16));
-                inputByteArray[x] = (byte)i;
+                DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+                if (string.IsNullOrEmpty(keyStr)) keyStr = _key;
+                byte[] inputByteArray = new byte[inputStr.Length / 2];
+                for (int x = 0; x < inputStr.Length / 2; x++)
+                {
+                    int i = (Convert.ToInt32(inputStr.Substring(x * 2, 2), 16));
+                    inputByteArray[x] = (byte)i;
+                }
+                byte[] keyByteArray = Encoding.Default.GetBytes(keyStr);
+                SHA1 ha = new SHA1Managed();
+                byte[] hb = ha.ComputeHash(keyByteArray);
+                _sKey = new byte[8];
+                _sIv = new byte[8];
+                for (int i = 0; i < 8; i++)
+                    _sKey[i] = hb[i];
+                for (int i = 8; i < 16; i++)
+                    _sIv[i - 8] = hb[i];
+                des.Key = _sKey;
+                des.IV = _sIv;
+                MemoryStream ms = new MemoryStream();
+                CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Write);
+                cs.Write(inputByteArray, 0, inputByteArray.Length);
+                cs.FlushFinalBlock();
+                StringBuilder ret = new StringBuilder();
+                return System.Text.Encoding.Default.GetString(ms.ToArray());
             }
-            byte[] keyByteArray = Encoding.Default.GetBytes(keyStr);
-            SHA1 ha = new SHA1Managed();
-            byte[] hb = ha.ComputeHash(keyByteArray);
-            _sKey = new byte[8];
-            _sIv = new byte[8];
-            for (int i = 0; i < 8; i++)
-                _sKey[i] = hb[i];
-            for (int i = 8; i < 16; i++)
-                _sIv[i - 8] = hb[i];
-            des.Key = _sKey;
-            des.IV = _sIv;
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Write);
-            cs.Write(inputByteArray, 0, inputByteArray.Length);
-            cs.FlushFinalBlock();
-            StringBuilder ret = new StringBuilder();
-            return System.Text.Encoding.Default.GetString(ms.ToArray());
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 

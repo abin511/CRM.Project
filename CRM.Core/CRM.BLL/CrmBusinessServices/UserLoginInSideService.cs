@@ -7,7 +7,7 @@ namespace CRM.BLL
 {
     public partial class UserLoginInSideService : IUserLoginInSideService
     {
-        readonly IUserBaseInfoService _userBaseInfoService = new UserBaseInfoService();
+        readonly IUserBaseService _userBaseInfoService = new UserBaseService();
         /// <summary>
         /// 注册用户登录
         /// </summary>
@@ -92,7 +92,7 @@ namespace CRM.BLL
                 result.Msg = "两次密码输入不一致";
                 return result;
             }
-            ent.LastLoginTime = ent.InserTime = ent.UpdateTime = DateTime.Now;
+            ent.LastLoginTime = ent.InsertTime = ent.UpdateTime = DateTime.Now;
             #endregion
 
             var now = DateTime.Now;
@@ -102,13 +102,13 @@ namespace CRM.BLL
                 result.Msg = "注册失败1";
                 return result;
             }
-            var iRet2 = this._userBaseInfoService.Add(new UserBaseInfo()
+            var iRet2 = this._userBaseInfoService.Add(new UserBase()
             {
                 LoginId = iRet1,
                 NickName = ent.LoginName,
                 UserLevel = 0,
                 Fans = 0,
-                InserTime = now,
+                InsertTime = now,
                 UpdateTime = now
             });
             if (iRet2.Code == ResultEnum.Error || iRet2.Data <= 0)
@@ -122,7 +122,7 @@ namespace CRM.BLL
                 Gold = 0,
                 Contribution = 0,
                 Profit = 0,
-                InserTime = now,
+                InsertTime = now,
                 UpdateTime = now
             });
             if (iRet3 <= 0)

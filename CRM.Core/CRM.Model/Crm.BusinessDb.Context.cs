@@ -25,9 +25,15 @@ namespace CRM.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<CustomConfig> CustomConfig { get; set; }
+        public DbSet<GoldRecord> GoldRecord { get; set; }
+        public DbSet<MoneyRecord> MoneyRecord { get; set; }
+        public DbSet<RoomRecord> RoomRecord { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
-        public DbSet<UserBaseInfo> UserBaseInfo { get; set; }
+        public DbSet<UserFans> UserFans { get; set; }
         public DbSet<UserLoginInSide> UserLoginInSide { get; set; }
         public DbSet<UserLoginOutSide> UserLoginOutSide { get; set; }
+        public DbSet<UserBase> UserBase { get; set; }
+        public DbSet<Room> Room { get; set; }
     }
 }

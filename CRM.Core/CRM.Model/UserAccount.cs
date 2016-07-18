@@ -18,7 +18,9 @@ namespace CRM.Model
         public int Gold { get; set; }
         public int Contribution { get; set; }
         public decimal Profit { get; set; }
-        public System.DateTime InserTime { get; set; }
+        public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
+    
+        public virtual UserBase UserBase { get; set; }
     }
 }

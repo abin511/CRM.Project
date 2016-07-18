@@ -5,9 +5,21 @@ namespace CRM.IDAL
     public partial interface ICrmBusinessDbSession
     {
 	  
+		ICustomConfigRepository CustomConfigRepository { get; }
+	  
+		IGoldRecordRepository GoldRecordRepository { get; }
+	  
+		IMoneyRecordRepository MoneyRecordRepository { get; }
+	  
+		IRoomRepository RoomRepository { get; }
+	  
+		IRoomRecordRepository RoomRecordRepository { get; }
+	  
 		IUserAccountRepository UserAccountRepository { get; }
 	  
-		IUserBaseInfoRepository UserBaseInfoRepository { get; }
+		IUserBaseRepository UserBaseRepository { get; }
+	  
+		IUserFansRepository UserFansRepository { get; }
 	  
 		IUserLoginInSideRepository UserLoginInSideRepository { get; }
 	  

@@ -26,7 +26,7 @@ namespace CRM.IDAL
         bool Exists(Func<T, bool> wherelambda);
         //查询
         IQueryable<T> Get(Func<T, bool> wherelambda);
-        //分页
-        IQueryable<T> List<S>(int pageSize, int pageIndex,out int total, Func<T, bool> whereLambda, bool isAsc, Func<T, S> orderByLambda);
+        //List分页
+        IQueryable<T> List<S>(int pageSize, int pageIndex, out int totalCount, Func<T, bool> whereLambda,Func<T, S> orderByLambda, bool isDesc = true);
     }
 }

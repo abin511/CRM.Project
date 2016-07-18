@@ -7,7 +7,7 @@ namespace CRM.BLL
 {
     public partial class UserLoginOutSideService : IUserLoginOutSideService
     {
-        readonly IUserBaseInfoService _userBaseInfoService = new UserBaseInfoService();
+        readonly IUserBaseService _userBaseInfoService = new UserBaseService();
         /// <summary>
         /// 第三方用户登录，如不存在，新建用户
         /// </summary>
@@ -44,7 +44,7 @@ namespace CRM.BLL
                     LoginType = (int)loginType,
                     OpenId = openId,
                     LastLoginTime = now,
-                    InserTime = now,
+                    InsertTime = now,
                     UpdateTime = now
                 });
                 if (iRet1 <= 0)
@@ -52,13 +52,13 @@ namespace CRM.BLL
                     result.Msg = "注册失败1";
                     return result;
                 }
-                var iRet2 = this._userBaseInfoService.Add(new UserBaseInfo()
+                var iRet2 = this._userBaseInfoService.Add(new UserBase()
                 {
                     LoginId = iRet1,
                     NickName = "test",
                     UserLevel = 0,
                     Fans = 0,
-                    InserTime = now,
+                    InsertTime = now,
                     UpdateTime = now
                 });
                 if (iRet2.Code == ResultEnum.Error || iRet2.Data <= 0)
@@ -72,7 +72,7 @@ namespace CRM.BLL
                     Gold = 0,
                     Contribution = 0,
                     Profit = 0,
-                    InserTime = now,
+                    InsertTime = now,
                     UpdateTime = now
                 });
                 if (iRet3 <= 0)

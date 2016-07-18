@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICrmBusinessServices\IUserBaseInfoService.cs" />
+    <Compile Include="ICrmBusinessServices\IRoomRecordService.cs" />
+    <Compile Include="ICrmBusinessServices\IUserBaseService.cs" />
+    <Compile Include="ICrmBusinessServices\IRoomService.cs" />
     <Compile Include="ICrmBusinessServices\IUserLoginInSideService.cs" />
     <Compile Include="ICrmManageServices\IActionGroupService.cs" />
     <Compile Include="ICrmManageServices\IActionInfoService.cs" />

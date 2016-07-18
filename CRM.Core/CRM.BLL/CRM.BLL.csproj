@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrmBusinessServices\BaseCrmBusinessServices.cs" />
-    <Compile Include="CrmBusinessServices\UserBaseInfoService.cs" />
+    <Compile Include="CrmBusinessServices\RoomRecordService.cs" />
+    <Compile Include="CrmBusinessServices\UserBaseService.cs" />
+    <Compile Include="CrmBusinessServices\RoomService.cs" />
     <Compile Include="CrmBusinessServices\UserLoginInSideService.cs" />
     <Compile Include="CrmBusinessServices\UserLoginOutSideService.cs" />
     <Compile Include="CrmManageServices\ActionGroupService.cs" />

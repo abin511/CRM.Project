@@ -1,40 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 using CRM.Model;
 
 namespace CRM.WebApi.Controllers.Players
 {
+    /// <summary>
+    /// 获取播放清单
+    /// </summary>
     public class PlayListController : BaseApiController
     {
-        readonly IUserBaseInfoService _userBaseInfoService = new UserBaseInfoService();
-        readonly IUserAccountService _userAccountService = new UserAccountService();
+        readonly IRoomService _roomService = new RoomService();
+        readonly IUserBaseService _userBaseService = new UserBaseService();
         /// <summary>
         /// 获取用户信息
         /// </summary>
-        [HttpGet]
-        public HttpResponseMessage Get(string token)
+        public HttpResponseMessage Get()
         {
-            int userId = base.GetUserIdByToken(token);
-            var userBase = _userBaseInfoService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBaseInfo();
-            var account = _userAccountService.Get(m => m.UserId == userId).FirstOrDefault()?? new UserAccount();
-            var data = new
+            return base.Wrapper<Object>(() =>
             {
-                nickName = userBase.NickName,
-                avatar = userBase.Avatar,
-                level = userBase.UserLevel,
-                subScription = userBase.SubScription,
-                fans = userBase.Fans,
-                gender = userBase.Gender,
-                gold = account.Gold,
-                contribution = account.Contribution,
-                profit = account.Profit,
-                
-            };
-            return base.Json(data);
+                var roomList = _roomService.Get(m=>m.OnlineStatus);
+                var dataList = new List<ViewPlayList>();
+                if (roomList != null && roomList.Any())
+                {
+                    var userIds = roomList.Select(m => m.UserId).ToList();
+                    var userInfo = _userBaseService.Get(m => userIds.Contains(m.ID));
+                    roomList.ToList().ForEach(item =>
+                    {
+                        var user = userInfo.FirstOrDefault(m => m.ID == item.UserId)??new UserBase();
+                        dataList.Add(new ViewPlayList()
+                        {
+                            roomid = item.ID,
+                            nickname = user.NickName,
+                            avatar = user.Avatar,
+                            livetotalcount = item.TotalCount,
+                            frontcover = item.Cover
+                        });
+                    });
+                }
+                return new Result<Object>
+                {
+                    Code = ResultEnum.Success,
+                    Data = dataList
+                };
+            });
         }
     }
 }
