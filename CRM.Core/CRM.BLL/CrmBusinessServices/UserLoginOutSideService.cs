@@ -21,7 +21,7 @@ namespace CRM.BLL
                 result.Msg = "OpenId不能为空";
                 return result;
             }
-            if (loginType == LoginTypeEnum.Normal)
+            if (loginType == LoginTypeEnum.None)
             {
                 result.Msg = "登录类型无效";
                 return result;

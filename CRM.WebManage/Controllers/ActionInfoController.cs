@@ -145,7 +145,7 @@ namespace CRM.WebManage.Controllers
             ViewData.Model = currrentSetRoleAction;
 
             //传递过去前台需要用到的数据,遍历角色，显示出来
-            short RoleNomal = (short)DelFlagEnum.Normal;
+            short RoleNomal = (short)DelFlagEnum.None;
             var allRoles = _roleService.Get(c => c.DelFlag == RoleNomal).ToList();
             ViewBag.AllRoles = allRoles;
 
@@ -205,7 +205,7 @@ namespace CRM.WebManage.Controllers
             ViewData.Model = currentUser;
 
             //根据传递过去的菜单组获取到所有的菜单组信息
-            short ActionID = (short)DelFlagEnum.Normal;
+            short ActionID = (short)DelFlagEnum.None;
             var allAction = _actionGroupService.Get(c => c.DelFlag == ActionID).ToList();
             ViewBag.AllAction = allAction; 
             //然后传递给前台判断权限组数据是否被选中

@@ -57,7 +57,7 @@ namespace CRM.WebManage.Controllers
         public ActionResult AddUserRoleInfo(Role role)
         {
             //实现对用户的添加信息
-            role.DelFlag = (short)DelFlagEnum.Normal;
+            role.DelFlag = (short)DelFlagEnum.None;
             role.SubTime = DateTime.Now;
             var result = _roleService.Add(role);
             if (result.Code == ResultEnum.Success && result.Data > 0)

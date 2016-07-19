@@ -14,24 +14,25 @@ namespace CRM.Model
         /// </summary>
         Success = 1
     }
+
     public enum DelFlagEnum
     {
         /// <summary>
-        /// 未删除
+        /// None
         /// </summary>
-        Normal=0,
-
+        None = 0,
         /// <summary>
         /// 已经删除
         /// </summary>
-        Deleted=1
+        Deleted = 1
     }
+
     public enum LoginTypeEnum
     {
         /// <summary>
-        /// 未删除
+        /// None
         /// </summary>
-        Normal = 0,
+        None = 0,
         /// <summary>
         /// QQ
         /// </summary>
@@ -44,5 +45,35 @@ namespace CRM.Model
         /// 手机注册
         /// </summary>
         M = 3,
+    }
+    public enum MoneyChangeTypeEnum
+    {
+        /// <summary>
+        /// None
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 充值
+        /// </summary>
+        Recharge = 1,
+        /// <summary>
+        /// 提现
+        /// </summary>
+        Withdrawal = 2
+    }
+    public enum GoldChangeTypeEnum
+    {
+        /// <summary>
+        /// None
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 增加金币
+        /// </summary>
+        Increase = 1,
+        /// <summary>
+        /// 减少金币
+        /// </summary>
+        Reduce = 2
     }
 }

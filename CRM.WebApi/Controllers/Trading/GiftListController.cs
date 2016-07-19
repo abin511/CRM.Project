@@ -15,7 +15,7 @@ namespace CRM.WebApi.Controllers.Trading
         readonly ICustomConfigService _customConfigService = new CustomConfigService();
         private const string ConfigKey = "gift";
         /// <summary>
-        /// 获取用户信息
+        /// 获取配置的礼物清单
         /// </summary>
         public HttpResponseMessage Get()
         {

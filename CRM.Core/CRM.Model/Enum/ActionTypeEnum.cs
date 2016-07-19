@@ -11,7 +11,7 @@ namespace CRM.Model
         /// <summary>
         /// 普通项
         /// </summary>
-        Normal = 0,
+        None = 0,
 
         /// <summary>
         /// 菜单项

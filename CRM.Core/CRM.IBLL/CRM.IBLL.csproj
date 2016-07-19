@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICrmBusinessServices\IRoomRecordService.cs" />
+    <Compile Include="ICrmBusinessServices\IUserAccountService.cs" />
     <Compile Include="ICrmBusinessServices\IUserBaseService.cs" />
     <Compile Include="ICrmBusinessServices\IRoomService.cs" />
     <Compile Include="ICrmBusinessServices\IUserLoginInSideService.cs" />

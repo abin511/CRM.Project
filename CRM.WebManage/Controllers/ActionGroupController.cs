@@ -130,7 +130,7 @@ namespace CRM.WebManage.Controllers
             ViewData.Model = actionGroup;
 
             //然后查询出所有的角色信息显示在前台
-            short RoleID = (short)DelFlagEnum.Normal;
+            short RoleID = (short)DelFlagEnum.None;
             var allRoleInfo = _roleServices.Get(c => c.DelFlag == RoleID).ToList();
             ViewBag.RoleInfo = allRoleInfo;
 

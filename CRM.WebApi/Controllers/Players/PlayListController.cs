@@ -16,7 +16,7 @@ namespace CRM.WebApi.Controllers.Players
         readonly IRoomService _roomService = new RoomService();
         readonly IUserBaseService _userBaseService = new UserBaseService();
         /// <summary>
-        /// 获取用户信息
+        /// 获取所有的播放清单 房间列表
         /// </summary>
         public HttpResponseMessage Get()
         {

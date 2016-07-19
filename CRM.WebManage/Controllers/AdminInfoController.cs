@@ -62,7 +62,7 @@ namespace CRM.WebManage.Controllers
             adminInfo.LastModifiedOn = DateTime.Now;
             adminInfo.SubTime = DateTime.Now;
             //在这里需要用到枚举类型，不要写0
-            adminInfo.DelFlag = (short)DelFlagEnum.Normal;
+            adminInfo.DelFlag = (short)DelFlagEnum.None;
 
             var result = _adminInfoService.Add(adminInfo);
             if (result.Code == ResultEnum.Success && result.Data > 0)
@@ -171,7 +171,7 @@ namespace CRM.WebManage.Controllers
 
             //前台需要所有的角色的信息
             //注意：在Lambda或者Linq里面不能进行强制类型转换，所以在外面直接转换好
-            short deleteNormal=(short)DelFlagEnum.Normal;
+            short deleteNormal=(short)DelFlagEnum.None;
             var allRoles = _roleService.Get(c => c.DelFlag == deleteNormal).ToList();
             //使用ViewBag传递给前台角色信息
             ViewBag.AllRoles = allRoles;

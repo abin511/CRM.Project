@@ -133,6 +133,8 @@
     <Compile Include="App_Start\JsonContentNegotiator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\Trading\GoldCostController.cs" />
+    <Compile Include="Controllers\Trading\GoldRechargeController.cs" />
     <Compile Include="Controllers\Trading\GiftListController.cs" />
     <Compile Include="Controllers\Players\LiveController.cs" />
     <Compile Include="Controllers\Players\JoinRoomController.cs" />
