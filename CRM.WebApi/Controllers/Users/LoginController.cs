@@ -18,9 +18,9 @@ namespace CRM.WebApi.Controllers.Users
         /// </summary>
         public HttpResponseMessage GetLogin(LoginTypeEnum loginType, string openId)
         {
-            return base.Wrapper<ViewUserData>(()=>
+            return base.Wrapper(()=>
             {
-                var result = _userLoginOutSideService.Login(loginType, openId);
+                var result = this._userLoginOutSideService.Login(loginType, openId);
                 var data = new Result<ViewUserData>
                 {
                     Code = result.Code,
@@ -40,15 +40,14 @@ namespace CRM.WebApi.Controllers.Users
         /// </summary>
         public HttpResponseMessage GetLogin(LoginTypeEnum loginType, string uName, string uPwd)
         {
-            return base.Wrapper<ViewUserData>(() =>
+            return base.Wrapper(() =>
             {
-                var model = new UserLoginInSide
+                var result = this._userLoginInSideService.Login(new UserLoginInSide
                 {
                     LoginType = (int)loginType,
                     LoginName = uName,
                     LoginPwd = uPwd
-                };
-                var result = _userLoginInSideService.Login(model);
+                });
                 var data = new Result<ViewUserData>
                 {
                     Code = result.Code,
@@ -68,16 +67,12 @@ namespace CRM.WebApi.Controllers.Users
         /// </summary>
         public HttpResponseMessage GetRegister(LoginTypeEnum loginType, string uName, string uPwd,string rePwd)
         {
-            return base.Wrapper<int>(() =>
+            return base.Wrapper(() => this._userLoginInSideService.Register(new UserLoginInSide
             {
-                var model = new UserLoginInSide
-                {
-                    LoginType = (int) loginType,
-                    LoginName = uName,
-                    LoginPwd = uPwd
-                };
-                return _userLoginInSideService.Register(model, rePwd);
-            });
+                LoginType = (int)loginType,
+                LoginName = uName,
+                LoginPwd = uPwd
+            }, rePwd));
         }
     }
 }

@@ -21,11 +21,11 @@ namespace CRM.WebApi.Controllers.Users
         [HttpGet]
         public HttpResponseMessage Get(string token)
         {
-            return base.Wrapper<Object>(() =>
+            return base.Wrapper(() =>
             {
                 int userId = base.GetUserIdByToken(token);
-                var userBase = _userBaseService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBase();
-                var account = _userAccountService.Get(m => m.UserId == userId).FirstOrDefault() ?? new UserAccount();
+                var userBase = this._userBaseService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBase();
+                var account = this._userAccountService.Get(m => m.UserId == userId).FirstOrDefault() ?? new UserAccount();
                 var result = new Result<Object>
                 {
                     Code = ResultEnum.Success,

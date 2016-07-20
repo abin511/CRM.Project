@@ -20,18 +20,18 @@ namespace CRM.WebApi.Controllers.Players
         /// </summary>
         public HttpResponseMessage Get()
         {
-            return base.Wrapper<Object>(() =>
+            return base.Wrapper(() =>
             {
-                var roomList = _roomService.Get(m=>m.OnlineStatus);
-                var dataList = new List<ViewPlayList>();
+                var roomList = this._roomService.Get(m=>m.OnlineStatus);
+                var dataList = new List<ViewPlayer>();
                 if (roomList != null && roomList.Any())
                 {
                     var userIds = roomList.Select(m => m.UserId).ToList();
-                    var userInfo = _userBaseService.Get(m => userIds.Contains(m.ID));
+                    var userInfo = this._userBaseService.Get(m => userIds.Contains(m.ID));
                     roomList.ToList().ForEach(item =>
                     {
                         var user = userInfo.FirstOrDefault(m => m.ID == item.UserId)??new UserBase();
-                        dataList.Add(new ViewPlayList()
+                        dataList.Add(new ViewPlayer()
                         {
                             roomid = item.ID,
                             nickname = user.NickName,

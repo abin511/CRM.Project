@@ -15,7 +15,7 @@
         /// </summary>
         public string playurl { get; set; }
     }
-    public class ViewPlayList
+    public class ViewPlayer
     {
         public int roomid { get; set; }
         public string nickname { get; set; }
@@ -23,7 +23,7 @@
         public int livetotalcount { get; set; }
         public string frontcover { get; set; }
     }
-    public class ViewGiftList
+    public class ViewGift
     {
         public int id { get; set; }
         public int gold { get; set; }

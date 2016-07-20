@@ -8,6 +8,7 @@ namespace CRM.BLL
     public partial class UserLoginInSideService : IUserLoginInSideService
     {
         readonly IUserBaseService _userBaseInfoService = new UserBaseService();
+        readonly IUserAccountService _userAccountService = new UserAccountService();
         /// <summary>
         /// 注册用户登录
         /// </summary>
@@ -34,16 +35,16 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            var model = DbSession.UserLoginInSideRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName && m.LoginPwd == ent.LoginPwd).FirstOrDefault();
+            var model = base.CurrentRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName && m.LoginPwd == ent.LoginPwd).FirstOrDefault();
             if (model == null)
             {
                 //登录失败
-                model = DbSession.UserLoginInSideRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName).FirstOrDefault();
+                model = base.CurrentRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName).FirstOrDefault();
                 if (model != null)
                 {
                     model.LoginErrorCount += 1;
                     model.UpdateTime = now;
-                    DbSession.UserLoginInSideRepository.Update(model);
+                    base.CurrentRepository.Update(model);
                 }
                 result.Code = ResultEnum.Error;
                 result.Msg = "用户名或密码错误";
@@ -53,7 +54,7 @@ namespace CRM.BLL
                 //登录成功
                 model.LoginErrorCount = 0;
                 model.LastLoginTime = model.UpdateTime = now;
-                DbSession.UserLoginInSideRepository.Update(model);
+                base.CurrentRepository.Update(model);
                 result.Data = model.ID;
                 result.Code = ResultEnum.Success;
             }
@@ -96,7 +97,7 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            int iRet1 = DbSession.UserLoginInSideRepository.Add(ent);
+            int iRet1 = base.CurrentRepository.Add(ent);
             if (iRet1 <= 0)
             {
                 result.Msg = "注册失败1";
@@ -116,7 +117,7 @@ namespace CRM.BLL
                 result.Msg = "注册失败2";
                 return result;
             }
-            var iRet3 = DbSession.UserAccountRepository.Add(new UserAccount()
+            var iRet3 = this._userAccountService.Add(new UserAccount()
             {
                 UserId = iRet2.Data,
                 Gold = 0,
@@ -125,7 +126,7 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (iRet3 <= 0)
+            if (iRet3.Code == ResultEnum.Error || iRet3.Data <= 0)
             {
                 result.Msg = "注册失败3";
                 return result;
@@ -139,7 +140,7 @@ namespace CRM.BLL
         /// <returns></returns>
         public bool Exists(int loginType,string uName)
         {
-            return DbSession.UserLoginInSideRepository.Exists(m=>m.LoginType == loginType && m.LoginName == uName);
+            return base.CurrentRepository.Exists(m=>m.LoginType == loginType && m.LoginName == uName);
         }
     }
 }

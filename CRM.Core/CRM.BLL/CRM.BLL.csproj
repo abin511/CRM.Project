@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CrmBusinessServices\BaseCrmBusinessServices.cs" />
     <Compile Include="CrmBusinessServices\RoomRecordService.cs" />
+    <Compile Include="CrmBusinessServices\GiftService.cs" />
     <Compile Include="CrmBusinessServices\UserAccountService.cs" />
     <Compile Include="CrmBusinessServices\UserBaseService.cs" />
     <Compile Include="CrmBusinessServices\RoomService.cs" />
@@ -99,7 +100,9 @@
       <LastGenOutput>CrmManageServices.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommonServices\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

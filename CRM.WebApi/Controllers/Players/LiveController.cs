@@ -15,10 +15,10 @@ namespace CRM.WebApi.Controllers.Players
         /// </summary>
         public HttpResponseMessage Get(string token,string title,string cover)
         {
-            return base.Wrapper<int>(() =>
+            return base.Wrapper(() =>
             {
                 int userId = base.GetUserIdByToken(token);
-                return _roomService.Live(userId, title, cover);
+                return this._roomService.Live(userId, title, cover);
             });
         }
     }

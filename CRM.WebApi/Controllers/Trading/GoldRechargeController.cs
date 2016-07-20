@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using CRM.BLL;
-using CRM.Common;
 using CRM.IBLL;
-using CRM.Model;
 
 namespace CRM.WebApi.Controllers.Trading
 {
@@ -18,15 +15,10 @@ namespace CRM.WebApi.Controllers.Trading
         /// </summary>
         public HttpResponseMessage Get(string token,decimal amount)
         {
-            return base.Wrapper<int>(() =>
+            return base.Wrapper(() =>
             {
                 int userId = base.GetUserIdByToken(token);
-                var result = _userAccountService.Recharge(userId, amount);
-                return new Result<int>()
-                {
-                    Code = ResultEnum.Success,
-                    Data = result.Data
-                };
+                return this._userAccountService.Recharge(userId, amount);
             });
         }
     }

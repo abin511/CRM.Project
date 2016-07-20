@@ -33,10 +33,10 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            var model = DbSession.RoomRepository.Get(m => m.UserId == userId).FirstOrDefault();
+            var model = base.CurrentRepository.Get(m => m.UserId == userId).FirstOrDefault();
             if (model == null)
             {
-                var result1 = DbSession.RoomRepository.Add(new Room()
+                var result1 = base.CurrentRepository.Add(new Room()
                 {
                     UserId = userId,
                     Title = title,
@@ -62,7 +62,7 @@ namespace CRM.BLL
                 model.TotalCount += 1;
                 model.Contribution += 1;
                 model.UpdateTime = now;
-                var result2 = DbSession.RoomRepository.Update(model);
+                var result2 = base.CurrentRepository.Update(model);
                 if (result2 <= 0)
                 {
                     result.Msg = "主播推流信息修改失败";

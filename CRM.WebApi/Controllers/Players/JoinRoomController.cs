@@ -16,10 +16,10 @@ namespace CRM.WebApi.Controllers.Players
         /// </summary>
         public HttpResponseMessage Get(string token,int roomId)
         {
-            return base.Wrapper<Object>(() =>
+            return base.Wrapper(() =>
             {
                 int userId = base.GetUserIdByToken(token);
-                return _roomRecordService.Join(userId, roomId);
+                return this._roomRecordService.Join(userId, roomId);
             });
         }
     }
