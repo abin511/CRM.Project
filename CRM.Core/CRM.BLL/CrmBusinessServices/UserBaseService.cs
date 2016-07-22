@@ -22,27 +22,56 @@ namespace CRM.BLL
             }
             #endregion
 
-            var model = base.CurrentRepository.Get(m => m.ID == userId).FirstOrDefault();
-            if (model == null)
+            var checkUser = this.CheckUser(userId);
+            if (checkUser.Code == ResultEnum.Error)
+            {
+                result.Msg = checkUser.Msg;
+                return result;
+            }
+            var user = checkUser.Data;
+            if (!string.IsNullOrEmpty(nickname))
+            {
+                user.NickName = nickname;
+            }
+            if (!string.IsNullOrEmpty(avatar))
+            {
+                user.NickName = avatar;
+            }
+            if (gender.HasValue)
+            {
+                user.Gender = gender.Value;
+            }
+            var iRet = base.CurrentRepository.Update(user);
+            result.Code = iRet > 0? ResultEnum.Success: ResultEnum.Error;
+            return result;
+        }
+        #region CheckUser
+        public Result<UserBase> CheckUser(int userId)
+        {
+            var result = new Result<UserBase>();
+            var userInfo = this.CurrentRepository.Get(m => m.ID == userId).FirstOrDefault();
+            if (userInfo == null)
             {
                 result.Msg = "用户信息无效";
                 return result;
             }
-            if (!string.IsNullOrEmpty(nickname))
+            if (userInfo.Status == (int)UserBaseStausEnum.Lock)
             {
-                model.NickName = nickname;
+                result.Msg = "用户已经被锁定";
+                return result;
             }
-            if (!string.IsNullOrEmpty(avatar))
+            else if (userInfo.Status == (int)UserBaseStausEnum.Sealed)
             {
-                model.NickName = avatar;
+                result.Msg = "用户已经被封号";
+                return result;
             }
-            if (gender.HasValue)
+            else
             {
-                model.Gender = gender.Value;
+                result.Data = userInfo;
+                result.Code = ResultEnum.Success;
+                return result;
             }
-            var iRet = base.CurrentRepository.Update(model);
-            result.Code = iRet > 0? ResultEnum.Success: ResultEnum.Error;
-            return result;
         }
+        #endregion
     }
 }

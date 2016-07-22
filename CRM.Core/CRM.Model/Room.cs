@@ -27,6 +27,7 @@ namespace CRM.Model
         public int OnlineCount { get; set; }
         public int TotalCount { get; set; }
         public int Contribution { get; set; }
+        public int Status { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     

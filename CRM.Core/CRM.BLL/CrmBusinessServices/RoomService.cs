@@ -57,6 +57,11 @@ namespace CRM.BLL
             }
             else
             {
+                if (model.Status == (int) RoomStausEnum.Lock)
+                {
+                    result.Msg = "直播间已经被锁定";
+                    return result;
+                }
                 model.OnlineStatus = true;
                 model.OnlineCount += 1;
                 model.TotalCount += 1;

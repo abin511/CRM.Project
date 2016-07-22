@@ -24,7 +24,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="ChangeType" Type="tinyint" Nullable="false" />
+          <Property Name="ChangeType" Type="smallint" Nullable="false" />
           <Property Name="GoldBefore" Type="int" Nullable="false" />
           <Property Name="GoldAfter" Type="int" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="500" Nullable="false" />
@@ -55,6 +55,7 @@
           <Property Name="OnlineCount" Type="int" Nullable="false" />
           <Property Name="TotalCount" Type="int" Nullable="false" />
           <Property Name="Contribution" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -66,7 +67,7 @@
           <Property Name="RoomId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="OnlineStatus" Type="bit" Nullable="false" />
-          <Property Name="OnlineSeconds" Type="int" Nullable="false" />
+          <Property Name="OnlineMinutes" Type="int" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -95,6 +96,7 @@
           <Property Name="UserLevel" Type="tinyint" Nullable="false" />
           <Property Name="Fans" Type="int" Nullable="false" />
           <Property Name="SubScription" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="RegAddr" Type="nvarchar" MaxLength="50" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -297,12 +299,13 @@
           <EntitySet Name="CustomConfig" EntityType="CRM.Model.CustomConfig" />
           <EntitySet Name="GoldRecord" EntityType="CRM.Model.GoldRecord" />
           <EntitySet Name="MoneyRecord" EntityType="CRM.Model.MoneyRecord" />
+          <EntitySet Name="Room" EntityType="CRM.Model.Room" />
           <EntitySet Name="RoomRecord" EntityType="CRM.Model.RoomRecord" />
           <EntitySet Name="UserAccount" EntityType="CRM.Model.UserAccount" />
+          <EntitySet Name="UserBase" EntityType="CRM.Model.UserBase" />
           <EntitySet Name="UserFans" EntityType="CRM.Model.UserFans" />
           <EntitySet Name="UserLoginInSide" EntityType="CRM.Model.UserLoginInSide" />
           <EntitySet Name="UserLoginOutSide" EntityType="CRM.Model.UserLoginOutSide" />
-          <EntitySet Name="UserBase" EntityType="CRM.Model.UserBase" />
           <AssociationSet Name="FK_GoldRecord_UserBase" Association="CRM.Model.FK_GoldRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="GoldRecord" EntitySet="GoldRecord" />
@@ -310,6 +313,14 @@
           <AssociationSet Name="FK_MoneyRecord_UserBase" Association="CRM.Model.FK_MoneyRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="MoneyRecord" EntitySet="MoneyRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_UserBase" Association="CRM.Model.FK_Room_UserBase">
+            <End Role="UserBase" EntitySet="UserBase" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomRecord_Room" Association="CRM.Model.FK_RoomRecord_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomRecord" EntitySet="RoomRecord" />
           </AssociationSet>
           <AssociationSet Name="FK_RoomRecord_UserBase" Association="CRM.Model.FK_RoomRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
@@ -331,15 +342,6 @@
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="UserFans" EntitySet="UserFans" />
           </AssociationSet>
-          <EntitySet Name="Room" EntityType="CRM.Model.Room" />
-          <AssociationSet Name="FK_Room_UserBase" Association="CRM.Model.FK_Room_UserBase">
-            <End Role="UserBase" EntitySet="UserBase" />
-            <End Role="Room" EntitySet="Room" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoomRecord_Room" Association="CRM.Model.FK_RoomRecord_Room">
-            <End Role="Room" EntitySet="Room" />
-            <End Role="RoomRecord" EntitySet="RoomRecord" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CustomConfig">
           <Key>
@@ -360,7 +362,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="ChangeType" Type="Byte" Nullable="false" />
+          <Property Name="ChangeType" Type="Int16" Nullable="false" />
           <Property Name="GoldBefore" Type="Int32" Nullable="false" />
           <Property Name="GoldAfter" Type="Int32" Nullable="false" />
           <Property Name="Remark" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -381,6 +383,24 @@
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_MoneyRecord_UserBase" FromRole="MoneyRecord" ToRole="UserBase" />
         </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
+          <Property Name="OnlineCount" Type="Int32" Nullable="false" />
+          <Property Name="TotalCount" Type="Int32" Nullable="false" />
+          <Property Name="Contribution" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_Room_UserBase" FromRole="Room" ToRole="UserBase" />
+          <NavigationProperty Name="RoomRecord" Relationship="CRM.Model.FK_RoomRecord_Room" FromRole="Room" ToRole="RoomRecord" />
+        </EntityType>
         <EntityType Name="RoomRecord">
           <Key>
             <PropertyRef Name="ID" />
@@ -389,11 +409,11 @@
           <Property Name="RoomId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
-          <Property Name="OnlineSeconds" Type="Int32" Nullable="false" />
+          <Property Name="OnlineMinutes" Type="Int32" Nullable="false" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_RoomRecord_UserBase" FromRole="RoomRecord" ToRole="UserBase" />
           <NavigationProperty Name="Room" Relationship="CRM.Model.FK_RoomRecord_Room" FromRole="RoomRecord" ToRole="Room" />
+          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_RoomRecord_UserBase" FromRole="RoomRecord" ToRole="UserBase" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -406,6 +426,33 @@
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_UserAccount_UserBase" FromRole="UserAccount" ToRole="UserBase" />
+        </EntityType>
+        <EntityType Name="UserBase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="UserLevel" Type="Byte" Nullable="false" />
+          <Property Name="Fans" Type="Int32" Nullable="false" />
+          <Property Name="SubScription" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="RegAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="GoldRecord" Relationship="CRM.Model.FK_GoldRecord_UserBase" FromRole="UserBase" ToRole="GoldRecord" />
+          <NavigationProperty Name="MoneyRecord" Relationship="CRM.Model.FK_MoneyRecord_UserBase" FromRole="UserBase" ToRole="MoneyRecord" />
+          <NavigationProperty Name="Room" Relationship="CRM.Model.FK_Room_UserBase" FromRole="UserBase" ToRole="Room" />
+          <NavigationProperty Name="RoomRecord" Relationship="CRM.Model.FK_RoomRecord_UserBase" FromRole="UserBase" ToRole="RoomRecord" />
+          <NavigationProperty Name="UserAccount" Relationship="CRM.Model.FK_UserAccount_UserBase" FromRole="UserBase" ToRole="UserAccount" />
+          <NavigationProperty Name="UserLoginInSide" Relationship="CRM.Model.FK_UserBase_UserLoginInSide" FromRole="UserBase" ToRole="UserLoginInSide" />
+          <NavigationProperty Name="UserLoginOutSide" Relationship="CRM.Model.FK_UserBase_UserLoginOutSide" FromRole="UserBase" ToRole="UserLoginOutSide" />
+          <NavigationProperty Name="UserFans" Relationship="CRM.Model.FK_UserFans_UserBase" FromRole="UserBase" ToRole="UserFans" />
         </EntityType>
         <EntityType Name="UserFans">
           <Key>
@@ -444,32 +491,6 @@
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_UserBase_UserLoginOutSide" FromRole="UserLoginOutSide" ToRole="UserBase" />
         </EntityType>
-        <EntityType Name="UserBase">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LoginId" Type="Int32" Nullable="false" />
-          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UserPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Gender" Type="Int32" Nullable="false" />
-          <Property Name="UserLevel" Type="Byte" Nullable="false" />
-          <Property Name="Fans" Type="Int32" Nullable="false" />
-          <Property Name="SubScription" Type="Int32" Nullable="false" />
-          <Property Name="RegAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="GoldRecord" Relationship="CRM.Model.FK_GoldRecord_UserBase" FromRole="UserBase" ToRole="GoldRecord" />
-          <NavigationProperty Name="MoneyRecord" Relationship="CRM.Model.FK_MoneyRecord_UserBase" FromRole="UserBase" ToRole="MoneyRecord" />
-          <NavigationProperty Name="RoomRecord" Relationship="CRM.Model.FK_RoomRecord_UserBase" FromRole="UserBase" ToRole="RoomRecord" />
-          <NavigationProperty Name="UserAccount" Relationship="CRM.Model.FK_UserAccount_UserBase" FromRole="UserBase" ToRole="UserAccount" />
-          <NavigationProperty Name="UserLoginInSide" Relationship="CRM.Model.FK_UserBase_UserLoginInSide" FromRole="UserBase" ToRole="UserLoginInSide" />
-          <NavigationProperty Name="UserLoginOutSide" Relationship="CRM.Model.FK_UserBase_UserLoginOutSide" FromRole="UserBase" ToRole="UserLoginOutSide" />
-          <NavigationProperty Name="UserFans" Relationship="CRM.Model.FK_UserFans_UserBase" FromRole="UserBase" ToRole="UserFans" />
-          <NavigationProperty Name="Room" Relationship="CRM.Model.FK_Room_UserBase" FromRole="UserBase" ToRole="Room" />
-        </EntityType>
         <Association Name="FK_GoldRecord_UserBase">
           <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="1" />
           <End Type="CRM.Model.GoldRecord" Role="GoldRecord" Multiplicity="*" />
@@ -491,6 +512,30 @@
             </Principal>
             <Dependent Role="MoneyRecord">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_UserBase">
+          <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="1" />
+          <End Type="CRM.Model.Room" Role="Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserBase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomRecord_Room">
+          <End Type="CRM.Model.Room" Role="Room" Multiplicity="1" />
+          <End Type="CRM.Model.RoomRecord" Role="RoomRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RoomRecord">
+              <PropertyRef Name="RoomId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -554,47 +599,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Room">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Cover" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
-          <Property Name="OnlineCount" Type="Int32" Nullable="false" />
-          <Property Name="TotalCount" Type="Int32" Nullable="false" />
-          <Property Name="Contribution" Type="Int32" Nullable="false" />
-          <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_Room_UserBase" FromRole="Room" ToRole="UserBase" />
-          <NavigationProperty Name="RoomRecord" Relationship="CRM.Model.FK_RoomRecord_Room" FromRole="Room" ToRole="RoomRecord" />
-        </EntityType>
-        <Association Name="FK_Room_UserBase">
-          <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="1" />
-          <End Type="CRM.Model.Room" Role="Room" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserBase">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Room">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoomRecord_Room">
-          <End Type="CRM.Model.Room" Role="Room" Multiplicity="1" />
-          <End Type="CRM.Model.RoomRecord" Role="RoomRecord" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Room">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RoomRecord">
-              <PropertyRef Name="RoomId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -642,12 +646,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Room">
+            <EntityTypeMapping TypeName="CRM.Model.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Contribution" ColumnName="Contribution" />
+                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+                <ScalarProperty Name="OnlineCount" ColumnName="OnlineCount" />
+                <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RoomRecord">
             <EntityTypeMapping TypeName="CRM.Model.RoomRecord">
               <MappingFragment StoreEntitySet="RoomRecord">
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
-                <ScalarProperty Name="OnlineSeconds" ColumnName="OnlineSeconds" />
+                <ScalarProperty Name="OnlineMinutes" ColumnName="OnlineMinutes" />
                 <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoomId" ColumnName="RoomId" />
@@ -664,6 +685,26 @@
                 <ScalarProperty Name="Contribution" ColumnName="Contribution" />
                 <ScalarProperty Name="Gold" ColumnName="Gold" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBase">
+            <EntityTypeMapping TypeName="CRM.Model.UserBase">
+              <MappingFragment StoreEntitySet="UserBase">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
+                <ScalarProperty Name="RegAddr" ColumnName="RegAddr" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SubScription" ColumnName="SubScription" />
+                <ScalarProperty Name="Fans" ColumnName="Fans" />
+                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -704,42 +745,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserBase">
-            <EntityTypeMapping TypeName="CRM.Model.UserBase">
-              <MappingFragment StoreEntitySet="UserBase">
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
-                <ScalarProperty Name="RegAddr" ColumnName="RegAddr" />
-                <ScalarProperty Name="SubScription" ColumnName="SubScription" />
-                <ScalarProperty Name="Fans" ColumnName="Fans" />
-                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="RealName" ColumnName="RealName" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Room">
-            <EntityTypeMapping TypeName="CRM.Model.Room">
-              <MappingFragment StoreEntitySet="Room">
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
-                <ScalarProperty Name="Contribution" ColumnName="Contribution" />
-                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
-                <ScalarProperty Name="OnlineCount" ColumnName="OnlineCount" />
-                <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
-                <ScalarProperty Name="Cover" ColumnName="Cover" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -761,26 +767,26 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram DiagramId="eaa83888a55a4bce9f17bb506316353e" Name="Diagram1">
+      <Diagram DiagramId="eaa83888a55a4bce9f17bb506316353e" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="CRM.Model.CustomConfig" Width="1.5" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.GoldRecord" Width="1.5" PointX="2.625" PointY="3.625" />
-        <EntityTypeShape EntityType="CRM.Model.MoneyRecord" Width="1.5" PointX="0.5" PointY="3.5" />
-        <EntityTypeShape EntityType="CRM.Model.RoomRecord" Width="1.5" PointX="8.625" PointY="5.375" />
-        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="8.625" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.UserFans" Width="1.5" PointX="8.625" PointY="3" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="2.375" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="4.5" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.UserBase" Width="1.5" PointX="6.625" PointY="0.5" />
+        <EntityTypeShape EntityType="CRM.Model.GoldRecord" Width="1.5" PointX="8" PointY="6.5" />
+        <EntityTypeShape EntityType="CRM.Model.MoneyRecord" Width="1.5" PointX="5.75" PointY="4.5" />
+        <EntityTypeShape EntityType="CRM.Model.Room" Width="1.5" PointX="5" PointY="0.5" />
+        <EntityTypeShape EntityType="CRM.Model.RoomRecord" Width="1.5" PointX="7.375" PointY="0.5" />
+        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="8" PointY="3.625" />
+        <EntityTypeShape EntityType="CRM.Model.UserBase" Width="1.5" PointX="2.75" PointY="3.625" />
+        <EntityTypeShape EntityType="CRM.Model.UserFans" Width="1.5" PointX="0.5" PointY="6.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="0.5" PointY="3.625" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="2.75" PointY="0.5" />
         <AssociationConnector Association="CRM.Model.FK_GoldRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_MoneyRecord_UserBase" />
+        <AssociationConnector Association="CRM.Model.FK_Room_UserBase" />
+        <AssociationConnector Association="CRM.Model.FK_RoomRecord_Room" />
         <AssociationConnector Association="CRM.Model.FK_RoomRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_UserAccount_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_UserBase_UserLoginInSide" />
         <AssociationConnector Association="CRM.Model.FK_UserBase_UserLoginOutSide" />
         <AssociationConnector Association="CRM.Model.FK_UserFans_UserBase" />
-        <EntityTypeShape EntityType="CRM.Model.Room" Width="1.5" PointX="4.625" PointY="4.25" />
-        <AssociationConnector Association="CRM.Model.FK_Room_UserBase" />
-        <AssociationConnector Association="CRM.Model.FK_RoomRecord_Room" />
       </Diagram>
     </Diagrams>
   </Designer>

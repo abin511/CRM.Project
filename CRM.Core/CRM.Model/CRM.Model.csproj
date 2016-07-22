@@ -94,7 +94,8 @@
     <Compile Include="CustomConfig.cs">
       <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Enum\ActionTypeEnum.cs" />
+    <Compile Include="Enum\ManageEnum.cs" />
+    <Compile Include="Enum\BusinessEnum.cs" />
     <Compile Include="Enum\CommonEnum.cs" />
     <Compile Include="GoldRecord.cs">
       <DependentUpon>Crm.BusinessDb.tt</DependentUpon>

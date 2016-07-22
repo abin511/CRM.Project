@@ -2,7 +2,7 @@
 using CRM.BLL;
 using CRM.IBLL;
 
-namespace CRM.WebApi.Controllers.Trading
+namespace CRM.WebApi.Controllers.Funding
 {
     /// <summary>
     ///金币充值

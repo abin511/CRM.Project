@@ -9,5 +9,7 @@ namespace CRM.IBLL
         /// </summary>
         /// <returns></returns>
         Result<int> Modify(int userId, string nickname, string avatar, int? gender);
+
+        Result<UserBase> CheckUser(int userId);
     }
 }

@@ -17,12 +17,12 @@ namespace CRM.WebApi
 
             config.Routes.MapHttpRoute(
                 name: "ApiById",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{id:int}",
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
                 name: "ApiByToken",
-                routeTemplate: "api/{controller}/{token}",
+                routeTemplate: "api/{controller}/{token:string}",
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Formatters.Clear();

@@ -6,13 +6,13 @@ using CRM.IBLL;
 namespace CRM.WebApi.Controllers.Players
 {
     /// <summary>
-    /// 进入直播间
+    /// 用户进入直播间
     /// </summary>
     public class JoinRoomController : BaseApiController
     {
         readonly IRoomRecordService _roomRecordService = new RoomRecordService();
         /// <summary>
-        /// 进入直播间
+        /// 用户进入直播间
         /// </summary>
         public HttpResponseMessage Get(string token,int roomId)
         {

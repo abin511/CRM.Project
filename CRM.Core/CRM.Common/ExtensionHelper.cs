@@ -105,5 +105,10 @@ namespace CRM.Common
             }
             return config.Value.ToObject<T>();
         }
+
+       public static bool IsNullOrEmpty<T>(this IList<T> list)
+       {
+           return list == null || list.Count <= 0;
+       }
     }
 }

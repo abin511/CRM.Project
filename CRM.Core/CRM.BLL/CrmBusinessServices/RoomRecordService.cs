@@ -31,6 +31,12 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
+            var room = this._roomService.Get(m => m.ID == roomId).FirstOrDefault();
+            if (room == null || room.Status == (int)RoomStausEnum.Lock)
+            {
+                result.Msg = "直播间数据错误";
+                return result;
+            }
 
             #region 提交进入直播间记录
             var result1 = base.CurrentRepository.Add(new RoomRecord()
@@ -38,7 +44,6 @@ namespace CRM.BLL
                 RoomId = roomId,
                 UserId = userId,
                 OnlineStatus = true,
-                OnlineSeconds = 1,
                 InsertTime = now,
                 UpdateTime = now
             });
@@ -47,12 +52,7 @@ namespace CRM.BLL
                 result.Msg = "进入直播间错误";
                 return result;
             }
-            var room = this._roomService.Get(m => m.ID == roomId).FirstOrDefault();
-            if (room == null)
-            {
-                result.Msg = "直播间数据错误";
-                return result;
-            }
+            
             room.OnlineCount += 1;
             room.TotalCount += 1;
             room.UpdateTime = now;

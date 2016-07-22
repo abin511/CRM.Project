@@ -16,7 +16,7 @@ namespace CRM.Model
     {
         public int ID { get; set; }
         public int UserId { get; set; }
-        public byte ChangeType { get; set; }
+        public short ChangeType { get; set; }
         public int GoldBefore { get; set; }
         public int GoldAfter { get; set; }
         public string Remark { get; set; }

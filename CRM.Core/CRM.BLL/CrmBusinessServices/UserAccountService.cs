@@ -11,6 +11,7 @@ namespace CRM.BLL
         readonly IMoneyRecordService _moneyRecordService = new MoneyRecordService();
         readonly IGoldRecordService _goldRecordService = new GoldRecordService();
         readonly IRoomService _roomService = new RoomService();
+        readonly IUserBaseService _userBaseService = new UserBaseService();
         /// <summary>
         /// 用户充值 增加金币
         /// </summary>
@@ -31,13 +32,20 @@ namespace CRM.BLL
             }
             #endregion
 
+            //获取用户信息
+            var checkUser = this._userBaseService.CheckUser(userId);
+            if (checkUser.Code == ResultEnum.Error)
+            {
+                result.Msg = checkUser.Msg;
+                return result;
+            }
             var userAccount = this.CurrentRepository.Get(m => m.UserId == userId).FirstOrDefault();
             if (userAccount == null)
             {
                 result.Msg = "用户资金信息无效";
                 return result;
             }
-            
+            #region 用户充值
             var now = DateTime.Now;
             //用户账户变动
             var gold = userAccount.Gold;
@@ -55,7 +63,11 @@ namespace CRM.BLL
             var result2 = this._moneyRecordService.Add(new MoneyRecord()
             {
                 UserId = userId,
-                ChangeType = (int)MoneyChangeTypeEnum.Recharge
+                ChangeType = (int)MoneyChangeTypeEnum.Recharge,
+                Amount = amount,
+                Remark = "用户充值，兑换成金币",
+                InsertTime = now,
+                UpdateTime = now
             });
             //金币变动记录
             var result3 = this._goldRecordService.Add(new GoldRecord()
@@ -68,6 +80,7 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
+            #endregion
             result.Data = userAccount.Gold;
             result.Code= ResultEnum.Success;
             return result;
@@ -194,6 +207,64 @@ namespace CRM.BLL
             #endregion
 
             result.Data = userAccount.Gold;
+            result.Code = ResultEnum.Success;
+            return result;
+        }
+        /// <summary>
+        /// 用户金币转换现金
+        /// </summary>
+        /// <returns></returns>
+        public Result<decimal> Profit(int userId, int gold)
+        {
+            var result = new Result<decimal>();
+            #region check params
+            if (userId <= 0)
+            {
+                result.Msg = "用户ID无效";
+                return result;
+            }
+            if (gold <= 0)
+            {
+                result.Msg = "金币兑换无效";
+                return result;
+            }
+            #endregion
+            //获取用户信息
+            var checkUser = this._userBaseService.CheckUser(userId);
+            if (checkUser.Code == ResultEnum.Error)
+            {
+                result.Msg = checkUser.Msg;
+                return result;
+            }
+            //当前用户减少金币，增加收益
+            var userAccount = this.CurrentRepository.Get(m => m.UserId == userId).FirstOrDefault();
+            if (userAccount == null)
+            {
+                result.Msg = "用户资金信息无效";
+                return result;
+            }
+            var now = DateTime.Now;
+            var userGold = userAccount.Gold;
+            userAccount.Gold -= gold;
+            userAccount.Profit += gold;
+            userAccount.UpdateTime = now;
+            //金币变动记录
+            var goldRecord = this._goldRecordService.Add(new GoldRecord()
+            {
+                UserId = userId,
+                ChangeType = (int)GoldChangeTypeEnum.Reduce,
+                GoldBefore = userGold,
+                GoldAfter = userAccount.Gold,
+                Remark = $"用户金币兑换，减少金币{userGold}",
+                InsertTime = now,
+                UpdateTime = now
+            });
+            if (goldRecord.Code == ResultEnum.Error || goldRecord.Data <= 0)
+            {
+                result.Msg = "用户金币兑换,增加金币变动记录失败";
+                return result;
+            }
+            result.Data = userAccount.Profit;
             result.Code = ResultEnum.Success;
             return result;
         }

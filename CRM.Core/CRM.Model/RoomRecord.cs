@@ -18,11 +18,11 @@ namespace CRM.Model
         public int RoomId { get; set; }
         public int UserId { get; set; }
         public bool OnlineStatus { get; set; }
-        public int OnlineSeconds { get; set; }
+        public int OnlineMinutes { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     
-        public virtual UserBase UserBase { get; set; }
         public virtual Room Room { get; set; }
+        public virtual UserBase UserBase { get; set; }
     }
 }

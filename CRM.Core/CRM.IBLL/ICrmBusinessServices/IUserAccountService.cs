@@ -14,5 +14,10 @@ namespace CRM.IBLL
         /// </summary>
         /// <returns></returns>
         Result<int> Cost(int userId, int roomId, int giftId);
+        /// <summary>
+        /// 用户金币兑换
+        /// </summary>
+        /// <returns></returns>
+        Result<decimal> Profit(int userId, int gold);
     }
 }
