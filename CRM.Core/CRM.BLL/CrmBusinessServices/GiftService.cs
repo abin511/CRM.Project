@@ -12,7 +12,7 @@ namespace CRM.BLL
         readonly ICustomConfigService _customConfigService = new CustomConfigService();
         private const string ConfigKey = "gift";
         /// <summary>
-        /// 主播推流
+        /// 获取所有额礼物配置信息
         /// </summary>
         /// <returns></returns>
         public List<ViewGift> GetGiftList()

@@ -17,7 +17,7 @@ namespace CRM.Model
         public int ID { get; set; }
         public int RoomId { get; set; }
         public int UserId { get; set; }
-        public bool OnlineStatus { get; set; }
+        public bool IsOnline { get; set; }
         public int OnlineMinutes { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }

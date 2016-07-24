@@ -12,6 +12,10 @@ namespace CRM.IDAL
     {         
     }
 	
+    public partial interface IIntegralRecordRepository :IBaseRepository<IntegralRecord>
+    {         
+    }
+	
     public partial interface IMoneyRecordRepository :IBaseRepository<MoneyRecord>
     {         
     }

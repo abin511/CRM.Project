@@ -13,6 +13,10 @@ namespace CRM.IBLL
     {   
     }
 	
+	public partial interface IIntegralRecordService:IBaseService<IntegralRecord>
+    {   
+    }
+	
 	public partial interface IMoneyRecordService:IBaseService<MoneyRecord>
     {   
     }

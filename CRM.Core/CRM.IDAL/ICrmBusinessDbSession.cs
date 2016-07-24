@@ -9,6 +9,8 @@ namespace CRM.IDAL
 	  
 		IGoldRecordRepository GoldRecordRepository { get; }
 	  
+		IIntegralRecordRepository IntegralRecordRepository { get; }
+	  
 		IMoneyRecordRepository MoneyRecordRepository { get; }
 	  
 		IRoomRepository RoomRepository { get; }

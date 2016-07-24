@@ -10,6 +10,8 @@ namespace CRM.DAL
 		
 		public IGoldRecordRepository GoldRecordRepository { get { return new GoldRecordRepository(); } }
 		
+		public IIntegralRecordRepository IntegralRecordRepository { get { return new IntegralRecordRepository(); } }
+		
 		public IMoneyRecordRepository MoneyRecordRepository { get { return new MoneyRecordRepository(); } }
 		
 		public IRoomRepository RoomRepository { get { return new RoomRepository(); } }

@@ -13,6 +13,10 @@ namespace CRM.DAL
     {
     }
 	
+	public partial class IntegralRecordRepository :CrmBusinessRepository<IntegralRecord>,IIntegralRecordRepository
+    {
+    }
+	
 	public partial class MoneyRecordRepository :CrmBusinessRepository<MoneyRecord>,IMoneyRecordRepository
     {
     }

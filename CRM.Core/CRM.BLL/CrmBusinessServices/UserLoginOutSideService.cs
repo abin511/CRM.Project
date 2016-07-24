@@ -42,7 +42,7 @@ namespace CRM.BLL
                 #region 插入新的用户
                 var iRet1 = base.CurrentRepository.Add(new UserLoginOutSide
                 {
-                    LoginType = (int)loginType,
+                    LoginType = (byte)loginType,
                     OpenId = openId,
                     LastLoginTime = now,
                     InsertTime = now,
@@ -56,7 +56,8 @@ namespace CRM.BLL
                 var iRet2 = this._userBaseInfoService.Add(new UserBase()
                 {
                     LoginId = iRet1,
-                    NickName = "test",
+                    UserNumber = string.Format(Const.UserNumber, LoginTypeEnum.M, iRet1.ToString().PadLeft(7, '0')),
+                    NickName = "我是呆萌贱",
                     UserLevel = 0,
                     Fans = 0,
                     InsertTime = now,

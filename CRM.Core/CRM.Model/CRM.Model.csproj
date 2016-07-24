@@ -61,6 +61,7 @@
     <Compile Include="AdminInfo.cs">
       <DependentUpon>CRM.ManageDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Const.cs" />
     <Compile Include="Crm.BusinessDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,6 +99,9 @@
     <Compile Include="Enum\BusinessEnum.cs" />
     <Compile Include="Enum\CommonEnum.cs" />
     <Compile Include="GoldRecord.cs">
+      <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IntegralRecord.cs">
       <DependentUpon>Crm.BusinessDb.tt</DependentUpon>
     </Compile>
     <Compile Include="MoneyRecord.cs">

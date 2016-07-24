@@ -27,6 +27,7 @@ namespace CRM.Model
     
         public DbSet<CustomConfig> CustomConfig { get; set; }
         public DbSet<GoldRecord> GoldRecord { get; set; }
+        public DbSet<IntegralRecord> IntegralRecord { get; set; }
         public DbSet<MoneyRecord> MoneyRecord { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomRecord> RoomRecord { get; set; }

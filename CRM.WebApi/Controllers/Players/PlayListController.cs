@@ -22,7 +22,7 @@ namespace CRM.WebApi.Controllers.Players
         {
             return base.Wrapper(() =>
             {
-                var roomList = this._roomService.Get(m=>m.OnlineStatus && m.Status == (int)RoomStausEnum.None);
+                var roomList = this._roomService.Get(m=>m.Status == (int)RoomStausEnum.Live);
                 var dataList = new List<ViewPlayer>();
                 if (roomList != null && roomList.Any())
                 {

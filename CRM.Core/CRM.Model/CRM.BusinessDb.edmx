@@ -13,7 +13,7 @@
           <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="KeyName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Expand" Type="nvarchar" MaxLength="2000" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -24,9 +24,22 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="ChangeType" Type="smallint" Nullable="false" />
-          <Property Name="GoldBefore" Type="int" Nullable="false" />
-          <Property Name="GoldAfter" Type="int" Nullable="false" />
+          <Property Name="ChangeType" Type="tinyint" Nullable="false" />
+          <Property Name="GoldBefore" Type="bigint" Nullable="false" />
+          <Property Name="GoldAfter" Type="bigint" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="InsertTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IntegralRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ChangeType" Type="tinyint" Nullable="false" />
+          <Property Name="IntegralBefore" Type="bigint" Nullable="false" />
+          <Property Name="IntegralAfter" Type="bigint" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -38,7 +51,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ChangeType" Type="tinyint" Nullable="false" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="AmountBefore" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="AmountAfter" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -51,11 +65,9 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Cover" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="OnlineStatus" Type="bit" Nullable="false" />
           <Property Name="OnlineCount" Type="int" Nullable="false" />
           <Property Name="TotalCount" Type="int" Nullable="false" />
-          <Property Name="Contribution" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -66,7 +78,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoomId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="OnlineStatus" Type="bit" Nullable="false" />
+          <Property Name="IsOnline" Type="bit" Nullable="false" />
           <Property Name="OnlineMinutes" Type="int" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -76,8 +88,9 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Gold" Type="int" Nullable="false" />
-          <Property Name="Contribution" Type="int" Nullable="false" />
+          <Property Name="Gold" Type="bigint" Nullable="false" />
+          <Property Name="Contribution" Type="bigint" Nullable="false" />
+          <Property Name="Integral" Type="bigint" Nullable="false" />
           <Property Name="Profit" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -88,6 +101,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginId" Type="int" Nullable="false" />
+          <Property Name="UserNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RealName" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="varchar" MaxLength="200" />
@@ -96,7 +110,7 @@
           <Property Name="UserLevel" Type="tinyint" Nullable="false" />
           <Property Name="Fans" Type="int" Nullable="false" />
           <Property Name="SubScription" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="RegAddr" Type="nvarchar" MaxLength="50" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
@@ -116,7 +130,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LoginType" Type="int" Nullable="false" />
+          <Property Name="LoginType" Type="tinyint" Nullable="false" />
           <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LoginPwd" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LoginErrorCount" Type="int" Nullable="false" />
@@ -129,7 +143,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LoginType" Type="int" Nullable="false" />
+          <Property Name="LoginType" Type="tinyint" Nullable="false" />
           <Property Name="OpenId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastLoginTime" Type="datetime" Nullable="false" />
           <Property Name="InsertTime" Type="datetime" Nullable="false" />
@@ -143,6 +157,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="GoldRecord">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IntegralRecord_UserBase">
+          <End Role="UserBase" Type="Self.UserBase" Multiplicity="1" />
+          <End Role="IntegralRecord" Type="Self.IntegralRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserBase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="IntegralRecord">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -246,6 +272,7 @@
         <EntityContainer Name="CRMBusinessModelStoreContainer">
           <EntitySet Name="CustomConfig" EntityType="Self.CustomConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoldRecord" EntityType="Self.GoldRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IntegralRecord" EntityType="Self.IntegralRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MoneyRecord" EntityType="Self.MoneyRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomRecord" EntityType="Self.RoomRecord" Schema="dbo" store:Type="Tables" />
@@ -257,6 +284,10 @@
           <AssociationSet Name="FK_GoldRecord_UserBase" Association="Self.FK_GoldRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="GoldRecord" EntitySet="GoldRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IntegralRecord_UserBase" Association="Self.FK_IntegralRecord_UserBase">
+            <End Role="UserBase" EntitySet="UserBase" />
+            <End Role="IntegralRecord" EntitySet="IntegralRecord" />
           </AssociationSet>
           <AssociationSet Name="FK_MoneyRecord_UserBase" Association="Self.FK_MoneyRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
@@ -298,6 +329,7 @@
         <EntityContainer Name="CrmBusinessDbContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CustomConfig" EntityType="CRM.Model.CustomConfig" />
           <EntitySet Name="GoldRecord" EntityType="CRM.Model.GoldRecord" />
+          <EntitySet Name="IntegralRecord" EntityType="CRM.Model.IntegralRecord" />
           <EntitySet Name="MoneyRecord" EntityType="CRM.Model.MoneyRecord" />
           <EntitySet Name="Room" EntityType="CRM.Model.Room" />
           <EntitySet Name="RoomRecord" EntityType="CRM.Model.RoomRecord" />
@@ -309,6 +341,10 @@
           <AssociationSet Name="FK_GoldRecord_UserBase" Association="CRM.Model.FK_GoldRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="GoldRecord" EntitySet="GoldRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IntegralRecord_UserBase" Association="CRM.Model.FK_IntegralRecord_UserBase">
+            <End Role="UserBase" EntitySet="UserBase" />
+            <End Role="IntegralRecord" EntitySet="IntegralRecord" />
           </AssociationSet>
           <AssociationSet Name="FK_MoneyRecord_UserBase" Association="CRM.Model.FK_MoneyRecord_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
@@ -342,7 +378,7 @@
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="UserFans" EntitySet="UserFans" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="CustomConfig">
           <Key>
             <PropertyRef Name="ID" />
@@ -351,7 +387,7 @@
           <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="KeyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Expand" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -362,13 +398,27 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="ChangeType" Type="Int16" Nullable="false" />
-          <Property Name="GoldBefore" Type="Int32" Nullable="false" />
-          <Property Name="GoldAfter" Type="Int32" Nullable="false" />
+          <Property Name="ChangeType" Type="Byte" Nullable="false" />
+          <Property Name="GoldBefore" Type="Int64" Nullable="false" />
+          <Property Name="GoldAfter" Type="Int64" Nullable="false" />
           <Property Name="Remark" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_GoldRecord_UserBase" FromRole="GoldRecord" ToRole="UserBase" />
+        </EntityType>
+        <EntityType Name="IntegralRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ChangeType" Type="Byte" Nullable="false" />
+          <Property Name="IntegralBefore" Type="Int64" Nullable="false" />
+          <Property Name="IntegralAfter" Type="Int64" Nullable="false" />
+          <Property Name="Remark" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_IntegralRecord_UserBase" FromRole="IntegralRecord" ToRole="UserBase" />
         </EntityType>
         <EntityType Name="MoneyRecord">
           <Key>
@@ -377,7 +427,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="ChangeType" Type="Byte" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="AmountBefore" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="AmountAfter" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="Remark" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -391,11 +442,9 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Cover" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
           <Property Name="OnlineCount" Type="Int32" Nullable="false" />
           <Property Name="TotalCount" Type="Int32" Nullable="false" />
-          <Property Name="Contribution" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_Room_UserBase" FromRole="Room" ToRole="UserBase" />
@@ -408,7 +457,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoomId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
+          <Property Name="IsOnline" Type="Boolean" Nullable="false" />
           <Property Name="OnlineMinutes" Type="Int32" Nullable="false" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -420,8 +469,9 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Gold" Type="Int32" Nullable="false" />
-          <Property Name="Contribution" Type="Int32" Nullable="false" />
+          <Property Name="Gold" Type="Int64" Nullable="false" />
+          <Property Name="Contribution" Type="Int64" Nullable="false" />
+          <Property Name="Integral" Type="Int64" Nullable="false" />
           <Property Name="Profit" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -433,6 +483,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <Property Name="UserNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -441,11 +492,12 @@
           <Property Name="UserLevel" Type="Byte" Nullable="false" />
           <Property Name="Fans" Type="Int32" Nullable="false" />
           <Property Name="SubScription" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="RegAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="GoldRecord" Relationship="CRM.Model.FK_GoldRecord_UserBase" FromRole="UserBase" ToRole="GoldRecord" />
+          <NavigationProperty Name="IntegralRecord" Relationship="CRM.Model.FK_IntegralRecord_UserBase" FromRole="UserBase" ToRole="IntegralRecord" />
           <NavigationProperty Name="MoneyRecord" Relationship="CRM.Model.FK_MoneyRecord_UserBase" FromRole="UserBase" ToRole="MoneyRecord" />
           <NavigationProperty Name="Room" Relationship="CRM.Model.FK_Room_UserBase" FromRole="UserBase" ToRole="Room" />
           <NavigationProperty Name="RoomRecord" Relationship="CRM.Model.FK_RoomRecord_UserBase" FromRole="UserBase" ToRole="RoomRecord" />
@@ -470,7 +522,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LoginType" Type="Int32" Nullable="false" />
+          <Property Name="LoginType" Type="Byte" Nullable="false" />
           <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LoginPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LoginErrorCount" Type="Int32" Nullable="false" />
@@ -484,7 +536,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LoginType" Type="Int32" Nullable="false" />
+          <Property Name="LoginType" Type="Byte" Nullable="false" />
           <Property Name="OpenId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastLoginTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -499,6 +551,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="GoldRecord">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IntegralRecord_UserBase">
+          <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="1" />
+          <End Type="CRM.Model.IntegralRecord" Role="IntegralRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserBase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="IntegralRecord">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -633,13 +697,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="IntegralRecord">
+            <EntityTypeMapping TypeName="CRM.Model.IntegralRecord">
+              <MappingFragment StoreEntitySet="IntegralRecord">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IntegralAfter" ColumnName="IntegralAfter" />
+                <ScalarProperty Name="IntegralBefore" ColumnName="IntegralBefore" />
+                <ScalarProperty Name="ChangeType" ColumnName="ChangeType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MoneyRecord">
             <EntityTypeMapping TypeName="CRM.Model.MoneyRecord">
               <MappingFragment StoreEntitySet="MoneyRecord">
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="AmountAfter" ColumnName="AmountAfter" />
+                <ScalarProperty Name="AmountBefore" ColumnName="AmountBefore" />
                 <ScalarProperty Name="ChangeType" ColumnName="ChangeType" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -652,10 +731,8 @@
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Contribution" ColumnName="Contribution" />
                 <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
                 <ScalarProperty Name="OnlineCount" ColumnName="OnlineCount" />
-                <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
                 <ScalarProperty Name="Cover" ColumnName="Cover" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -669,7 +746,7 @@
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
                 <ScalarProperty Name="OnlineMinutes" ColumnName="OnlineMinutes" />
-                <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoomId" ColumnName="RoomId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -682,6 +759,7 @@
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
                 <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="Integral" ColumnName="Integral" />
                 <ScalarProperty Name="Contribution" ColumnName="Contribution" />
                 <ScalarProperty Name="Gold" ColumnName="Gold" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -703,6 +781,7 @@
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="RealName" ColumnName="RealName" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="UserNumber" ColumnName="UserNumber" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -745,7 +824,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -768,17 +847,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram DiagramId="eaa83888a55a4bce9f17bb506316353e" Name="Diagram1" ZoomLevel="75">
-        <EntityTypeShape EntityType="CRM.Model.CustomConfig" Width="1.5" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.GoldRecord" Width="1.5" PointX="8" PointY="6.5" />
-        <EntityTypeShape EntityType="CRM.Model.MoneyRecord" Width="1.5" PointX="5.75" PointY="4.5" />
-        <EntityTypeShape EntityType="CRM.Model.Room" Width="1.5" PointX="5" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.RoomRecord" Width="1.5" PointX="7.375" PointY="0.5" />
-        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="8" PointY="3.625" />
-        <EntityTypeShape EntityType="CRM.Model.UserBase" Width="1.5" PointX="2.75" PointY="3.625" />
-        <EntityTypeShape EntityType="CRM.Model.UserFans" Width="1.5" PointX="0.5" PointY="6.75" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="0.5" PointY="3.625" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="CRM.Model.CustomConfig" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM.Model.GoldRecord" Width="1.5" PointX="5.25" PointY="18.5" />
+        <EntityTypeShape EntityType="CRM.Model.IntegralRecord" Width="1.5" PointX="5.25" PointY="8.75" />
+        <EntityTypeShape EntityType="CRM.Model.MoneyRecord" Width="1.5" PointX="5.25" PointY="12.25" />
+        <EntityTypeShape EntityType="CRM.Model.Room" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="CRM.Model.RoomRecord" Width="1.5" PointX="7.5" PointY="8.25" />
+        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserBase" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserFans" Width="1.5" PointX="5.25" PointY="15.625" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="0.75" PointY="10.375" />
         <AssociationConnector Association="CRM.Model.FK_GoldRecord_UserBase" />
+        <AssociationConnector Association="CRM.Model.FK_IntegralRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_MoneyRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_Room_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_RoomRecord_Room" />

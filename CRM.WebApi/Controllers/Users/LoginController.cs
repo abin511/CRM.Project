@@ -44,7 +44,7 @@ namespace CRM.WebApi.Controllers.Users
             {
                 var result = this._userLoginInSideService.Login(new UserLoginInSide
                 {
-                    LoginType = (int)loginType,
+                    LoginType = (byte)loginType,
                     LoginName = uName,
                     LoginPwd = uPwd
                 });
@@ -69,7 +69,7 @@ namespace CRM.WebApi.Controllers.Users
         {
             return base.Wrapper(() => this._userLoginInSideService.Register(new UserLoginInSide
             {
-                LoginType = (int)loginType,
+                LoginType = (byte)loginType,
                 LoginName = uName,
                 LoginPwd = uPwd
             }, rePwd));

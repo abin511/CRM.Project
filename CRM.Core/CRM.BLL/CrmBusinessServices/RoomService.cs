@@ -41,10 +41,9 @@ namespace CRM.BLL
                     UserId = userId,
                     Title = title,
                     Cover = cover,
-                    OnlineStatus = true,
                     OnlineCount = 1,
                     TotalCount = 1,
-                    Contribution = 0,
+                    Status = (int)RoomStausEnum.Live,
                     InsertTime = now,
                     UpdateTime = now
                 });
@@ -62,10 +61,9 @@ namespace CRM.BLL
                     result.Msg = "直播间已经被锁定";
                     return result;
                 }
-                model.OnlineStatus = true;
+                model.Status = (int)RoomStausEnum.Live;
                 model.OnlineCount += 1;
                 model.TotalCount += 1;
-                model.Contribution += 1;
                 model.UpdateTime = now;
                 var result2 = base.CurrentRepository.Update(model);
                 if (result2 <= 0)

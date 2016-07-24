@@ -20,7 +20,7 @@ namespace CRM.Model
         }
     
         public int ID { get; set; }
-        public int LoginType { get; set; }
+        public byte LoginType { get; set; }
         public string LoginName { get; set; }
         public string LoginPwd { get; set; }
         public int LoginErrorCount { get; set; }

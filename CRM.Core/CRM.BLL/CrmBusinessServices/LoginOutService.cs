@@ -17,19 +17,19 @@ namespace CRM.BLL
         public Result<int> LoginOutByLive(int userId,int roomId)
         {
             var result = new Result<int>();
-            var room = this._roomService.Get(m => m.UserId == userId && m.ID == roomId && m.OnlineStatus).FirstOrDefault();
+            var room = this._roomService.Get(m => m.UserId == userId && m.ID == roomId && m.Status == (int)RoomStausEnum.Live).FirstOrDefault();
             if (room == null)
             {
                 result.Msg = "直播间信息无效";
                 return result;
             }
             var now = DateTime.Now;
-            room.OnlineStatus = false;
+            room.Status = (int)RoomStausEnum.Lazy;
             room.OnlineCount = 0;
             room.UpdateTime = now;
             result = this._roomService.Update(room);
 
-            var records = this._roomRecordService.Get(m => m.RoomId == room.ID).ToList();
+            var records = this._roomRecordService.Get(m => m.RoomId == room.ID && m.IsOnline).ToList();
             if (!records.IsNullOrEmpty())
             {
                 records.ForEach(item =>
@@ -37,7 +37,7 @@ namespace CRM.BLL
                     TimeSpan ts = item.InsertTime - now;
                     item.OnlineMinutes = ts.Days*24*60 + ts.Hours*60 + ts.Minutes;
                     item.UpdateTime = now;
-                    item.OnlineStatus = false;
+                    item.IsOnline = false;
                 });
                 this._roomRecordService.Update(records);
             }
@@ -51,7 +51,7 @@ namespace CRM.BLL
         public Result<int> LoginOutByUser(int userId, int roomId,int recordId)
         {
             var result = new Result<int>();
-            var records = this._roomRecordService.Get(m => m.UserId == userId && m.RoomId == roomId && m.ID == recordId && m.OnlineStatus).FirstOrDefault();
+            var records = this._roomRecordService.Get(m => m.UserId == userId && m.RoomId == roomId && m.ID == recordId && m.IsOnline).FirstOrDefault();
             if (records == null)
             {
                 result.Msg = "直播间记录无效";
@@ -61,7 +61,7 @@ namespace CRM.BLL
             TimeSpan ts = records.InsertTime - now;
             records.OnlineMinutes = ts.Days * 24 * 60 + ts.Hours * 60 + ts.Minutes;
             records.UpdateTime = now;
-            records.OnlineStatus = false;
+            records.IsOnline = false;
             result = this._roomRecordService.Update(records);
 
             var room = this._roomService.Get(m => m.ID == records.RoomId).FirstOrDefault();

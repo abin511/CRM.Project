@@ -47,14 +47,29 @@
         /// <summary>
         /// 减少金币
         /// </summary>
-        Reduce = -1
+        Reduce = 2
     }
-    public enum UserBaseStausEnum
+    public enum IntegralChangeTypeEnum
     {
         /// <summary>
         /// None
         /// </summary>
         None = 0,
+        /// <summary>
+        /// 增加积分
+        /// </summary>
+        Increase = 1,
+        /// <summary>
+        /// 减少积分
+        /// </summary>
+        Reduce = 2
+    }
+    public enum UserBaseStausEnum
+    {
+        /// <summary>
+        /// Normal 
+        /// </summary>
+        Normal = 0,
         /// <summary>
         /// 被锁定
         /// </summary>
@@ -67,12 +82,16 @@
     public enum RoomStausEnum
     {
         /// <summary>
-        /// None
+        ///  -1被锁定
         /// </summary>
-        None = 0,
+        Lock = -1,
         /// <summary>
-        /// 被锁定
+        /// 空闲
         /// </summary>
-        Lock = -1
+        Lazy = 0,
+        /// <summary>
+        /// 正在直播
+        /// </summary>
+        Live = 1
     }
 }

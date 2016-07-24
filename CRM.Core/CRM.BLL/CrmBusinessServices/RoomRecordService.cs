@@ -43,7 +43,7 @@ namespace CRM.BLL
             {
                 RoomId = roomId,
                 UserId = userId,
-                OnlineStatus = true,
+                IsOnline = true,
                 InsertTime = now,
                 UpdateTime = now
             });

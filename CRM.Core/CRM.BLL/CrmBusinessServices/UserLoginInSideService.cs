@@ -106,6 +106,7 @@ namespace CRM.BLL
             var iRet2 = this._userBaseInfoService.Add(new UserBase()
             {
                 LoginId = iRet1,
+                UserNumber = string.Format(Const.UserNumber, LoginTypeEnum.M,iRet1.ToString().PadLeft(7, '0')),
                 NickName = ent.LoginName,
                 UserLevel = 0,
                 Fans = 0,

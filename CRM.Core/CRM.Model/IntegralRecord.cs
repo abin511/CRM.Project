@@ -12,13 +12,14 @@ namespace CRM.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAccount
+    public partial class IntegralRecord
     {
+        public int ID { get; set; }
         public int UserId { get; set; }
-        public long Gold { get; set; }
-        public long Contribution { get; set; }
-        public long Integral { get; set; }
-        public decimal Profit { get; set; }
+        public byte ChangeType { get; set; }
+        public long IntegralBefore { get; set; }
+        public long IntegralAfter { get; set; }
+        public string Remark { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     

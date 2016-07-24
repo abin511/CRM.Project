@@ -8,7 +8,7 @@ namespace CRM.BLL
     public partial class UserAccountService : IUserAccountService
     {
         readonly IGiftService _giftService = new GiftService();
-        readonly IMoneyRecordService _moneyRecordService = new MoneyRecordService();
+        readonly IIntegralRecordService _integralRecordService = new IntegralRecordService();
         readonly IGoldRecordService _goldRecordService = new GoldRecordService();
         readonly IRoomService _roomService = new RoomService();
         readonly IUserBaseService _userBaseService = new UserBaseService();
@@ -16,9 +16,9 @@ namespace CRM.BLL
         /// 用户充值 增加金币
         /// </summary>
         /// <returns></returns>
-        public Result<int> Recharge(int userId,decimal amount)
+        public Result<long> Recharge(int userId,decimal amount)
         {
-            var result = new Result<int>();
+            var result = new Result<long>();
             #region check params
             if (userId <= 0)
             {
@@ -51,7 +51,6 @@ namespace CRM.BLL
             var gold = userAccount.Gold;
             var rechare = (int)Math.Ceiling(amount) * 10;
             userAccount.Gold += rechare;
-            userAccount.Contribution += rechare;
             userAccount.UpdateTime = now;
             var result1 = this.CurrentRepository.Update(userAccount);
             if (result1 <= 0)
@@ -60,15 +59,15 @@ namespace CRM.BLL
                 return result;
             }
             //资金变动记录
-            var result2 = this._moneyRecordService.Add(new MoneyRecord()
-            {
-                UserId = userId,
-                ChangeType = (int)MoneyChangeTypeEnum.Recharge,
-                Amount = amount,
-                Remark = "用户充值，兑换成金币",
-                InsertTime = now,
-                UpdateTime = now
-            });
+            //var result2 = this._moneyRecordService.Add(new MoneyRecord()
+            //{
+            //    UserId = userId,
+            //    ChangeType = (int)MoneyChangeTypeEnum.Recharge,
+            //    Amount = amount,
+            //    Remark = "用户充值，兑换成金币",
+            //    InsertTime = now,
+            //    UpdateTime = now
+            //});
             //金币变动记录
             var result3 = this._goldRecordService.Add(new GoldRecord()
             {
@@ -89,9 +88,9 @@ namespace CRM.BLL
         /// 用户购买礼物 赠送主播
         /// </summary>
         /// <returns></returns>
-        public Result<int> Cost(int userId,int roomId,int giftId)
+        public Result<long> Cost(int userId,int roomId,int giftId)
         {
-            var result = new Result<int>();
+            var result = new Result<long>();
             #region check params
             if (userId <= 0)
             {
@@ -130,7 +129,7 @@ namespace CRM.BLL
                 result.Msg = "用户信息无效";
                 return result;
             }
-            var roomInfo = this._roomService.Get(m => m.ID == roomId && m.OnlineStatus).FirstOrDefault();
+            var roomInfo = this._roomService.Get(m => m.ID == roomId && m.Status !=(int)UserBaseStausEnum.Normal).FirstOrDefault();
             if (roomInfo == null)
             {
                 result.Msg = "当前直播间无效";
@@ -145,12 +144,13 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
+            var giving = gift.gold;
 
             #region 用户账户变动信息
             //用户账户变动
             var goldByUser = userAccount.Gold;
-            var giving = gift.gold;
             userAccount.Gold -= giving;
+            userAccount.Contribution += giving;
             userAccount.UpdateTime = now;
             var result1 = this.CurrentRepository.Update(userAccount);
             if (result1 <= 0)
@@ -178,30 +178,29 @@ namespace CRM.BLL
 
             #region 主播账户变动信息
             //用户账户变动
-            var goldByLive = liveAccount.Gold;
-            var receival = gift.gold;
-            liveAccount.Gold += receival;
+            var integral = liveAccount.Integral;
+            liveAccount.Integral += giving;
             liveAccount.UpdateTime = now;
             var result3 = this.CurrentRepository.Update(liveAccount);
             if (result3 <= 0)
             {
-                result.Msg = "主播获得礼物，增加金币失败";
+                result.Msg = "主播获得礼物，增加积分失败";
                 return result;
             }
-            //金币变动记录
-            var result4 = this._goldRecordService.Add(new GoldRecord()
+            //积分变动记录
+            var result4 = this._integralRecordService.Add(new IntegralRecord()
             {
                 UserId = roomInfo.UserId,
-                ChangeType = (int)GoldChangeTypeEnum.Increase,
-                GoldBefore = goldByLive,
-                GoldAfter = liveAccount.Gold,
-                Remark = $"主播获得礼物，增加金币{giving}",
+                ChangeType = (int)IntegralChangeTypeEnum.Increase,
+                IntegralBefore = integral,
+                IntegralAfter = liveAccount.Integral,
+                Remark = $"主播获得礼物，增加积分{giving}",
                 InsertTime = now,
                 UpdateTime = now
             });
             if (result4.Code == ResultEnum.Error || result4.Data <= 0)
             {
-                result.Msg = "主播获得礼物，增加金币变动记录失败";
+                result.Msg = "主播获得礼物，增加积分变动记录失败";
                 return result;
             }
             #endregion
@@ -211,7 +210,7 @@ namespace CRM.BLL
             return result;
         }
         /// <summary>
-        /// 用户金币转换现金
+        /// 用户积分兑现 用户减少积分 增加收益
         /// </summary>
         /// <returns></returns>
         public Result<decimal> Profit(int userId, int gold)
@@ -236,7 +235,6 @@ namespace CRM.BLL
                 result.Msg = checkUser.Msg;
                 return result;
             }
-            //当前用户减少金币，增加收益
             var userAccount = this.CurrentRepository.Get(m => m.UserId == userId).FirstOrDefault();
             if (userAccount == null)
             {
@@ -244,24 +242,24 @@ namespace CRM.BLL
                 return result;
             }
             var now = DateTime.Now;
-            var userGold = userAccount.Gold;
-            userAccount.Gold -= gold;
+            var integral = userAccount.Integral;
+            userAccount.Integral -= gold;
             userAccount.Profit += gold;
             userAccount.UpdateTime = now;
             //金币变动记录
-            var goldRecord = this._goldRecordService.Add(new GoldRecord()
+            var goldRecord = this._integralRecordService.Add(new IntegralRecord()
             {
                 UserId = userId,
-                ChangeType = (int)GoldChangeTypeEnum.Reduce,
-                GoldBefore = userGold,
-                GoldAfter = userAccount.Gold,
-                Remark = $"用户金币兑换，减少金币{userGold}",
+                ChangeType = (int)IntegralChangeTypeEnum.Reduce,
+                IntegralBefore = integral,
+                IntegralAfter = userAccount.Integral,
+                Remark = $"用户积分兑换，减少积分{integral}",
                 InsertTime = now,
                 UpdateTime = now
             });
             if (goldRecord.Code == ResultEnum.Error || goldRecord.Data <= 0)
             {
-                result.Msg = "用户金币兑换,增加金币变动记录失败";
+                result.Msg = "用户积分兑换,增加积分变动记录失败";
                 return result;
             }
             result.Data = userAccount.Profit;

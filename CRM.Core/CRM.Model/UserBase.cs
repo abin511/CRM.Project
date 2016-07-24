@@ -17,6 +17,7 @@ namespace CRM.Model
         public UserBase()
         {
             this.GoldRecord = new HashSet<GoldRecord>();
+            this.IntegralRecord = new HashSet<IntegralRecord>();
             this.MoneyRecord = new HashSet<MoneyRecord>();
             this.Room = new HashSet<Room>();
             this.RoomRecord = new HashSet<RoomRecord>();
@@ -25,6 +26,7 @@ namespace CRM.Model
     
         public int ID { get; set; }
         public int LoginId { get; set; }
+        public string UserNumber { get; set; }
         public string NickName { get; set; }
         public string RealName { get; set; }
         public string Avatar { get; set; }
@@ -33,12 +35,13 @@ namespace CRM.Model
         public byte UserLevel { get; set; }
         public int Fans { get; set; }
         public int SubScription { get; set; }
-        public int Status { get; set; }
+        public short Status { get; set; }
         public string RegAddr { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     
         public virtual ICollection<GoldRecord> GoldRecord { get; set; }
+        public virtual ICollection<IntegralRecord> IntegralRecord { get; set; }
         public virtual ICollection<MoneyRecord> MoneyRecord { get; set; }
         public virtual ICollection<Room> Room { get; set; }
         public virtual ICollection<RoomRecord> RoomRecord { get; set; }

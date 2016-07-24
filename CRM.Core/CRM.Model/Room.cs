@@ -23,11 +23,9 @@ namespace CRM.Model
         public int UserId { get; set; }
         public string Title { get; set; }
         public string Cover { get; set; }
-        public bool OnlineStatus { get; set; }
         public int OnlineCount { get; set; }
         public int TotalCount { get; set; }
-        public int Contribution { get; set; }
-        public int Status { get; set; }
+        public short Status { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
     

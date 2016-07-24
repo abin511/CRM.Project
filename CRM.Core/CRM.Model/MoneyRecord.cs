@@ -17,7 +17,8 @@ namespace CRM.Model
         public int ID { get; set; }
         public int UserId { get; set; }
         public byte ChangeType { get; set; }
-        public decimal Amount { get; set; }
+        public decimal AmountBefore { get; set; }
+        public decimal AmountAfter { get; set; }
         public string Remark { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }

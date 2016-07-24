@@ -21,6 +21,14 @@ namespace CRM.BLL
         }  
     }
 	
+	public partial class IntegralRecordService:BaseCrmBusinessServices<IntegralRecord>,IIntegralRecordService	
+    { 
+		public override void SetCurrentRepository()
+        {
+            CurrentRepository = DbSession.IntegralRecordRepository;
+        }  
+    }
+	
 	public partial class MoneyRecordService:BaseCrmBusinessServices<MoneyRecord>,IMoneyRecordService	
     { 
 		public override void SetCurrentRepository()

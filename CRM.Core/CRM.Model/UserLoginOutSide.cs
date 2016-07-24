@@ -20,7 +20,7 @@ namespace CRM.Model
         }
     
         public int ID { get; set; }
-        public int LoginType { get; set; }
+        public byte LoginType { get; set; }
         public string OpenId { get; set; }
         public System.DateTime LastLoginTime { get; set; }
         public System.DateTime InsertTime { get; set; }
