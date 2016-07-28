@@ -21,7 +21,7 @@ namespace CRM.WebApi.Controllers.Users
         [HttpGet]
         public HttpResponseMessage Get(string token)
         {
-            return base.Wrapper(() =>
+            return base.WrapperResponse(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 var userBase = this._userBaseService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBase();

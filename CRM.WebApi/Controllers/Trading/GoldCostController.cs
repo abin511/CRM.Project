@@ -15,7 +15,7 @@ namespace CRM.WebApi.Controllers.Trading
         /// </summary>
         public HttpResponseMessage Get(string token,int roomId,int giftId)
         {
-            return base.Wrapper(() =>
+            return base.WrapperTransaction(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 return this._userAccountService.Cost(userId, roomId, giftId);

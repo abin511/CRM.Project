@@ -14,11 +14,6 @@ namespace CRM.Model
     
     public partial class UserLoginInSide
     {
-        public UserLoginInSide()
-        {
-            this.UserBase = new HashSet<UserBase>();
-        }
-    
         public int ID { get; set; }
         public byte LoginType { get; set; }
         public string LoginName { get; set; }
@@ -27,7 +22,5 @@ namespace CRM.Model
         public System.DateTime LastLoginTime { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
-    
-        public virtual ICollection<UserBase> UserBase { get; set; }
     }
 }

@@ -16,8 +16,8 @@ namespace CRM.WebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "ApiById",
-                routeTemplate: "api/{controller}/{id:int}",
+                name: "Default",
+                routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(

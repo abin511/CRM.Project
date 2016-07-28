@@ -22,7 +22,7 @@ namespace CRM.WebApi.Controllers.Users
         [Route("api/userfans/fans")]
         public HttpResponseMessage GetFans(string token = "36B2FF88CC41BE9A552524424ACC148AE2468AEF4812A21D")
         {
-            return base.Wrapper(() =>
+            return base.WrapperResponse(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 return new Result<List<UserFans>>()
@@ -39,7 +39,7 @@ namespace CRM.WebApi.Controllers.Users
         [Route("api/userfans/sub")]
         public HttpResponseMessage GetSubScription(string token)
         {
-            return base.Wrapper(() =>
+            return base.WrapperResponse(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 return new Result<List<UserFans>>()

@@ -12,11 +12,11 @@ namespace CRM.WebApi.Controllers.Users
     {
         readonly IUserBaseService _userBaseService = new UserBaseService();
         /// <summary>
-        /// 第三方用户登录
+        /// 用户信息修改
         /// </summary>
         public HttpResponseMessage Get(string token, string nickname, string avatar, int? gender)
         {
-            return base.Wrapper(()=>
+            return base.WrapperResponse(()=>
             {
                 int userId = base.GetUserIdByToken(token);
                 return this._userBaseService.Modify(userId,nickname, avatar, gender);

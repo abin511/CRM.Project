@@ -16,7 +16,7 @@ namespace CRM.WebApi.Controllers.Users
         /// </summary>
         public HttpResponseMessage GetLoginOutByLive(string token,int roomId)
         {
-            return base.Wrapper(()=>
+            return base.WrapperTransaction(()=>
             {
                 int userId = base.GetUserIdByToken(token);
                 return this._loginOutService.LoginOutByLive(userId, roomId);
@@ -27,7 +27,7 @@ namespace CRM.WebApi.Controllers.Users
         /// </summary>
         public HttpResponseMessage GetLoginOutByUser(string token, int roomId,int recordId)
         {
-            return base.Wrapper(() =>
+            return base.WrapperTransaction(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 return this._loginOutService.LoginOutByUser(userId, roomId, recordId);

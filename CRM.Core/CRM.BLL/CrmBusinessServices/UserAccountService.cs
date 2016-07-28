@@ -52,14 +52,14 @@ namespace CRM.BLL
             var rechare = (int)Math.Ceiling(amount) * 10;
             userAccount.Gold += rechare;
             userAccount.UpdateTime = now;
-            var result1 = this.CurrentRepository.Update(userAccount);
-            if (result1 <= 0)
+            var iRet1 = this.CurrentRepository.Update(userAccount);
+            if (iRet1 <= 0)
             {
                 result.Msg = "用户充值失败";
                 return result;
             }
             //资金变动记录
-            //var result2 = this._moneyRecordService.Add(new MoneyRecord()
+            //var iRet2 = this._moneyRecordService.Add(new MoneyRecord()
             //{
             //    UserId = userId,
             //    ChangeType = (int)MoneyChangeTypeEnum.Recharge,
@@ -69,7 +69,7 @@ namespace CRM.BLL
             //    UpdateTime = now
             //});
             //金币变动记录
-            var result3 = this._goldRecordService.Add(new GoldRecord()
+            var iRet3 = this._goldRecordService.Add(new GoldRecord()
             {
                 UserId = userId,
                 ChangeType = (int)GoldChangeTypeEnum.Increase,
@@ -79,6 +79,11 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
+            if (iRet3.Code == ResultEnum.Error || iRet3.Data.UserId <= 0)
+            {
+                result.Msg = "注册失败3";
+                return result;
+            }
             #endregion
             result.Data = userAccount.Gold;
             result.Code= ResultEnum.Success;
@@ -169,7 +174,7 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (result2.Code == ResultEnum.Error || result2.Data <= 0)
+            if (result2.Code == ResultEnum.Error || result2.Data.ID <= 0)
             {
                 result.Msg = "用户送出礼物,增加金币变动记录失败";
                 return result;
@@ -198,7 +203,7 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (result4.Code == ResultEnum.Error || result4.Data <= 0)
+            if (result4.Code == ResultEnum.Error || result4.Data.ID <= 0)
             {
                 result.Msg = "主播获得礼物，增加积分变动记录失败";
                 return result;
@@ -257,7 +262,7 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (goldRecord.Code == ResultEnum.Error || goldRecord.Data <= 0)
+            if (goldRecord.Code == ResultEnum.Error || goldRecord.Data.ID <= 0)
             {
                 result.Msg = "用户积分兑换,增加积分变动记录失败";
                 return result;

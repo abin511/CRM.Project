@@ -14,18 +14,11 @@ namespace CRM.Model
     
     public partial class UserLoginOutSide
     {
-        public UserLoginOutSide()
-        {
-            this.UserBase = new HashSet<UserBase>();
-        }
-    
         public int ID { get; set; }
         public byte LoginType { get; set; }
         public string OpenId { get; set; }
         public System.DateTime LastLoginTime { get; set; }
         public System.DateTime InsertTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
-    
-        public virtual ICollection<UserBase> UserBase { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace CRM.WebApi.Controllers.Players
         /// </summary>
         public HttpResponseMessage Get(string token,int roomId)
         {
-            return base.Wrapper(() =>
+            return base.WrapperTransaction(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 return this._roomRecordService.Join(userId, roomId);

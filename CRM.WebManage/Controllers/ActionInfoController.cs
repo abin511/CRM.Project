@@ -62,7 +62,7 @@ namespace CRM.WebManage.Controllers
         {
             actioninfo.SubTime = DateTime.Now;
             var result = _actioninfoService.Add(actioninfo);
-            if (result.Code == ResultEnum.Success && result.Data > 0)
+            if (result.Code == ResultEnum.Success && result.Data.ID > 0)
             {
                 return Content("OK");
             }

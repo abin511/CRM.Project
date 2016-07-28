@@ -47,12 +47,11 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (result1 <= 0)
+            if (result1.ID <= 0)
             {
                 result.Msg = "进入直播间错误";
                 return result;
             }
-            
             room.OnlineCount += 1;
             room.TotalCount += 1;
             room.UpdateTime = now;

@@ -47,12 +47,12 @@ namespace CRM.BLL
                     InsertTime = now,
                     UpdateTime = now
                 });
-                if (result1 <= 0)
+                if (result1.ID <= 0)
                 {
                     result.Msg = "主播推流信息增加失败";
                     return result;
                 }
-                result.Data = result1;
+                result.Data = result1.ID;
             }
             else
             {

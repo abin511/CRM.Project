@@ -15,7 +15,7 @@ namespace CRM.WebApi.Controllers.Funding
         /// </summary>
         public HttpResponseMessage Get(string token,int gold)
         {
-            return base.Wrapper(() =>
+            return base.WrapperTransaction(() =>
             {
                 int userId = base.GetUserIdByToken(token);
                 return this._userAccountService.Profit(userId, gold);

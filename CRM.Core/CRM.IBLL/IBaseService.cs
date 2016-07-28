@@ -8,7 +8,7 @@ namespace CRM.IBLL
     public partial interface IBaseService<T> where T:class,new()
     {
         //添加
-        Result<int> Add(T entity);
+        Result<T> Add(T entity);
         Result<int> Add(List<T> entities);
         //修改
         Result<int> Update(T entity);

@@ -11,7 +11,7 @@ namespace CRM.IDAL
     public interface IBaseRepository<T> where T:class,new()
     {
         //添加
-        int Add(T entity);
+        T Add(T entity);
         //添加
         int Add(List<T> entities);
         //修改

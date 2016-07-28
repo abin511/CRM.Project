@@ -22,9 +22,9 @@ namespace CRM.BLL
         public abstract void SetCurrentRepository();
 
         //添加
-        public Result<int> Add(T entity)
+        public Result<T> Add(T entity)
         {
-            var result = new Result<int>
+            var result = new Result<T>
             {
                 Data = CurrentRepository.Add(entity),
                 Code = ResultEnum.Success

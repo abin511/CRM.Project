@@ -52,7 +52,7 @@ namespace CRM.WebManage.Controllers
         {
             actionGroup.DelFlag = 0;
             var result = _actiongroupService.Add(actionGroup);
-            if (result.Code == ResultEnum.Success && result.Data > 0)
+            if (result.Code == ResultEnum.Success && result.Data.ID > 0)
             {
                 return Content("OK");
             }

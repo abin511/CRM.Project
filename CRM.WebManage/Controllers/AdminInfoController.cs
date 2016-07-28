@@ -65,7 +65,7 @@ namespace CRM.WebManage.Controllers
             adminInfo.DelFlag = (short)DelFlagEnum.None;
 
             var result = _adminInfoService.Add(adminInfo);
-            if (result.Code == ResultEnum.Success && result.Data > 0)
+            if (result.Code == ResultEnum.Success && result.Data.ID > 0)
             {
                 return Content("OK");
             }

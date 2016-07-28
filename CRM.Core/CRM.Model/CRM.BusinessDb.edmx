@@ -233,30 +233,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserBase_UserLoginInSide">
-          <End Role="UserLoginInSide" Type="Self.UserLoginInSide" Multiplicity="1" />
-          <End Role="UserBase" Type="Self.UserBase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserLoginInSide">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserBase">
-              <PropertyRef Name="LoginId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBase_UserLoginOutSide">
-          <End Role="UserLoginOutSide" Type="Self.UserLoginOutSide" Multiplicity="1" />
-          <End Role="UserBase" Type="Self.UserBase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserLoginOutSide">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserBase">
-              <PropertyRef Name="LoginId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserFans_UserBase">
           <End Role="UserBase" Type="Self.UserBase" Multiplicity="1" />
           <End Role="UserFans" Type="Self.UserFans" Multiplicity="*" />
@@ -309,14 +285,6 @@
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="UserAccount" EntitySet="UserAccount" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserBase_UserLoginInSide" Association="Self.FK_UserBase_UserLoginInSide">
-            <End Role="UserLoginInSide" EntitySet="UserLoginInSide" />
-            <End Role="UserBase" EntitySet="UserBase" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBase_UserLoginOutSide" Association="Self.FK_UserBase_UserLoginOutSide">
-            <End Role="UserLoginOutSide" EntitySet="UserLoginOutSide" />
-            <End Role="UserBase" EntitySet="UserBase" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserFans_UserBase" Association="Self.FK_UserFans_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="UserFans" EntitySet="UserFans" />
@@ -365,14 +333,6 @@
           <AssociationSet Name="FK_UserAccount_UserBase" Association="CRM.Model.FK_UserAccount_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
             <End Role="UserAccount" EntitySet="UserAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBase_UserLoginInSide" Association="CRM.Model.FK_UserBase_UserLoginInSide">
-            <End Role="UserLoginInSide" EntitySet="UserLoginInSide" />
-            <End Role="UserBase" EntitySet="UserBase" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBase_UserLoginOutSide" Association="CRM.Model.FK_UserBase_UserLoginOutSide">
-            <End Role="UserLoginOutSide" EntitySet="UserLoginOutSide" />
-            <End Role="UserBase" EntitySet="UserBase" />
           </AssociationSet>
           <AssociationSet Name="FK_UserFans_UserBase" Association="CRM.Model.FK_UserFans_UserBase">
             <End Role="UserBase" EntitySet="UserBase" />
@@ -502,8 +462,6 @@
           <NavigationProperty Name="Room" Relationship="CRM.Model.FK_Room_UserBase" FromRole="UserBase" ToRole="Room" />
           <NavigationProperty Name="RoomRecord" Relationship="CRM.Model.FK_RoomRecord_UserBase" FromRole="UserBase" ToRole="RoomRecord" />
           <NavigationProperty Name="UserAccount" Relationship="CRM.Model.FK_UserAccount_UserBase" FromRole="UserBase" ToRole="UserAccount" />
-          <NavigationProperty Name="UserLoginInSide" Relationship="CRM.Model.FK_UserBase_UserLoginInSide" FromRole="UserBase" ToRole="UserLoginInSide" />
-          <NavigationProperty Name="UserLoginOutSide" Relationship="CRM.Model.FK_UserBase_UserLoginOutSide" FromRole="UserBase" ToRole="UserLoginOutSide" />
           <NavigationProperty Name="UserFans" Relationship="CRM.Model.FK_UserFans_UserBase" FromRole="UserBase" ToRole="UserFans" />
         </EntityType>
         <EntityType Name="UserFans">
@@ -529,7 +487,6 @@
           <Property Name="LastLoginTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_UserBase_UserLoginInSide" FromRole="UserLoginInSide" ToRole="UserBase" />
         </EntityType>
         <EntityType Name="UserLoginOutSide">
           <Key>
@@ -541,7 +498,6 @@
           <Property Name="LastLoginTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserBase" Relationship="CRM.Model.FK_UserBase_UserLoginOutSide" FromRole="UserLoginOutSide" ToRole="UserBase" />
         </EntityType>
         <Association Name="FK_GoldRecord_UserBase">
           <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="1" />
@@ -624,30 +580,6 @@
             </Principal>
             <Dependent Role="UserAccount">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBase_UserLoginInSide">
-          <End Type="CRM.Model.UserLoginInSide" Role="UserLoginInSide" Multiplicity="1" />
-          <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserLoginInSide">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserBase">
-              <PropertyRef Name="LoginId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBase_UserLoginOutSide">
-          <End Type="CRM.Model.UserLoginOutSide" Role="UserLoginOutSide" Multiplicity="1" />
-          <End Type="CRM.Model.UserBase" Role="UserBase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserLoginOutSide">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserBase">
-              <PropertyRef Name="LoginId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -847,17 +779,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram DiagramId="eaa83888a55a4bce9f17bb506316353e" Name="Diagram1" ZoomLevel="75">
-        <EntityTypeShape EntityType="CRM.Model.CustomConfig" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CRM.Model.GoldRecord" Width="1.5" PointX="5.25" PointY="18.5" />
-        <EntityTypeShape EntityType="CRM.Model.IntegralRecord" Width="1.5" PointX="5.25" PointY="8.75" />
-        <EntityTypeShape EntityType="CRM.Model.MoneyRecord" Width="1.5" PointX="5.25" PointY="12.25" />
-        <EntityTypeShape EntityType="CRM.Model.Room" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="CRM.Model.RoomRecord" Width="1.5" PointX="7.5" PointY="8.25" />
-        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="5.25" PointY="1.75" />
-        <EntityTypeShape EntityType="CRM.Model.UserBase" Width="1.5" PointX="3" PointY="8.75" />
-        <EntityTypeShape EntityType="CRM.Model.UserFans" Width="1.5" PointX="5.25" PointY="15.625" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="0.75" PointY="6.125" />
-        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="CRM.Model.CustomConfig" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM.Model.GoldRecord" Width="1.5" PointX="3" PointY="15.625" />
+        <EntityTypeShape EntityType="CRM.Model.IntegralRecord" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="CRM.Model.MoneyRecord" Width="1.5" PointX="3" PointY="12.25" />
+        <EntityTypeShape EntityType="CRM.Model.Room" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="CRM.Model.RoomRecord" Width="1.5" PointX="5.25" PointY="9.875" />
+        <EntityTypeShape EntityType="CRM.Model.UserAccount" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="CRM.Model.UserBase" Width="1.5" PointX="0.75" PointY="8.875" />
+        <EntityTypeShape EntityType="CRM.Model.UserFans" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginInSide" Width="1.5" PointX="9.625" PointY="3.75" />
+        <EntityTypeShape EntityType="CRM.Model.UserLoginOutSide" Width="1.5" PointX="9.5" PointY="1.125" />
         <AssociationConnector Association="CRM.Model.FK_GoldRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_IntegralRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_MoneyRecord_UserBase" />
@@ -865,8 +797,6 @@
         <AssociationConnector Association="CRM.Model.FK_RoomRecord_Room" />
         <AssociationConnector Association="CRM.Model.FK_RoomRecord_UserBase" />
         <AssociationConnector Association="CRM.Model.FK_UserAccount_UserBase" />
-        <AssociationConnector Association="CRM.Model.FK_UserBase_UserLoginInSide" />
-        <AssociationConnector Association="CRM.Model.FK_UserBase_UserLoginOutSide" />
         <AssociationConnector Association="CRM.Model.FK_UserFans_UserBase" />
       </Diagram>
     </Diagrams>

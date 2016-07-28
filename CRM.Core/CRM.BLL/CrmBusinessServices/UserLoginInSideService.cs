@@ -97,15 +97,15 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            int iRet1 = base.CurrentRepository.Add(ent);
-            if (iRet1 <= 0)
+            var iRet1 = base.CurrentRepository.Add(ent);
+            if (iRet1.ID <= 0)
             {
                 result.Msg = "注册失败1";
                 return result;
             }
             var iRet2 = this._userBaseInfoService.Add(new UserBase()
             {
-                LoginId = iRet1,
+                LoginId = iRet1.ID,
                 UserNumber = string.Format(Const.UserNumber, LoginTypeEnum.M,iRet1.ToString().PadLeft(7, '0')),
                 NickName = ent.LoginName,
                 UserLevel = 0,
@@ -113,21 +113,21 @@ namespace CRM.BLL
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (iRet2.Code == ResultEnum.Error || iRet2.Data <= 0)
+            if (iRet2.Code == ResultEnum.Error || iRet2.Data.ID <= 0)
             {
                 result.Msg = "注册失败2";
                 return result;
             }
             var iRet3 = this._userAccountService.Add(new UserAccount()
             {
-                UserId = iRet2.Data,
+                UserId = iRet2.Data.ID,
                 Gold = 0,
                 Contribution = 0,
                 Profit = 0,
                 InsertTime = now,
                 UpdateTime = now
             });
-            if (iRet3.Code == ResultEnum.Error || iRet3.Data <= 0)
+            if (iRet3.Code == ResultEnum.Error || iRet3.Data.UserId <= 0)
             {
                 result.Msg = "注册失败3";
                 return result;

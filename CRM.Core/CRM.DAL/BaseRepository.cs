@@ -25,12 +25,13 @@ namespace CRM.DAL
         public DbContext DbContext;
 
         //添加
-        public int Add(T entity)
+        public T Add(T entity)
         {
             try
             {
                 this.DbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
-                return this.DbContext.SaveChanges();
+                this.DbContext.SaveChanges();
+                return entity;
             }
             catch (Exception ex)
             {

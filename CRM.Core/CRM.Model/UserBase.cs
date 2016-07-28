@@ -46,8 +46,6 @@ namespace CRM.Model
         public virtual ICollection<Room> Room { get; set; }
         public virtual ICollection<RoomRecord> RoomRecord { get; set; }
         public virtual UserAccount UserAccount { get; set; }
-        public virtual UserLoginInSide UserLoginInSide { get; set; }
-        public virtual UserLoginOutSide UserLoginOutSide { get; set; }
         public virtual ICollection<UserFans> UserFans { get; set; }
     }
 }
