@@ -20,7 +20,7 @@ namespace CRM.WebApi.Controllers.Players
         /// </summary>
         public HttpResponseMessage Get()
         {
-            return base.WrapperResponse(() =>
+            return base.WrapperTransaction((userId) =>
             {
                 var roomList = this._roomService.Get(m=>m.Status == (int)RoomStausEnum.Live);
                 var dataList = new List<ViewPlayer>();

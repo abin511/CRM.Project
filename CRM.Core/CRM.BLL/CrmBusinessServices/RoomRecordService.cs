@@ -31,10 +31,10 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            var room = this._roomService.Get(m => m.ID == roomId).FirstOrDefault();
-            if (room == null || room.Status == (int)RoomStausEnum.Lock)
+            var room = this._roomService.Get(m => m.ID == roomId && m.Status == (int)RoomStausEnum.Live).FirstOrDefault();
+            if (room == null)
             {
-                result.Msg = "直播间数据错误";
+                result.Msg = "直播间信息无效";
                 return result;
             }
 
@@ -69,7 +69,7 @@ namespace CRM.BLL
             var fansInfo =this._userBaseService.Get(m => fansIds.Contains(m.ID)).Select(m => new {UserId = m.ID, Avatar = m.Avatar}).ToList();
             var data = new
             {
-                playurl = "",
+                playurl = "http://www.xxx.com/room/" + roomId,
                 contribution = 1,
                 count = 1,
                 fans = fansInfo

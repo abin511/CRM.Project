@@ -35,7 +35,7 @@ namespace CRM.BLL
             }
             if (!string.IsNullOrEmpty(avatar))
             {
-                user.NickName = avatar;
+                user.Avatar = avatar;
             }
             if (gender.HasValue)
             {

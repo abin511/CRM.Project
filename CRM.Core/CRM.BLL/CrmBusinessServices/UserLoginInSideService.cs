@@ -35,27 +35,34 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            var model = base.CurrentRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName && m.LoginPwd == ent.LoginPwd).FirstOrDefault();
-            if (model == null)
+            var loginModel = base.CurrentRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName && m.LoginPwd == ent.LoginPwd).FirstOrDefault();
+            if (loginModel == null)
             {
                 //登录失败
-                model = base.CurrentRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName).FirstOrDefault();
-                if (model != null)
+                loginModel = base.CurrentRepository.Get(m => m.LoginType == ent.LoginType && m.LoginName == ent.LoginName).FirstOrDefault();
+                if (loginModel != null)
                 {
-                    model.LoginErrorCount += 1;
-                    model.UpdateTime = now;
-                    base.CurrentRepository.Update(model);
+                    loginModel.LoginErrorCount += 1;
+                    loginModel.UpdateTime = now;
+                    base.CurrentRepository.Update(loginModel);
                 }
                 result.Code = ResultEnum.Error;
                 result.Msg = "用户名或密码错误";
             }
             else
             {
+                var userInfo = this._userBaseInfoService.Get(m => m.LoginId == loginModel.ID).FirstOrDefault();
+                if (userInfo == null)
+                {
+                    result.Msg = "用户基础信息无效";
+                    return result;
+                }
+
                 //登录成功
-                model.LoginErrorCount = 0;
-                model.LastLoginTime = model.UpdateTime = now;
-                base.CurrentRepository.Update(model);
-                result.Data = model.ID;
+                loginModel.LoginErrorCount = 0;
+                loginModel.LastLoginTime = loginModel.UpdateTime = now;
+                base.CurrentRepository.Update(loginModel);
+                result.Data = userInfo.ID;
                 result.Code = ResultEnum.Success;
             }
             return result;

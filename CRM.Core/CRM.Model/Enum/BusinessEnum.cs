@@ -56,9 +56,9 @@
         /// </summary>
         None = 0,
         /// <summary>
-        /// 增加积分
+        /// 用户赠送礼物 增加积分
         /// </summary>
-        Increase = 1,
+        IncreaseByGetGift = 1,
         /// <summary>
         /// 减少积分
         /// </summary>

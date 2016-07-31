@@ -17,7 +17,7 @@ namespace CRM.WebApi.Controllers.Trading
         /// </summary>
         public HttpResponseMessage Get()
         {
-            return base.WrapperResponse(() => new Result<List<ViewGift>>()
+            return base.WrapperTransaction((userId) => new Result<List<ViewGift>>()
             {
                 Code = ResultEnum.Success,
                 Data = this._giftService.GetGiftList()

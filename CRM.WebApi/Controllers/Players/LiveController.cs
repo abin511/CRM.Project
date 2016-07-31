@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 
@@ -13,13 +14,13 @@ namespace CRM.WebApi.Controllers.Players
         /// <summary>
         /// 用户直播 推流
         /// </summary>
-        public HttpResponseMessage Get(string token,string title,string cover)
+        [HttpPost]
+        public HttpResponseMessage Live(string token,string title,string cover)
         {
-            return base.WrapperResponse(() =>
+            return base.WrapperTransaction((userId) =>
             {
-                int userId = base.GetUserIdByToken(token);
                 return this._roomService.Live(userId, title, cover);
-            });
+            },token);
         }
     }
 }

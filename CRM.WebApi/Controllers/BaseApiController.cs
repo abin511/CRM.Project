@@ -11,18 +11,22 @@ namespace CRM.WebApi.Controllers
 {
     public class BaseApiController : ApiController
     {
-        protected HttpResponseMessage WrapperTransaction<T>(Func<Result<T>> func)
+        private readonly ICacheHelper _cache = new HttpRuntimeCache();
+        protected HttpResponseMessage WrapperTransaction<T>(Func<int,Result<T>> func, string token = null)
         {
             using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { Timeout = new TimeSpan(0, 0, 60) }))
             {
                 try
                 {
-                    var data = func();
+                    var data = func(this.GetUserId(token));
                     if (data.Code == ResultEnum.Success)
                     {
                         transactionScope.Complete();
                     }
-                    return Response(data);
+                    return new HttpResponseMessage(data.Code == ResultEnum.Error ? HttpStatusCode.Forbidden : HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json")
+                    };
                 }
                 catch (Exception ex)
                 {
@@ -39,51 +43,23 @@ namespace CRM.WebApi.Controllers
                 }
             }
         }
-        protected HttpResponseMessage WrapperResponse<T>(Func<Result<T>> func)
+        protected string GetToken(int userId)
         {
-            try
-            {
-                var data = func();
-                return Response(data);
-            }
-            catch (Exception ex)
-            {
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message),
-                    ReasonPhrase = "Server Error"
-                };
-                throw new HttpResponseException(response);
-            }
-        }
-
-        private HttpResponseMessage Response<T>(Result<T> data)
-        {
-            if (data.Code == ResultEnum.Error)
-            {
-                return new HttpResponseMessage(HttpStatusCode.Forbidden)
-                {
-                    Content = new StringContent(data.Msg, Encoding.UTF8, "application/json")
-                };
-            }
-            else
-            {
-                return new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json")
-                };
-            }
-        }
-        protected string GetTokenByUserId(int userId)
-        {
+            if (userId <= 0) return string.Empty;
             string token = SecurityHelper.EncryptString($"{userId}|{DateTime.Now.ToUnixTimestamp()}");
+            _cache.Add(token, userId, TimeSpan.FromMinutes(10));
             return token;
         }
-
-        protected int GetUserIdByToken(string token)
+        protected int GetUserId(string token)
         {
-            var data = SecurityHelper.DecryptString(token).Split('|');
-            return data.Length > 0 ? data[0].ToInt() : 0;
+            int userId = 0;
+            if (!string.IsNullOrEmpty(token))
+            {
+                //根据token获取userId
+                var userIdCache = _cache.Get(token) ?? 0;
+                userId = int.TryParse(userIdCache.ToString(), out userId) ? userId : 0;
+            }
+            return userId;
         }
     }
 }

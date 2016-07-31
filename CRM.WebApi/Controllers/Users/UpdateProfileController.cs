@@ -16,11 +16,10 @@ namespace CRM.WebApi.Controllers.Users
         /// </summary>
         public HttpResponseMessage Get(string token, string nickname, string avatar, int? gender)
         {
-            return base.WrapperResponse(()=>
+            return base.WrapperTransaction((userId)=>
             {
-                int userId = base.GetUserIdByToken(token);
                 return this._userBaseService.Modify(userId,nickname, avatar, gender);
-            });
+            },token);
         }
     }
 }

@@ -134,10 +134,20 @@ namespace CRM.BLL
                 result.Msg = "用户信息无效";
                 return result;
             }
+            if (userAccount.Gold <= 0)
+            {
+                result.Msg = "金币数量不足";
+                return result;
+            }
             var roomInfo = this._roomService.Get(m => m.ID == roomId && m.Status !=(int)UserBaseStausEnum.Normal).FirstOrDefault();
             if (roomInfo == null)
             {
                 result.Msg = "当前直播间无效";
+                return result;
+            }
+            if (roomInfo.UserId == userId)
+            {
+                result.Msg = "不可以给自己送礼物";
                 return result;
             }
             var liveAccount = this.CurrentRepository.Get(m => m.UserId == roomInfo.UserId).FirstOrDefault();
@@ -160,7 +170,7 @@ namespace CRM.BLL
             var result1 = this.CurrentRepository.Update(userAccount);
             if (result1 <= 0)
             {
-                result.Msg = "用户送出礼物，扣除金币失败";
+                result.Msg = $"用户送出礼物给主播[{liveAccount.UserId}]，扣除金币失败";
                 return result;
             }
             //金币变动记录
@@ -170,13 +180,13 @@ namespace CRM.BLL
                 ChangeType = (int)GoldChangeTypeEnum.Reduce,
                 GoldBefore = goldByUser,
                 GoldAfter = userAccount.Gold,
-                Remark = $"用户送出礼物，减少金币{giving}",
+                Remark = $"用户送出礼物给主播[{liveAccount.UserId}]，减少金币[{giving}]",
                 InsertTime = now,
                 UpdateTime = now
             });
             if (result2.Code == ResultEnum.Error || result2.Data.ID <= 0)
             {
-                result.Msg = "用户送出礼物,增加金币变动记录失败";
+                result.Msg = $"用户送出礼物给主播[{liveAccount.UserId}],增加金币变动记录失败";
                 return result;
             }
             #endregion
@@ -189,23 +199,23 @@ namespace CRM.BLL
             var result3 = this.CurrentRepository.Update(liveAccount);
             if (result3 <= 0)
             {
-                result.Msg = "主播获得礼物，增加积分失败";
+                result.Msg = $"主播获得粉丝[{userId}]的礼物，增加积分失败";
                 return result;
             }
             //积分变动记录
             var result4 = this._integralRecordService.Add(new IntegralRecord()
             {
                 UserId = roomInfo.UserId,
-                ChangeType = (int)IntegralChangeTypeEnum.Increase,
+                ChangeType = (int)IntegralChangeTypeEnum.IncreaseByGetGift,
                 IntegralBefore = integral,
                 IntegralAfter = liveAccount.Integral,
-                Remark = $"主播获得礼物，增加积分{giving}",
+                Remark = $"主播获得粉丝[{userId}]的礼物，增加积分{giving}",
                 InsertTime = now,
                 UpdateTime = now
             });
             if (result4.Code == ResultEnum.Error || result4.Data.ID <= 0)
             {
-                result.Msg = "主播获得礼物，增加积分变动记录失败";
+                result.Msg = $"主播获得粉丝[{userId}]的礼物，增加积分变动记录失败";
                 return result;
             }
             #endregion
@@ -258,7 +268,7 @@ namespace CRM.BLL
                 ChangeType = (int)IntegralChangeTypeEnum.Reduce,
                 IntegralBefore = integral,
                 IntegralAfter = userAccount.Integral,
-                Remark = $"用户积分兑换，减少积分{integral}",
+                Remark = $"用户积分兑换，减少积分[{integral}]",
                 InsertTime = now,
                 UpdateTime = now
             });

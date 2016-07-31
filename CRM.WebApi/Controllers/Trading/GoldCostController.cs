@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 
@@ -13,13 +14,13 @@ namespace CRM.WebApi.Controllers.Trading
         /// <summary>
         /// 金币消费 赠送主播礼物
         /// </summary>
-        public HttpResponseMessage Get(string token,int roomId,int giftId)
+        [HttpPost]
+        public HttpResponseMessage Cost(string token,int roomId,int giftId)
         {
-            return base.WrapperTransaction(() =>
+            return base.WrapperTransaction((userId) =>
             {
-                int userId = base.GetUserIdByToken(token);
                 return this._userAccountService.Cost(userId, roomId, giftId);
-            });
+            }, token);
         }
     }
 }

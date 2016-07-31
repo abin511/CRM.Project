@@ -18,9 +18,9 @@ namespace CRM.WebApi.Controllers.Users
         /// 第三方用户登录
         /// </summary>
         [HttpPost]
-        public HttpResponseMessage Login(LoginTypeEnum loginType, string openId)
+        public HttpResponseMessage Login(string openId, LoginTypeEnum loginType = LoginTypeEnum.None)
         {
-            return base.WrapperTransaction(()=>
+            return base.WrapperTransaction((userId)=>
             {
                 var result = this._userLoginOutSideService.Login(loginType, openId);
                 var data = new Result<ViewUserData>
@@ -29,10 +29,10 @@ namespace CRM.WebApi.Controllers.Users
                     Msg = result.Msg,
                     Data = result.Code == ResultEnum.Error? null: new ViewUserData()
                         {
-                            token = base.GetTokenByUserId(result.Data),
-                            liveurl = "",
-                            playurl = ""
-                        }
+                            token = base.GetToken(result.Data),
+                            liveurl = "http://www.xxx.com/room/"+ result.Data,
+                            playurl = "http://www.xxx.com/"+ result.Data
+                    }
                 };
                 return data;
             });
@@ -41,9 +41,9 @@ namespace CRM.WebApi.Controllers.Users
         /// 本站注册用户登录
         /// </summary>
         [HttpPost]
-        public HttpResponseMessage Login(LoginTypeEnum loginType, string uName, string uPwd)
+        public HttpResponseMessage Login(string uName, string uPwd, LoginTypeEnum loginType = LoginTypeEnum.None)
         {
-            return base.WrapperResponse(() =>
+            return base.WrapperTransaction((userId) =>
             {
                 var result = this._userLoginInSideService.Login(new UserLoginInSide
                 {
@@ -57,9 +57,9 @@ namespace CRM.WebApi.Controllers.Users
                     Msg = result.Msg,
                     Data = result.Code == ResultEnum.Error ? null : new ViewUserData()
                     {
-                        token = base.GetTokenByUserId(result.Data),
-                        liveurl = "",
-                        playurl = ""
+                        token = base.GetToken(result.Data),
+                        liveurl = "http://www.xxx.com/room/" + result.Data,
+                        playurl = "http://www.xxx.com/" + result.Data
                     }
                 };
                 return data;
@@ -69,9 +69,9 @@ namespace CRM.WebApi.Controllers.Users
         /// 本站注册
         /// </summary>
         [HttpPost]
-        public HttpResponseMessage Register(LoginTypeEnum loginType, string uName, string uPwd,string rePwd)
+        public HttpResponseMessage Register(string uName, string uPwd,string rePwd, LoginTypeEnum loginType = LoginTypeEnum.None)
         {
-            return base.WrapperTransaction(() => this._userLoginInSideService.Register(new UserLoginInSide
+            return base.WrapperTransaction((userId) => this._userLoginInSideService.Register(new UserLoginInSide
             {
                 LoginType = (byte)loginType,
                 LoginName = uName,

@@ -21,9 +21,8 @@ namespace CRM.WebApi.Controllers.Users
         [HttpGet]
         public HttpResponseMessage Get(string token)
         {
-            return base.WrapperResponse(() =>
+            return base.WrapperTransaction((userId) =>
             {
-                int userId = base.GetUserIdByToken(token);
                 var userBase = this._userBaseService.Get(m => m.ID == userId).FirstOrDefault() ?? new UserBase();
                 var account = this._userAccountService.Get(m => m.UserId == userId).FirstOrDefault() ?? new UserAccount();
                 var result = new Result<Object>
@@ -32,6 +31,7 @@ namespace CRM.WebApi.Controllers.Users
                     Data = new
                     {
                         nickName = userBase.NickName,
+                        number = userBase.UserNumber,
                         avatar = userBase.Avatar,
                         level = userBase.UserLevel,
                         subScription = userBase.SubScription,
@@ -43,7 +43,15 @@ namespace CRM.WebApi.Controllers.Users
                     }
                 };
                 return result;
-            });
+            },token);
+        }
+        [HttpPost]
+        public HttpResponseMessage Update(string token, string nickname, string avatar, int? gender)
+        {
+            return base.WrapperTransaction((userId) =>
+            {
+                return this._userBaseService.Modify(userId, nickname, avatar, gender);
+            }, token);
         }
     }
 }

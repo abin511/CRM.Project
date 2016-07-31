@@ -30,12 +30,18 @@ namespace CRM.BLL
             #endregion
 
             var now = DateTime.Now;
-            var model = base.CurrentRepository.Get(m => m.LoginType == (int)loginType && m.OpenId == openId).FirstOrDefault();
-            if (model != null)
+            var loginModel = base.CurrentRepository.Get(m => m.LoginType == (int)loginType && m.OpenId == openId).FirstOrDefault();
+            if (loginModel != null)
             {
-                model.LastLoginTime = now;
-                base.CurrentRepository.Update(model);
-                result.Data = model.ID;
+                var userInfo = this._userBaseInfoService.Get(m => m.LoginId == loginModel.ID).FirstOrDefault();
+                if (userInfo == null)
+                {
+                    result.Msg = "用户基础信息无效";
+                    return result;
+                }
+                loginModel.LastLoginTime = now;
+                base.CurrentRepository.Update(loginModel);
+                result.Data = userInfo.ID;
             }
             else
             {
@@ -56,7 +62,7 @@ namespace CRM.BLL
                 var iRet2 = this._userBaseInfoService.Add(new UserBase()
                 {
                     LoginId = iRet1.ID,
-                    UserNumber = string.Format(Const.UserNumber, LoginTypeEnum.M, iRet1.ToString().PadLeft(7, '0')),
+                    UserNumber = string.Format(Const.UserNumber, LoginTypeEnum.M, iRet1.ID.ToString().PadLeft(7, '0')),
                     NickName = "我是呆萌贱",
                     UserLevel = 0,
                     Fans = 0,

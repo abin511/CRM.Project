@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 
@@ -14,24 +15,24 @@ namespace CRM.WebApi.Controllers.Users
         /// <summary>
         /// 主播登出
         /// </summary>
-        public HttpResponseMessage GetLoginOutByLive(string token,int roomId)
+        [HttpPost]
+        public HttpResponseMessage LoginOutByLive(string token,int roomId)
         {
-            return base.WrapperTransaction(()=>
+            return base.WrapperTransaction((userId) =>
             {
-                int userId = base.GetUserIdByToken(token);
                 return this._loginOutService.LoginOutByLive(userId, roomId);
-            });
+            }, token);
         }
         /// <summary>
         /// 用户登出
         /// </summary>
-        public HttpResponseMessage GetLoginOutByUser(string token, int roomId,int recordId)
+        [HttpPost]
+        public HttpResponseMessage LoginOutByUser(string token, int roomId,int recordId)
         {
-            return base.WrapperTransaction(() =>
+            return base.WrapperTransaction((userId) =>
             {
-                int userId = base.GetUserIdByToken(token);
                 return this._loginOutService.LoginOutByUser(userId, roomId, recordId);
-            });
+            }, token);
         }
     }
 }

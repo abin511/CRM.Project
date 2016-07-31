@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Web.Mvc;
 using CRM.BLL;
 using CRM.IBLL;
 
@@ -13,13 +14,13 @@ namespace CRM.WebApi.Controllers.Funding
         /// <summary>
         /// 用户充值金币
         /// </summary>
-        public HttpResponseMessage Get(string token,decimal amount)
+        [HttpPost]
+        public HttpResponseMessage Recharge(string token,decimal amount)
         {
-            return base.WrapperTransaction(() =>
+            return base.WrapperTransaction((userId) =>
             {
-                int userId = base.GetUserIdByToken(token);
                 return this._userAccountService.Recharge(userId, amount);
-            });
+            }, token);
         }
     }
 }

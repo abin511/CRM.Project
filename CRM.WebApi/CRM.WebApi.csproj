@@ -134,6 +134,7 @@
     <Compile Include="App_Start\JsonContentNegotiator.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ToolController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\Funding\ProfitController.cs" />
     <Compile Include="Controllers\Trading\GoldCostController.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="Controllers\Players\PlayListController.cs" />
     <Compile Include="Controllers\Users\LoginOutController.cs" />
     <Compile Include="Controllers\Users\UserFansController.cs" />
-    <Compile Include="Controllers\Users\UpdateProfileController.cs" />
     <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\Users\LoginController.cs" />
     <Compile Include="Global.asax.cs">
