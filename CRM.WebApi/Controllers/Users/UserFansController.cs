@@ -18,9 +18,8 @@ namespace CRM.WebApi.Controllers.Users
         /// <summary>
         /// 获取粉丝信息
         /// </summary>
-        [HttpGet]
-        [Route("api/userfans/fans")]
-        public HttpResponseMessage GetFans(string token = "36B2FF88CC41BE9A552524424ACC148AE2468AEF4812A21D")
+        [AcceptVerbs("Fans")]
+        public HttpResponseMessage GetFans(string token = "")
         {
             return base.WrapperTransaction((userId) =>
             {
@@ -34,8 +33,7 @@ namespace CRM.WebApi.Controllers.Users
         /// <summary>
         /// 获取关注信息
         /// </summary>
-        [HttpGet]
-        [Route("api/userfans/sub")]
+        [AcceptVerbs("Sub")]
         public HttpResponseMessage GetSubScription(string token)
         {
             return base.WrapperTransaction((userId) =>

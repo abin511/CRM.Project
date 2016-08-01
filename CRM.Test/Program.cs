@@ -13,32 +13,11 @@ namespace CRM.Test
         static void Main(string[] args)
         {
             Console.WriteLine("Main开始执行");
-            var reslt = Asv2();
+            var reslt = IndexAsync();
             Console.WriteLine("Function已执行");
-            Console.WriteLine("Main开始完成，输出结果：" + reslt);
+            Console.WriteLine("Main开始完成，输出结果：" + reslt.Result);
             Console.ReadLine();
         }
-
-        public static string _container = "";
-        public static string Asv2()
-        {
-            //dead lock
-            var task = AssignValue2();
-            task.Wait();
-            return _container;
-        }
-
-        private static void Assign()
-        {
-            _container = "Hello World";
-        }
-
-        public static async Task AssignValue2()
-        {
-            await Task.Delay(500);
-            await Task.Run(() => Assign());
-        }
-
         public static async Task<int> IndexAsync()
         {
             var cancellationToken = new CancellationToken(false);
@@ -46,7 +25,9 @@ namespace CRM.Test
             var myblogTask = GetStringAsync2(3000, cancellationToken);
             // Task.WaitAll(cnblogsTask, myblogTask);
             var task = await Task.WhenAll(cnblogsTask, myblogTask);
-            return cnblogsTask.Result + myblogTask.Result;
+            //return cnblogsTask.Result + myblogTask.Result;
+            await Task.FromResult(task);
+            return task[0] + task[1];
         }
         private static async Task<int> GetStringAsync1(int time, CancellationToken cancelToken = default(CancellationToken))
         {
