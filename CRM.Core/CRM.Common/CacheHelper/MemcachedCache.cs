@@ -41,16 +41,6 @@ namespace CRM.Common
             var ex = DateTime.Now.AddTicks(expireDate.Ticks);
             Add(key, value,ex);
         }
-
-        public void Add<T>(string key, T value, DateTime expireDate)
-        {
-            Add(key, value.ToString(), expireDate);
-        }
-        public void Add<T>(string key, T value, TimeSpan expireDate)
-        {
-            var ex = DateTime.Now.AddTicks(expireDate.Ticks);
-            Add(key, value.ToString(), ex);
-        }
         public T Get<T>(string key) where T : class
         {
             return mc.Get(key) as T;

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrmBusinessServices\BaseCrmBusinessServices.cs" />
+    <Compile Include="CrmBusinessServices\UserFansService.cs" />
     <Compile Include="CrmBusinessServices\LoginOutService.cs" />
     <Compile Include="CrmBusinessServices\RoomRecordService.cs" />
     <Compile Include="CrmBusinessServices\GiftService.cs" />

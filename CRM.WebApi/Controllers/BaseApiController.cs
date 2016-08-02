@@ -47,7 +47,7 @@ namespace CRM.WebApi.Controllers
         {
             if (userId <= 0) return string.Empty;
             string token = SecurityHelper.EncryptString($"{userId}|{DateTime.Now.ToUnixTimestamp()}");
-            _cache.Add(token, userId, TimeSpan.FromMinutes(10));
+            _cache.Add(token, userId, TimeSpan.FromMinutes(30));
             return token;
         }
         protected int GetUserId(string token)

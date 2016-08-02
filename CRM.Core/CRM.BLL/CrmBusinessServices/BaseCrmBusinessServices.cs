@@ -26,7 +26,7 @@ namespace CRM.BLL
         {
             var result = new Result<T>
             {
-                Data = CurrentRepository.Add(entity),
+                Data = this.CurrentRepository.Add(entity),
                 Code = ResultEnum.Success
             };
             return result;
@@ -35,7 +35,7 @@ namespace CRM.BLL
         {
             var result = new Result<int>
             {
-                Data = CurrentRepository.Add(entities),
+                Data = this.CurrentRepository.Add(entities),
                 Code = ResultEnum.Success
             };
             return result;
@@ -45,7 +45,7 @@ namespace CRM.BLL
         {
             var result = new Result<int>
             {
-                Data = CurrentRepository.Update(entity),
+                Data = this.CurrentRepository.Update(entity),
                 Code = ResultEnum.Success
             };
             return result;
@@ -54,7 +54,7 @@ namespace CRM.BLL
         {
             var result = new Result<int>
             {
-                Data = CurrentRepository.Update(entities),
+                Data = this.CurrentRepository.Update(entities),
                 Code = ResultEnum.Success
             };
             return result;
@@ -63,7 +63,7 @@ namespace CRM.BLL
         {
             var result = new Result<int>
             {
-                Data = CurrentRepository.Delete(entity),
+                Data = this.CurrentRepository.Delete(entity),
                 Code = ResultEnum.Success
             };
             return result;
@@ -72,7 +72,7 @@ namespace CRM.BLL
         {
             var result = new Result<int>
             {
-                Data = CurrentRepository.Delete(entities),
+                Data = this.CurrentRepository.Delete(entities),
                 Code = ResultEnum.Success
             };
             return result;
@@ -80,12 +80,12 @@ namespace CRM.BLL
         //查询
         public IQueryable<T> Get(Func<T, bool> wherelambda)
         {
-            return CurrentRepository.Get(wherelambda);
+            return this.CurrentRepository.Get(wherelambda);
         }
         //分页
         public IQueryable<T> List<S>(int pageSize, int pageIndex, out int totalCount, Func<T, bool> whereLambda, Func<T, S> orderByLambda, bool isDesc = true)
         {
-            return CurrentRepository.List(pageSize, pageIndex, out totalCount, whereLambda, orderByLambda,isDesc);
+            return this.CurrentRepository.List(pageSize, pageIndex, out totalCount, whereLambda, orderByLambda,isDesc);
         }
     }
 }

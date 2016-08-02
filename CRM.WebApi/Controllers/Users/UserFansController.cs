@@ -16,10 +16,26 @@ namespace CRM.WebApi.Controllers.Users
     {
         readonly IUserFansService _userFansService = new UserFansService();
         /// <summary>
+        /// 关注某人
+        /// </summary>
+        [HttpPost]
+        public HttpResponseMessage Attention(string token,string userNumber)
+        {
+            return base.WrapperTransaction((userId) => this._userFansService.Attention(userId, userNumber), token);
+        }
+        /// <summary>
+        /// 关注某人
+        /// </summary>
+        [HttpGet]
+        public HttpResponseMessage IsAttention(string token, string userNumber)
+        {
+            return base.WrapperTransaction((userId) => this._userFansService.IsAttention(userId, userNumber), token);
+        }
+        /// <summary>
         /// 获取粉丝信息
         /// </summary>
         [AcceptVerbs("Fans")]
-        public HttpResponseMessage GetFans(string token = "")
+        public HttpResponseMessage GetFans(string token)
         {
             return base.WrapperTransaction((userId) =>
             {
@@ -33,8 +49,8 @@ namespace CRM.WebApi.Controllers.Users
         /// <summary>
         /// 获取关注信息
         /// </summary>
-        [AcceptVerbs("Sub")]
-        public HttpResponseMessage GetSubScription(string token)
+        [AcceptVerbs("Atten")]
+        public HttpResponseMessage GetAttention(string token)
         {
             return base.WrapperTransaction((userId) =>
             {

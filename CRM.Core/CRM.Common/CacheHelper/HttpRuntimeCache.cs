@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections;
 using System.Web;
+using System.Web.Caching;
 
 namespace CRM.Common
 {
     public class HttpRuntimeCache: ICacheHelper
     {
-        public void Add(string cacheKey, object value, DateTime absoluteExpiration)
+        /// <summary>
+        ///  设置缓存绝对过期时间
+        /// </summary>
+        public void Add(string key, object value, DateTime absoluteExpiration)
         {
-            HttpRuntime.Cache.Insert(cacheKey, value, null, absoluteExpiration, TimeSpan.Zero);
+            HttpRuntime.Cache.Insert(key, value, null, absoluteExpiration, Cache.NoSlidingExpiration, CacheItemPriority.High, null);
         }
+        /// <summary>
+        /// 设置缓存绝对过期时间
+        /// </summary>
         public void Add(string key, object value, TimeSpan expireDate)
         {
-            HttpRuntime.Cache.Insert(key, value, null, DateTime.MaxValue, expireDate, System.Web.Caching.CacheItemPriority.NotRemovable, null);
-        }
-        public void Add<T>(string cacheKey, T value, DateTime absoluteExpiration)
-        {
-            HttpRuntime.Cache.Insert(cacheKey, value, null, absoluteExpiration, TimeSpan.Zero);
-        }
-        public void Add<T>(string key, T value, TimeSpan expireDate)
-        {
-            HttpRuntime.Cache.Insert(key, value, null, DateTime.MaxValue, expireDate, System.Web.Caching.CacheItemPriority.NotRemovable, null);
+            //设置滑动过期时间，只要刷新缓存，就一直存在
+            //HttpRuntime.Cache.Insert(key, value, null, Cache.NoAbsoluteExpiration, expireDate, CacheItemPriority.High, null);
+            var ex = DateTime.Now.AddTicks(expireDate.Ticks);
+            HttpRuntime.Cache.Insert(key, value, null, ex, Cache.NoSlidingExpiration, CacheItemPriority.High, null);
         }
         /// <summary>
         /// 获取数据缓存
         /// </summary>
-        public object Get(string key)
+        public Object Get(string key)
         {
             return HttpRuntime.Cache[key];
         }
@@ -61,11 +63,11 @@ namespace CRM.Common
         /// </summary>
         public void RemoveAll()
         {
-            System.Web.Caching.Cache _cache = HttpRuntime.Cache;
+            Cache cache = HttpRuntime.Cache;
             IDictionaryEnumerator cacheEnum = HttpRuntime.Cache.GetEnumerator();
             while (cacheEnum.MoveNext())
             {
-                _cache.Remove(cacheEnum.Key.ToString());
+                cache.Remove(cacheEnum.Key.ToString());
             }
         }
     }
